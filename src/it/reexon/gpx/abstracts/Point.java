@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.reexon.gpx;
+package it.reexon.gpx.abstracts;
 
 import java.util.Date;
 
@@ -9,7 +9,7 @@ import java.util.Date;
  * @author marco.velluto
  *
  */
-public class GPXWayPoint
+public abstract class Point
 {
     /**Required Information: */
     private Long lat; //Latitude of the waypoint.
@@ -34,7 +34,7 @@ public class GPXWayPoint
      * @param latitude is required
      * @param Longitude is required
      */
-    public GPXWayPoint(Long lat, Long lon)
+    public Point(Long lat, Long lon)
     {
         super();
         this.lat = lat;
@@ -57,7 +57,7 @@ public class GPXWayPoint
      * @param ageofdgpsdata: Time since last DGPS fix
      * @param dgpsid: DGPS station ID
      */
-    public GPXWayPoint(Long lat, Long lon, Long ele, Date time, String magvar, Long geoidheight, String fix, int sat, Long hdop, Long vdop, Long pdop,
+    public Point(Long lat, Long lon, Long ele, Date time, String magvar, Long geoidheight, String fix, int sat, Long hdop, Long vdop, Long pdop,
                        Long ageofdgpsdata, Long dgpsid)
     {
         super();
@@ -283,4 +283,5 @@ public class GPXWayPoint
     {
         this.dgpsid = dgpsid;
     }
+
 }

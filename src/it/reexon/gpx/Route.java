@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Route
 {
 
-    /**Optional Information: */
+    /**Optional Information   */
     private String name; //GPS route name
     private String cmt; //GPS route comment
     private String desc; //Description of the route
@@ -18,14 +18,14 @@ public class Route
     private ArrayList<RoutePoint> routepoints; //List of Routepoint
 
     /**
-     * @param name: GPS route name
-     * @param cmt: GPS route comment
-     * @param desc: Description of the route
-     * @param src: Source of the route data
-     * @param url: URL associated with the route
-     * @param urlname: Text to display on the <url> hyperlink
-     * @param number: GPS route number
-     * @param routepoints: List of Routepoint
+     * @param name   GPS route name
+     * @param cmt   GPS route comment
+     * @param desc   Description of the route
+     * @param src   Source of the route data
+     * @param url   URL associated with the route
+     * @param urlname   Text to display on the <url> hyperlink
+     * @param number   GPS route number
+     * @param routepoints   List of Routepoint
      */
     public Route(String name, String cmt, String desc, String src, URL url, String urlname, int number, ArrayList<RoutePoint> routepoints)
     {
@@ -41,7 +41,7 @@ public class Route
     }
 
     /**
-     * @return the name: GPS route name
+     * @return the name   GPS route name
      */
     public String getName()
     {
@@ -49,7 +49,7 @@ public class Route
     }
 
     /**
-     * @param name: GPS route name
+     * @param name   GPS route name
      */
     public void setName(String name)
     {
@@ -57,7 +57,7 @@ public class Route
     }
 
     /**
-     * @return the cmt: GPS route comment
+     * @return the cmt   GPS route comment
      */
     public String getCmt()
     {
@@ -65,7 +65,7 @@ public class Route
     }
 
     /**
-     * @param cmt: GPS route comment
+     * @param cmt   GPS route comment
      */
     public void setCmt(String cmt)
     {
@@ -73,7 +73,7 @@ public class Route
     }
 
     /**
-     * @return the desc: Description of the route
+     * @return the desc   Description of the route
      */
     public String getDesc()
     {
@@ -81,7 +81,7 @@ public class Route
     }
 
     /**
-     * @param desc: Description of the route
+     * @param desc   Description of the route
      */
     public void setDesc(String desc)
     {
@@ -89,7 +89,7 @@ public class Route
     }
 
     /**
-     * @return the src: Source of the route data
+     * @return the src   Source of the route data
      */
     public String getSrc()
     {
@@ -97,7 +97,7 @@ public class Route
     }
 
     /**
-     * @param src: Source of the route data
+     * @param src   Source of the route data
      */
     public void setSrc(String src)
     {
@@ -105,7 +105,7 @@ public class Route
     }
 
     /**
-     * @return the url: URL associated with the route
+     * @return the url   URL associated with the route
      */
     public URL getUrl()
     {
@@ -113,7 +113,7 @@ public class Route
     }
 
     /**
-     * @param url: URL associated with the route
+     * @param url   URL associated with the route
      */
     public void setUrl(URL url)
     {
@@ -121,7 +121,7 @@ public class Route
     }
 
     /**
-     * @return the urlname: Text to display on the <url> hyperlink
+     * @return the urlname   Text to display on the <url> hyperlink
      */
     public String getUrlname()
     {
@@ -129,7 +129,7 @@ public class Route
     }
 
     /**
-     * @param urlname: Text to display on the <url> hyperlink
+     * @param urlname   Text to display on the <url> hyperlink
      */
     public void setUrlname(String urlname)
     {
@@ -137,7 +137,7 @@ public class Route
     }
 
     /**
-     * @return the number: GPS route number
+     * @return the number   GPS route number
      */
     public int getNumber()
     {
@@ -145,7 +145,7 @@ public class Route
     }
 
     /**
-     * @param number: GPS route number
+     * @param number   GPS route number
      */
     public void setNumber(int number)
     {
@@ -153,7 +153,7 @@ public class Route
     }
 
     /**
-     * @return the routepoints: List of Routepoint
+     * @return the routepoints   List of Routepoint
      */
     public ArrayList<RoutePoint> getRoutepoints()
     {
@@ -161,7 +161,7 @@ public class Route
     }
 
     /**
-     * @param routepoints: List of Routepoint
+     * @param routepoints   List of Routepoint
      */
     public void setRoutepoints(ArrayList<RoutePoint> routepoints)
     {

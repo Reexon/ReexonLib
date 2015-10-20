@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class Gpx
 {
-    /**Required Information: */
+    /**Required Information   */
     private String version; //GPX schema version used in file
     private String creator; //Program used to create file
 
@@ -30,8 +30,8 @@ public class Gpx
     private String bounds; //Bounding rectangle for the data in the file.
 
     /**
-     * @param version: GPX schema version used in file. Is mandatory
-     * @param creator: Program used to create file. Is mandatory
+     * @param version   GPX schema version used in file. Is mandatory
+     * @param creator   Program used to create file. Is mandatory
      */
     public Gpx(String version, String creator)
     {
@@ -41,17 +41,17 @@ public class Gpx
     }
 
     /**
-     * @param version: GPX schema version used in file
-     * @param creator: Program used to create file
-     * @param name: Descriptive name of the GPX file
-     * @param desc: Description of the GPX file
-     * @param author: Name of the file's creator
-     * @param email: Email address of the file's creator
-     * @param url: URL associated with the file
-     * @param urlName: Text to display on the <url> hyperlink
-     * @param time: Creation date/time of the GPX file
-     * @param keywords: Keywords for categorizing the GPX file in a database or search engine
-     * @param bounds: Bounding rectangle for the data in the file.
+     * @param version   GPX schema version used in file
+     * @param creator   Program used to create file
+     * @param name   Descriptive name of the GPX file
+     * @param desc   Description of the GPX file
+     * @param author   Name of the file's creator
+     * @param email   Email address of the file's creator
+     * @param url   URL associated with the file
+     * @param urlName   Text to display on the <url> hyperlink
+     * @param time   Creation date/time of the GPX file
+     * @param keywords   Keywords for categorizing the GPX file in a database or search engine
+     * @param bounds   Bounding rectangle for the data in the file.
      */
     public Gpx(String version, String creator, String name, String desc, String author, String email, URL url, String urlName, Date time,
                ArrayList<String> keywords, String bounds)
@@ -71,7 +71,7 @@ public class Gpx
     }
 
     /**
-     * @return version: GPX schema version used in file
+     * @return version   GPX schema version used in file
      */
     public String getVersion()
     {
@@ -79,7 +79,7 @@ public class Gpx
     }
 
     /**
-     * @param version: GPX schema version used in file
+     * @param version   GPX schema version used in file
      */
     public void setVersion(String version)
     {
@@ -87,7 +87,7 @@ public class Gpx
     }
 
     /**
-     * @return creator: Program used to create file
+     * @return creator   Program used to create file
      */
     public String getCreator()
     {
@@ -95,7 +95,7 @@ public class Gpx
     }
 
     /**
-     * @param creator: : Program used to create file
+     * @param creator      Program used to create file
      */
     public void setCreator(String creator)
     {
@@ -103,7 +103,7 @@ public class Gpx
     }
 
     /**
-     * @return the name: Descriptive name of the GPX file
+     * @return the name   Descriptive name of the GPX file
      */
     public String getName()
     {
@@ -111,7 +111,7 @@ public class Gpx
     }
 
     /**
-     * @param name: Descriptive name of the GPX file
+     * @param name   Descriptive name of the GPX file
      */
     public void setName(String name)
     {
@@ -119,7 +119,7 @@ public class Gpx
     }
 
     /**
-     * @return the desc: Description of the GPX file
+     * @return the desc   Description of the GPX file
      */
     public String getDesc()
     {
@@ -127,7 +127,7 @@ public class Gpx
     }
 
     /**
-     * @param desc: Description of the GPX file
+     * @param desc   Description of the GPX file
      */
     public void setDesc(String desc)
     {
@@ -135,7 +135,7 @@ public class Gpx
     }
 
     /**
-     * @return the author: Name of the file's creator
+     * @return the author   Name of the file's creator
      */
     public String getAuthor()
     {
@@ -143,7 +143,7 @@ public class Gpx
     }
 
     /**
-     * @param author: Name of the file's creator
+     * @param author   Name of the file's creator
      */
     public void setAuthor(String author)
     {
@@ -151,7 +151,7 @@ public class Gpx
     }
 
     /**
-     * @return the email: Email address of the file's creator
+     * @return the email   Email address of the file's creator
      */
     public String getEmail()
     {
@@ -159,7 +159,7 @@ public class Gpx
     }
 
     /**
-     * @param email: Email address of the file's creator
+     * @param email   Email address of the file's creator
      */
     public void setEmail(String email)
     {
@@ -167,7 +167,7 @@ public class Gpx
     }
 
     /**
-     * @return the url: URL associated with the file
+     * @return the url   URL associated with the file
      */
     public URL getUrl()
     {
@@ -175,7 +175,7 @@ public class Gpx
     }
 
     /**
-     * @param url: URL associated with the file
+     * @param url   URL associated with the file
      */
     public void setUrl(URL url)
     {
@@ -183,7 +183,7 @@ public class Gpx
     }
 
     /**
-     * @return the urlName: Text to display on the <url> hyperlink
+     * @return the urlName   Text to display on the <url> hyperlink
      */
     public String getUrlName()
     {
@@ -191,7 +191,7 @@ public class Gpx
     }
 
     /**
-     * @param urlName: Text to display on the <url> hyperlink
+     * @param urlName   Text to display on the <url> hyperlink
      */
     public void setUrlName(String urlName)
     {
@@ -199,7 +199,7 @@ public class Gpx
     }
 
     /**
-     * @return the time: Creation date/time of the GPX file
+     * @return the time   Creation date/time of the GPX file
      */
     public Date getTime()
     {
@@ -207,7 +207,7 @@ public class Gpx
     }
 
     /**
-     * @param time: Creation date/time of the GPX file
+     * @param time   Creation date/time of the GPX file
      */
     public void setTime(Date time)
     {
@@ -215,7 +215,7 @@ public class Gpx
     }
 
     /**
-     * @return the keywords: Keywords for categorizing the GPX file in a database or search engine
+     * @return the keywords   Keywords for categorizing the GPX file in a database or search engine
      */
     public ArrayList<String> getKeywords()
     {
@@ -223,7 +223,7 @@ public class Gpx
     }
 
     /**
-     * @param keywords: Keywords for categorizing the GPX file in a database or search engine
+     * @param keywords   Keywords for categorizing the GPX file in a database or search engine
      */
     public void setKeywords(ArrayList<String> keywords)
     {
@@ -231,7 +231,7 @@ public class Gpx
     }
 
     /**
-     * @return the bounds: Bounding rectangle for the data in the file.
+     * @return the bounds   Bounding rectangle for the data in the file.
      */
     public String getBounds()
     {
@@ -239,7 +239,7 @@ public class Gpx
     }
 
     /**
-     * @param bounds: Bounding rectangle for the data in the file.
+     * @param bounds   Bounding rectangle for the data in the file.
      */
     public void setBounds(String bounds)
     {

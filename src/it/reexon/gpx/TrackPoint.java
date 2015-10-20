@@ -9,7 +9,7 @@ import it.reexon.gpx.abstracts.Point;
 public class TrackPoint extends Point
 {
 
-    /**Optional Description Information: */
+    /**Optional Description Information   */
     private String name; //GPS waypoint name of the trackpoint
     private String cmt; //GPS comment of the trackpoint
     private String desc; // Descriptive description of the trackpoint
@@ -20,8 +20,8 @@ public class TrackPoint extends Point
     private String type; //Type (category) of trackpoint
 
     /**
-     * @param lat: Latitude of the waypoint.
-     * @param lon: Longitude of the waypoint.
+     * @param lat   Latitude of the waypoint.
+     * @param lon   Longitude of the waypoint.
      */
     public TrackPoint(Long lat, Long lon)
     {
@@ -30,19 +30,19 @@ public class TrackPoint extends Point
 
     /**
      * 
-     * @param lat: Latitude of the waypoint.
-     * @param lon: Longitude of the waypoint.
-     * @param ele: Elevation of the waypoint.
-     * @param time: Creation date/time of the waypoint
-     * @param magvar: Magnetic variation of the waypoint
-     * @param geoidheight: Geoid height of the waypoint
-     * @param fix: Type of GPS fix
-     * @param sat: Number of satellites
-     * @param hdop: Horizontal Diluition Of Precision
-     * @param vdop: Vertical Diluition Of Precision
-     * @param pdop: Position Diluition Of Precision
-     * @param ageofdgpsdata: Time since last DGPS fix
-     * @param dgpsid: DGPS station ID
+     * @param lat   Latitude of the waypoint.
+     * @param lon   Longitude of the waypoint.
+     * @param ele   Elevation of the waypoint.
+     * @param time   Creation date/time of the waypoint
+     * @param magvar   Magnetic variation of the waypoint
+     * @param geoidheight   Geoid height of the waypoint
+     * @param fix   Type of GPS fix
+     * @param sat   Number of satellites
+     * @param hdop   Horizontal Diluition Of Precision
+     * @param vdop   Vertical Diluition Of Precision
+     * @param pdop   Position Diluition Of Precision
+     * @param ageofdgpsdata   Time since last DGPS fix
+     * @param dgpsid   DGPS station ID
      */
     public TrackPoint(Long lat, Long lon, Long ele, Date time, String magvar, Long geoidheight, String fix, int sat, Long hdop, Long vdop, Long pdop,
                       Long ageofdgpsdata, Long dgpsid)
@@ -51,16 +51,16 @@ public class TrackPoint extends Point
     }
 
     /**
-     * @param lat: Latitude of the waypoint.
-     * @param lon: Longitude of the waypoint.
-     * @param name: GPS waypoint name of the trackpoint
-     * @param cmt: GPS comment of the trackpoint
-     * @param desc: Descriptive description of the trackpoint
-     * @param src: Source of the trackpoint data
-     * @param url: URL associated with the trackpoint
-     * @param urlname: Text to display on the <url> hyperlink
-     * @param sym: trackpoint symbol
-     * @param type: Type (category) of trackpoint
+     * @param lat   Latitude of the waypoint.
+     * @param lon   Longitude of the waypoint.
+     * @param name   GPS waypoint name of the trackpoint
+     * @param cmt   GPS comment of the trackpoint
+     * @param desc   Descriptive description of the trackpoint
+     * @param src   Source of the trackpoint data
+     * @param url   URL associated with the trackpoint
+     * @param urlname   Text to display on the <url> hyperlink
+     * @param sym   trackpoint symbol
+     * @param type   Type (category) of trackpoint
      */
     public TrackPoint(Long lat, Long lon, String name, String cmt, String desc, String src, URL url, String urlname, String sym, String type)
     {
@@ -77,7 +77,7 @@ public class TrackPoint extends Point
 
     
     /**
-     * @return the name: GPS waypoint name of the trackpoint
+     * @return the name   GPS waypoint name of the trackpoint
      */
     public String getName()
     {
@@ -85,7 +85,7 @@ public class TrackPoint extends Point
     }
 
     /**
-     * @param name: GPS waypoint name of the trackpoint
+     * @param name   GPS waypoint name of the trackpoint
      */
     public void setName(String name)
     {
@@ -93,7 +93,7 @@ public class TrackPoint extends Point
     }
 
     /**
-     * @return the cmt: Source of the trackpoint data
+     * @return the cmt   Source of the trackpoint data
      */
     public String getCmt()
     {
@@ -101,7 +101,7 @@ public class TrackPoint extends Point
     }
 
     /**
-     * @param cmt: Source of the trackpoint data
+     * @param cmt   Source of the trackpoint data
      */
     public void setCmt(String cmt)
     {
@@ -109,7 +109,7 @@ public class TrackPoint extends Point
     }
 
     /**
-     * @return the desc: Descriptive description of the trackpoint
+     * @return the desc   Descriptive description of the trackpoint
      */
     public String getDesc()
     {
@@ -117,7 +117,7 @@ public class TrackPoint extends Point
     }
 
     /**
-     * @param desc: Descriptive description of the trackpoint
+     * @param desc   Descriptive description of the trackpoint
      */
     public void setDesc(String desc)
     {
@@ -125,7 +125,7 @@ public class TrackPoint extends Point
     }
 
     /**
-     * @return the src: Source of the trackpoint data
+     * @return the src   Source of the trackpoint data
      */
     public String getSrc()
     {
@@ -133,7 +133,7 @@ public class TrackPoint extends Point
     }
 
     /**
-     * @param src: Source of the trackpoint data
+     * @param src   Source of the trackpoint data
      */
     public void setSrc(String src)
     {
@@ -141,7 +141,7 @@ public class TrackPoint extends Point
     }
 
     /**
-     * @return the url: URL associated with the trackpoint
+     * @return the url   URL associated with the trackpoint
      */
     public URL getUrl()
     {
@@ -149,7 +149,7 @@ public class TrackPoint extends Point
     }
 
     /**
-     * @param url: URL associated with the trackpoint
+     * @param url   URL associated with the trackpoint
      */
     public void setUrl(URL url)
     {
@@ -157,7 +157,7 @@ public class TrackPoint extends Point
     }
 
     /**
-     * @return the urlname: Text to display on the <url> hyperlink
+     * @return the urlname   Text to display on the <url> hyperlink
      */
     public String getUrlname()
     {
@@ -165,7 +165,7 @@ public class TrackPoint extends Point
     }
 
     /**
-     * @param urlname: Text to display on the <url> hyperlink
+     * @param urlname   Text to display on the <url> hyperlink
      */
     public void setUrlname(String urlname)
     {
@@ -173,7 +173,7 @@ public class TrackPoint extends Point
     }
 
     /**
-     * @return the sym: Trackpoint symbol
+     * @return the sym   Trackpoint symbol
      */
     public String getSym()
     {
@@ -181,7 +181,7 @@ public class TrackPoint extends Point
     }
 
     /**
-     * @param sym: Trackpoint symbol
+     * @param sym   Trackpoint symbol
      */
     public void setSym(String sym)
     {
@@ -189,7 +189,7 @@ public class TrackPoint extends Point
     }
 
     /**
-     * @return the type: Type (category) of trackpoint
+     * @return the type   Type (category) of trackpoint
      */
     public String getType()
     {
@@ -197,7 +197,7 @@ public class TrackPoint extends Point
     }
 
     /**
-     * @param type: Type (category) of trackpoint
+     * @param type   Type (category) of trackpoint
      */
     public void setType(String type)
     {

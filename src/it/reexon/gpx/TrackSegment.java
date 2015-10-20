@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class TrackSegment
 {
-    /**Optional Information: */
+    /**Optional Information   */
     private ArrayList<TrackPoint> trackPoints; //List of Track Points
 
     
@@ -23,7 +23,7 @@ public class TrackSegment
 
 
     /**
-     * @param trackPoints: List of Track Points
+     * @param trackPoints   List of Track Points
      */
     public TrackSegment(ArrayList<TrackPoint> trackPoints)
     {
@@ -33,7 +33,7 @@ public class TrackSegment
 
 
     /**
-     * @return the trackPoints: List of Track Points
+     * @return the trackPoints   List of Track Points
      */
     public ArrayList<TrackPoint> getTrackPoints()
     {
@@ -42,7 +42,7 @@ public class TrackSegment
 
 
     /**
-     * @param trackPoints: List of Track Points
+     * @param trackPoints   List of Track Points
      */
     public void setTrackPoints(ArrayList<TrackPoint> trackPoints)
     {

@@ -5,6 +5,7 @@ package it.reexon.gpx.abstracts;
 
 import java.util.Date;
 
+
 /**
  * @author marco.velluto
  *
@@ -14,13 +15,13 @@ public abstract class Point
     /**Required Information: */
     private Long lat; //Latitude of the waypoint.
     private Long lon; //Longitude of the waypoint.
-    
+
     /**Optional Position Information: */
     private Long ele; //Elevation of the waypoint.
     private Date time; //Creation date/time of the waypoint
     private String magvar; //Magnetic variation of the waypoint
     private Long geoidheight; //Geoid height of the waypoint
-    
+
     /**Optional Accuracy Information: */
     private String fix; //Type of GPS fix
     private int sat; //Number of satellites
@@ -29,10 +30,10 @@ public abstract class Point
     private Long pdop; //PDOP: è l'acronimo Position Diluition Of Precision e indica quanto sia buona la geometria dei satelliti utilizzati dal ricevitore per fare il fix
     private Long ageofdgpsdata; //Time since last DGPS fix
     private Long dgpsid; //DGPS station ID
-    
+
     /**
-     * @param latitude is required
-     * @param Longitude is required
+     * @param lat latitude is required
+     * @param lon Longitude is required
      */
     public Point(Long lat, Long lon)
     {
@@ -43,22 +44,22 @@ public abstract class Point
 
     /**
      * 
-     * @param lat: Latitude of the waypoint.
-     * @param lon: Longitude of the waypoint.
-     * @param ele: Elevation of the waypoint.
-     * @param time: Creation date/time of the waypoint
-     * @param magvar: Magnetic variation of the waypoint
-     * @param geoidheight: Geoid height of the waypoint
-     * @param fix: Type of GPS fix
-     * @param sat: Number of satellites
-     * @param hdop: Horizontal Diluition Of Precision
-     * @param vdop: Vertical Diluition Of Precision
-     * @param pdop: Position Diluition Of Precision
-     * @param ageofdgpsdata: Time since last DGPS fix
-     * @param dgpsid: DGPS station ID
+     * @param lat       Latitude of the waypoint.
+     * @param lon       Longitude of the waypoint.
+     * @param ele       Elevation of the waypoint.
+     * @param time      Creation date/time of the waypoint
+     * @param magvar    Magnetic variation of the waypoint
+     * @param geoidheight       Geoid height of the waypoint
+     * @param fix       Type of GPS fix
+     * @param sat       Number of satellites
+     * @param hdop      Horizontal Diluition Of Precision
+     * @param vdop      Vertical Diluition Of Precision
+     * @param pdop      Position Diluition Of Precision
+     * @param ageofdgpsdata     Time since last DGPS fix
+     * @param dgpsid    DGPS station ID
      */
     public Point(Long lat, Long lon, Long ele, Date time, String magvar, Long geoidheight, String fix, int sat, Long hdop, Long vdop, Long pdop,
-                       Long ageofdgpsdata, Long dgpsid)
+                 Long ageofdgpsdata, Long dgpsid)
     {
         super();
         this.lat = lat;
@@ -77,7 +78,7 @@ public abstract class Point
     }
 
     /**
-     * @return the lat: Longitude of the waypoint.
+     * @return the lat Longitude of the waypoint.
      */
     public Long getLat()
     {
@@ -85,7 +86,7 @@ public abstract class Point
     }
 
     /**
-     * @param the lat: Longitude of the waypoint.
+     * @param lat Longitude of the waypoint.
      */
     public void setLat(Long lat)
     {
@@ -93,7 +94,7 @@ public abstract class Point
     }
 
     /**
-     * @return lon: Longitude of the waypoint.
+     * @return lon Longitude of the waypoint.
      */
     public Long getLon()
     {
@@ -101,7 +102,7 @@ public abstract class Point
     }
 
     /**
-     * @param lon: Longitude of the waypoint.
+     * @param lon Longitude of the waypoint.
      */
     public void setLon(Long lon)
     {
@@ -109,7 +110,7 @@ public abstract class Point
     }
 
     /**
-     * @return the ele: Elevation of the waypoint.
+     * @return the ele Elevation of the waypoint.
      */
     public Long getEle()
     {
@@ -117,7 +118,7 @@ public abstract class Point
     }
 
     /**
-     * @param ele: Elevation of the waypoint.
+     * @param ele Elevation of the waypoint.
      */
     public void setEle(Long ele)
     {
@@ -125,7 +126,7 @@ public abstract class Point
     }
 
     /**
-     * @return the time: Creation date/time of the waypoint
+     * @return the time Creation date/time of the waypoint
      */
     public Date getTime()
     {
@@ -133,7 +134,7 @@ public abstract class Point
     }
 
     /**
-     * @param time: Creation date/time of the waypoint
+     * @param time Creation date/time of the waypoint
      */
     public void setTime(Date time)
     {
@@ -141,7 +142,7 @@ public abstract class Point
     }
 
     /**
-     * @return the magvar: Magnetic variation of the waypoint
+     * @return the magvar Magnetic variation of the waypoint
      */
     public String getMagvar()
     {
@@ -149,7 +150,7 @@ public abstract class Point
     }
 
     /**
-     * @param magvar: Magnetic variation of the waypoint
+     * @param magvar Magnetic variation of the waypoint
      */
     public void setMagvar(String magvar)
     {
@@ -157,7 +158,7 @@ public abstract class Point
     }
 
     /**
-     * @return the geoidheight: Geoid height of the waypoint
+     * @return the geoidheight Geoid height of the waypoint
      */
     public Long getGeoidheight()
     {
@@ -165,7 +166,7 @@ public abstract class Point
     }
 
     /**
-     * @param geoidheight: Geoid height of the waypoint
+     * @param geoidheight Geoid height of the waypoint
      */
     public void setGeoidheight(Long geoidheight)
     {
@@ -173,7 +174,7 @@ public abstract class Point
     }
 
     /**
-     * @return the fix: Type of GPS fix
+     * @return the fix Type of GPS fix
      */
     public String getFix()
     {
@@ -181,7 +182,7 @@ public abstract class Point
     }
 
     /**
-     * @param fix: Type of GPS fix
+     * @param fix Type of GPS fix
      */
     public void setFix(String fix)
     {
@@ -189,7 +190,7 @@ public abstract class Point
     }
 
     /**
-     * @return the sat: Number of satellites
+     * @return the sat Number of satellites
      */
     public int getSat()
     {
@@ -197,7 +198,7 @@ public abstract class Point
     }
 
     /**
-     * @param sat: Number of satellites
+     * @param sat Number of satellites
      */
     public void setSat(int sat)
     {
@@ -205,7 +206,7 @@ public abstract class Point
     }
 
     /**
-     * @return the hdop: Horizontal Diluition Of Precision
+     * @return the hdop Horizontal Diluition Of Precision
      */
     public Long getHdop()
     {
@@ -213,7 +214,7 @@ public abstract class Point
     }
 
     /**
-     * @param hdop: Horizontal Diluition Of Precision
+     * @param hdop Horizontal Diluition Of Precision
      */
     public void setHdop(Long hdop)
     {
@@ -221,7 +222,7 @@ public abstract class Point
     }
 
     /**
-     * @return the vdop: Vertical Diluition Of Precision
+     * @return the vdop Vertical Diluition Of Precision
      */
     public Long getVdop()
     {
@@ -229,7 +230,7 @@ public abstract class Point
     }
 
     /**
-     * @param vdop the vdop: Vertical Diluition Of Precision
+     * @param vdop the vdop Vertical Diluition Of Precision
      */
     public void setVdop(Long vdop)
     {
@@ -237,7 +238,7 @@ public abstract class Point
     }
 
     /**
-     * @return the pdop: Position Diluition Of Precision
+     * @return the pdop Position Diluition Of Precision
      */
     public Long getPdop()
     {
@@ -245,7 +246,7 @@ public abstract class Point
     }
 
     /**
-     * @param pdop the pdop: Position Diluition Of Precision
+     * @param pdop the pdop Position Diluition Of Precision
      */
     public void setPdop(Long pdop)
     {
@@ -253,7 +254,7 @@ public abstract class Point
     }
 
     /**
-     * @return the ageofdgpsdata: Time since last DGPS fix
+     * @return the ageofdgpsdata Time since last DGPS fix
      */
     public Long getAgeofdgpsdata()
     {
@@ -261,7 +262,7 @@ public abstract class Point
     }
 
     /**
-     * @param ageofdgpsdata: Time since last DGPS fix
+     * @param ageofdgpsdata Time since last DGPS fix
      */
     public void setAgeofdgpsdata(Long ageofdgpsdata)
     {
@@ -269,7 +270,7 @@ public abstract class Point
     }
 
     /**
-     * @return the dgpsid: DGPS station ID
+     * @return the dgpsid DGPS station ID
      */
     public Long getDgpsid()
     {
@@ -277,7 +278,7 @@ public abstract class Point
     }
 
     /**
-     * @param dgpsid: DGPS station ID
+     * @param dgpsid DGPS station ID
      */
     public void setDgpsid(Long dgpsid)
     {

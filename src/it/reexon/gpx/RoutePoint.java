@@ -4,6 +4,7 @@ import java.util.Date;
 
 import it.reexon.gpx.abstracts.Point;
 
+
 /**
  * @author marco.velluto
  */
@@ -36,7 +37,7 @@ public class RoutePoint extends Point
      * @param dgpsid   DGPS station ID
      */
     public RoutePoint(Long lat, Long lon, Long ele, Date time, String magvar, Long geoidheight, String fix, int sat, Long hdop, Long vdop, Long pdop,
-                       Long ageofdgpsdata, Long dgpsid)
+                      Long ageofdgpsdata, Long dgpsid)
     {
         super(lat, lon, ele, time, magvar, geoidheight, fix, sat, hdop, vdop, pdop, ageofdgpsdata, dgpsid);
     }

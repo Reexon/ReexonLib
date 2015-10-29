@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.reexon.file.io.exception;
+package it.reexon.file.exceptions;
 
 /**
  * @author marco.velluto

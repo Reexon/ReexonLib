@@ -3,3 +3,7 @@ it.reexon.file.io.exception
 it.reexon.file.utils
 it.reexon.gpx
 it.reexon.gpx.abstracts
+it.reexon.gpx.tests
+it.reexon.gpx.validators
+it.reexon.gpx.validators.implementations
+it.reexon.list.utils

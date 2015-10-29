@@ -9,7 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import it.reexon.file.io.exception.FileMoveException;
+import it.reexon.file.exceptions.FileMoveException;
 
 /**
  * @author marco.velluto

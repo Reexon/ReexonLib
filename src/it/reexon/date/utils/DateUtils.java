@@ -1,10 +1,13 @@
 package it.reexon.date.utils;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * 
+ * @author marco.velluto
+ */
 public class DateUtils
 {
     /**
@@ -17,8 +20,7 @@ public class DateUtils
     {
         Date parsed = new Date();
         try
-        {                                                       // Tue Nov 10 2015 00:00:00 GMT+0100
-//            SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss zzz");
+        {
             parsed = format.parse(dateString);
         }
         catch (ParseException pe)
@@ -27,18 +29,15 @@ public class DateUtils
         }
         return parsed;
     }
-    
+
     /**
      * 
-     * @param dateString
-     * @param format
+     * @param dateString        date string in format yyyymmdd (ex. 20151210)
      * @return
      */
-    @SuppressWarnings("deprecation")
-    public static Date parseNewDate(String dateString)
+    public static Date parseDataYMD(String dateString)
     {
-        Date parsed = new Date();
-        parsed = new Date(dateString);
-        return parsed;
+        Date date = DateUtils.parseDate(dateString, new SimpleDateFormat("yyyymmdd"));
+        return date;
     }
 }

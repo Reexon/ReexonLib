@@ -45,25 +45,11 @@ public class DateUtilsTest
     }
 
     @Test
-    public void testDateParseWithoutTiemZone()
+    public void testParseDataYMD()
     {
         try
         {
-            Date date = DateUtils.parseNewDate("Tue Nov 10 2015 00:00:00 GMT+0100");
-            assertNotNull(date);
-        }
-        catch (Exception e)
-        {
-            fail(e.getMessage());
-        }
-    }
-
-    @Test
-    public void testNewDate()
-    {
-        try
-        {
-            Date date = DateUtils.parseDate("Tue Nov 10 2015 00:00:00", new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss"));
+            Date date = DateUtils.parseDataYMD("20151102");
             assertNotNull(date);
         }
         catch (Exception e)

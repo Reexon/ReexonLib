@@ -10,7 +10,7 @@ import it.reexon.files.exceptions.ConvertionException;
 /**
  *  * @author marco.velluto
  *  
- * Exporting DWG Drawings to PDF
+ * Exporting DWG AutoCAD Drawings to PDF
  * 
  *  Supported AutoCAD Primitives
  *  TEXT

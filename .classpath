@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Marco.Velluto/Documents/Marco/workspace/ReexonLib/lib/commons-lang3-3.3.2.jar" sourcepath="C:/Users/Marco.Velluto/Documents/Marco/workspace/ReexonLib/lib/src/commons-lang3-3.3.2"/>
+	<classpathentry kind="lib" path="C:/Users/Marco.Velluto/Documents/Marco/workspace/ReexonLib/lib/aspose-imaging-3.0.1-jdk16.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

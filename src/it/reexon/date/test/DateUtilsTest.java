@@ -3,14 +3,11 @@
  */
 package it.reexon.date.test;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,50 +28,30 @@ public class DateUtilsTest
     {}
 
     @Test
-    public void testDateParseWithTiemZone()
-    {
-        try
-        {
-            Date date = DateUtils.parseDate("Tue Nov 10 2015 00:00:00 GMT+0100", new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss zzz"));
-            assertNotNull(date);
-        }
-        catch (Exception e)
-        {
-            fail(e.getMessage());
-        }
-    }
-
-    @Test
     public void testParseDataYMD()
     {
         try
         {
             Date date = DateUtils.parseDataYMD("20151102");
-            assertNotNull(date);
-        }
-        catch (Exception e)
-        {
-            fail(e.getMessage());
-        }
-    }   
-    
-    @Test
-    public void testDateFormat()
-    {
-        try
-        {
-            Date date = DateFormat.getDateInstance().parse("Tue Nov 10 2015 00:00:00");
-            StringUtils.abbreviate("sss", 3);
-            assertNotNull(date);
+            if (date != null)
+            {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                assert year == 1 && month == 11 && day == 2;
+            }
+            else
+            {
+                fail("la data è nulla");
+            }
+
         }
         catch (Exception e)
         {
             fail(e.getMessage());
         }
     }
-    
-    
-    
-    
-
 }

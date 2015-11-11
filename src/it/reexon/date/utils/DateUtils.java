@@ -37,7 +37,7 @@ public class DateUtils
      */
     public static Date parseDataYMD(String dateString)
     {
-        Date date = DateUtils.parseDate(dateString, new SimpleDateFormat("yyyymmdd"));
+        Date date = DateUtils.parseDate(dateString, new SimpleDateFormat("yyyyMMdd"));
         return date;
     }
 }

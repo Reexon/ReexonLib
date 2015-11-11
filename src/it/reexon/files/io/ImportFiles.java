@@ -13,7 +13,11 @@ import java.util.ArrayList;
  */
 public class ImportFiles
 {
-
+    /**
+     * 
+     * @param forderPath
+     * @return
+     */
     public static ArrayList<File> importDocument(String forderPath)
     {
         ArrayList<File> files = new ArrayList<>();

@@ -56,7 +56,7 @@ import it.reexon.files.exceptions.ConvertionException;
  *      When set to true, re-allocation cannot exceed the maximum specified space. In this case the existing allocated in-memory cache (which requires re-allocation) is freed and extended space is allocated on disk.
  *
  */
-public class DWGtoPdf
+public class DwgToPdf
 {
 
     /**

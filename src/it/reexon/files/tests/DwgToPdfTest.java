@@ -23,7 +23,7 @@ public class DwgToPdfTest
     {}
 
     /**
-     * Test method for {@link it.reexon.files.convertions.DWGtoPdf#convertionSimple(java.lang.String, java.lang.String)}.
+     * Test method for {@link it.reexon.files.convertions.DwgToPdf#convertionSimple(java.lang.String, java.lang.String)}.
      */
     @Test
     public void testConvertionSimple()
@@ -32,7 +32,7 @@ public class DwgToPdfTest
     }
 
     /**
-     * Test method for {@link it.reexon.files.convertions.DWGtoPdf#convertionSpecificLayout(java.lang.String, java.lang.String)}.
+     * Test method for {@link it.reexon.files.convertions.DwgToPdf#convertionSpecificLayout(java.lang.String, java.lang.String)}.
      */
     @Test
     public void testConvertionSpecificLayout()
@@ -41,7 +41,7 @@ public class DwgToPdfTest
     }
 
     /**
-     * Test method for {@link it.reexon.files.convertions.DWGtoPdf#convertionSpecificLayer(java.lang.String, java.lang.String)}.
+     * Test method for {@link it.reexon.files.convertions.DwgToPdf#convertionSpecificLayer(java.lang.String, java.lang.String)}.
      */
     @Test
     public void testConvertionSpecificLayer()

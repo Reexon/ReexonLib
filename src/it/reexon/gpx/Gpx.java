@@ -6,6 +6,7 @@ package it.reexon.gpx;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -29,6 +30,11 @@ public class Gpx
     private ArrayList<String> keywords; //Keywords for categorizing the GPX file in a database or search engine
     private String bounds; //Bounding rectangle for the data in the file.
 
+    /**Optional file informations */
+    private List<WayPoint> wayPoints; //List of Waypoints
+    private List<Route> routes; //List of Routes
+    private List<Track> tracks; //List of Tracks
+
     /**
      * @param version   GPX schema version used in file. Is mandatory
      * @param creator   Program used to create file. Is mandatory
@@ -43,18 +49,21 @@ public class Gpx
     /**
      * @param version   GPX schema version used in file
      * @param creator   Program used to create file
-     * @param name   Descriptive name of the GPX file
-     * @param desc   Description of the GPX file
-     * @param author   Name of the file's creator
-     * @param email   Email address of the file's creator
-     * @param url   URL associated with the file
+     * @param name      Descriptive name of the GPX file
+     * @param desc      Description of the GPX file
+     * @param author    Name of the file's creator
+     * @param email     Email address of the file's creator
+     * @param url       URL associated with the file
      * @param urlName   Text to display on the <url> hyperlink
-     * @param time   Creation date/time of the GPX file
-     * @param keywords   Keywords for categorizing the GPX file in a database or search engine
-     * @param bounds   Bounding rectangle for the data in the file.
+     * @param time      Creation date/time of the GPX file
+     * @param keywords  Keywords for categorizing the GPX file in a database or search engine
+     * @param bounds    Bounding rectangle for the data in the file.
+     * @param wayPoints List of Waypoints
+     * @param routes    List of Routes
+     * @param tracks    List of Tracks
      */
     public Gpx(String version, String creator, String name, String desc, String author, String email, URL url, String urlName, Date time,
-               ArrayList<String> keywords, String bounds)
+               ArrayList<String> keywords, String bounds, List<WayPoint> wayPoints, List<Route> routes, List<Track> tracks)
     {
         super();
         this.version = version;
@@ -68,6 +77,9 @@ public class Gpx
         this.time = time;
         this.keywords = keywords;
         this.bounds = bounds;
+        this.wayPoints = wayPoints;
+        this.routes = routes;
+        this.tracks = tracks;
     }
 
     /**
@@ -244,5 +256,53 @@ public class Gpx
     public void setBounds(String bounds)
     {
         this.bounds = bounds;
+    }
+
+    /**
+     * @return the wayPoints
+     */
+    public List<WayPoint> getWayPoints()
+    {
+        return wayPoints;
+    }
+
+    /**
+     * @param wayPoints the wayPoints to set
+     */
+    public void setWayPoints(List<WayPoint> wayPoints)
+    {
+        this.wayPoints = wayPoints;
+    }
+
+    /**
+     * @return the routes
+     */
+    public List<Route> getRoutes()
+    {
+        return routes;
+    }
+
+    /**
+     * @param routes the routes to set
+     */
+    public void setRoutes(List<Route> routes)
+    {
+        this.routes = routes;
+    }
+
+    /**
+     * @return the tracks
+     */
+    public List<Track> getTracks()
+    {
+        return tracks;
+    }
+
+    /**
+     * @param tracks the tracks to set
+     */
+    public void setTracks(List<Track> tracks)
+    {
+        this.tracks = tracks;
     }
 }

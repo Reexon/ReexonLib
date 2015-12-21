@@ -5,7 +5,11 @@ import java.util.Date;
 
 import it.reexon.gpx.abstracts.Point;
 
-
+/**
+ * 
+ * @author marco.velluto
+ *
+ */
 public class TrackPoint extends Point
 {
 

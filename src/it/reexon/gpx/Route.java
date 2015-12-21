@@ -3,7 +3,11 @@ package it.reexon.gpx;
 import java.net.URL;
 import java.util.ArrayList;
 
-
+/**
+ * 
+ * @author marco.velluto
+ *
+ */
 public class Route
 {
 

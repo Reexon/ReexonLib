@@ -17,6 +17,12 @@ import it.reexon.reexonlib.files.exceptions.FileMoveException;
  */
 public class FileUtils
 {
+    /**
+     * 
+     * @param file
+     * @return
+     * @throws IOException
+     */
     public static byte[] getByteFromFile(File file) throws IOException
     {
         ByteArrayOutputStream ous = null;
@@ -42,6 +48,12 @@ public class FileUtils
         return ous.toByteArray();
     }
     
+    /**
+     * 
+     * @param file
+     * @param newDirectory
+     * @throws IOException
+     */
     public static void moveFile(File file, String newDirectory) throws IOException
     {
         if (file.renameTo(new File(newDirectory + "\\" + file.getName())))

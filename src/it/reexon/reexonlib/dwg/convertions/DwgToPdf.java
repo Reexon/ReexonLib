@@ -1,4 +1,4 @@
-package it.reexon.reexonlib.files.convertions;
+package it.reexon.reexonlib.dwg.convertions;
 
 import com.aspose.imaging.Image;
 import com.aspose.imaging.imageoptions.CadRasterizationOptions;

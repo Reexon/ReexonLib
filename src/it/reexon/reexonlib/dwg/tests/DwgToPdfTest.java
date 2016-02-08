@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.reexon.reexonlib.files.tests;
+package it.reexon.reexonlib.dwg.tests;
 
 import static org.junit.Assert.*;
 
@@ -23,7 +23,7 @@ public class DwgToPdfTest
     {}
 
     /**
-     * Test method for {@link it.reexon.reexonlib.files.convertions.DwgToPdf#convertionSimple(java.lang.String, java.lang.String)}.
+     * Test method for {@link it.reexon.reexonlib.dwg.convertions.DwgToPdf#convertionSimple(java.lang.String, java.lang.String)}.
      */
     @Test
     public void testConvertionSimple()
@@ -32,7 +32,7 @@ public class DwgToPdfTest
     }
 
     /**
-     * Test method for {@link it.reexon.reexonlib.files.convertions.DwgToPdf#convertionSpecificLayout(java.lang.String, java.lang.String)}.
+     * Test method for {@link it.reexon.reexonlib.dwg.convertions.DwgToPdf#convertionSpecificLayout(java.lang.String, java.lang.String)}.
      */
     @Test
     public void testConvertionSpecificLayout()
@@ -41,7 +41,7 @@ public class DwgToPdfTest
     }
 
     /**
-     * Test method for {@link it.reexon.reexonlib.files.convertions.DwgToPdf#convertionSpecificLayer(java.lang.String, java.lang.String)}.
+     * Test method for {@link it.reexon.reexonlib.dwg.convertions.DwgToPdf#convertionSpecificLayer(java.lang.String, java.lang.String)}.
      */
     @Test
     public void testConvertionSpecificLayer()

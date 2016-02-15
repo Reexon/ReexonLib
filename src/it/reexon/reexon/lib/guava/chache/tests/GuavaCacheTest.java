@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.reexon.reexon.lib.guava.chache;
+package it.reexon.reexon.lib.guava.chache.tests;
 
 import static org.junit.Assert.*;
 

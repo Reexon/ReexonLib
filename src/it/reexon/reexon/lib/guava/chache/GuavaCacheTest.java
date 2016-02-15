@@ -206,8 +206,7 @@ public class GuavaCacheTest
             }
         };
 
-        LoadingCache<String, String> cache;
-        cache = CacheBuilder.newBuilder().weakKeys().build(loader);
+        CacheBuilder.newBuilder().weakKeys().build(loader);
     }
 
     @Test
@@ -223,8 +222,7 @@ public class GuavaCacheTest
             }
         };
 
-        LoadingCache<String, String> cache;
-        cache = CacheBuilder.newBuilder().softValues().build(loader);
+        CacheBuilder.newBuilder().softValues().build(loader);
     }
 
     @Test
@@ -270,8 +268,7 @@ public class GuavaCacheTest
             }
         };
 
-        LoadingCache<String, String> cache;
-        cache = CacheBuilder.newBuilder().refreshAfterWrite(1, TimeUnit.MINUTES).build(loader);
+        CacheBuilder.newBuilder().refreshAfterWrite(1, TimeUnit.MINUTES).build(loader);
     }
 
     @Test

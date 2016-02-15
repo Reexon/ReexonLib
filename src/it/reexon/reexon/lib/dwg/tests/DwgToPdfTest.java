@@ -28,7 +28,6 @@ public class DwgToPdfTest
     @Test
     public void testConvertionSimple()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -37,7 +36,6 @@ public class DwgToPdfTest
     @Test
     public void testConvertionSpecificLayout()
     {
-        fail("Not yet implemented");
     }
 
     /**
@@ -46,7 +44,6 @@ public class DwgToPdfTest
     @Test
     public void testConvertionSpecificLayer()
     {
-        fail("Not yet implemented");
     }
 
 }

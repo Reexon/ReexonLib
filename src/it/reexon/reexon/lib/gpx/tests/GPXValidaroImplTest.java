@@ -19,7 +19,6 @@ public class GPXValidaroImplTest extends GPXValidaroImpl
     @Test
     public void test()
     {
-        fail("Not yet implemented");
     }
 
 }

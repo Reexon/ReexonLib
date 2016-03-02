@@ -3,12 +3,12 @@
  */
 package it.reexon.reexon.lib.date.test;
 
-import static org.junit.Assert.fail;
-
-import java.util.Calendar;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
-import org.junit.Before;
+import org.junit.Assert;
 import org.junit.Test;
 
 import it.reexon.reexon.lib.date.utils.DateUtils;
@@ -20,38 +20,23 @@ import it.reexon.reexon.lib.date.utils.DateUtils;
  */
 public class DateUtilsTest
 {
-    /**
-     * @throws java.lang.Exception
-     */
-    @Before
-    public void setUp() throws Exception
-    {}
-
     @Test
-    public void testParseDataYMD()
+    public void getDatesBetween()
     {
         try
         {
-            Date date = DateUtils.parseDataYMD("20151102");
-            if (date != null)
-            {
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(date);
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
+            final Date date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2016-03-01 14:51:26");
+            final Date date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2016-03-10 14:51:26");
 
-                assert year == 1 && month == 11 && day == 2;
-            }
-            else
-            {
-                fail("la data è nulla");
-            }
-
+            List<Date> listOfDate = (List<Date>) DateUtils.getDatesBetween(date1, date2);
+            Assert.assertNotNull(listOfDate);
+            Assert.assertEquals(10, listOfDate.size());
         }
-        catch (Exception e)
+        catch (ParseException e)
         {
-            fail(e.getMessage());
+            Assert.fail();
+            e.printStackTrace();
         }
     }
+
 }

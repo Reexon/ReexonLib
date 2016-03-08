@@ -5,6 +5,4 @@ package it.reexon.reexon.lib.crypt;
  *
  */
 public class AESCrypt
-{
-
-}
+{}

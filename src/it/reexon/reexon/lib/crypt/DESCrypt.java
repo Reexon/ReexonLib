@@ -22,7 +22,7 @@ public class DESCrypt
 {
     Cipher cipher;
 
-    DESCrypt(SecretKey key)
+    public DESCrypt(SecretKey key)
     {
         try
         {
@@ -42,16 +42,22 @@ public class DESCrypt
     {
         try
         {
+            // Salt
+            byte[] salt = { //@f:off
+                (byte)0xc7, (byte)0x73, (byte)0x21, (byte)0x8c,
+                (byte)0x7e, (byte)0xc8, (byte)0xee, (byte)0x99
+            }; //@f:on
+
             byte[] enc = cipher.doFinal(stringa.getBytes("UTF8"));
 
             Decoder decoder = Base64.getDecoder();
             byte[] saltArray = decoder.decode(salt);
-            byte[] ciphertextArray = decoder.decode(ciphertext);
+            byte[] ciphertextArray = decoder.decode("ciphertext");
 
             //for encoding
             Encoder encoder = Base64.getEncoder();
             String saltString = encoder.encodeToString(salt);
-            String ciphertextString = encoder.encodeToString(ciphertext);
+            String ciphertextString = encoder.encodeToString("ciphertext".getBytes());
         }
         catch (javax.crypto.BadPaddingException e)
         {}

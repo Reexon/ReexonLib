@@ -17,8 +17,8 @@ import javax.crypto.Cipher;
 
 
 /**
- * @author JavaDigest
  * @see https://docs.oracle.com/javase/7/docs/technotes/guides/security/StandardNames.html#KeyPairGenerator
+ * @version v1.0
  */
 public class EncryptionUtil
 {
@@ -27,7 +27,7 @@ public class EncryptionUtil
      * String to hold name of the encryption algorithm.
      */
     public static final String ALGORITHM = "RSA";
-    
+
     /**
      * String to hold the name of the private key file.
      */
@@ -169,8 +169,8 @@ public class EncryptionUtil
      */
     public static void main(String[] args)
     {
-
-        try
+        try (ObjectInputStream publicInputStream = new ObjectInputStream(new FileInputStream(PUBLIC_KEY_FILE));
+                ObjectInputStream privateInputStream = new ObjectInputStream(new FileInputStream(PRIVATE_KEY_FILE));)
         {
 
             // Check if the pair of keys are present else generate those.
@@ -182,16 +182,14 @@ public class EncryptionUtil
             }
 
             final String originalText = "Text to be encrypted ";
-            ObjectInputStream inputStream = null;
-
             // Encrypt the string using the public key
-            inputStream = new ObjectInputStream(new FileInputStream(PUBLIC_KEY_FILE));
-            final PublicKey publicKey = (PublicKey) inputStream.readObject();
+
+            final PublicKey publicKey = (PublicKey) publicInputStream.readObject();
             final byte[] cipherText = encrypt(originalText, publicKey);
 
             // Decrypt the cipher text using the private key.
-            inputStream = new ObjectInputStream(new FileInputStream(PRIVATE_KEY_FILE));
-            final PrivateKey privateKey = (PrivateKey) inputStream.readObject();
+
+            final PrivateKey privateKey = (PrivateKey) privateInputStream.readObject();
             final String plainText = decrypt(cipherText, privateKey);
 
             // Printing the Original, Encrypted and Decrypted Text

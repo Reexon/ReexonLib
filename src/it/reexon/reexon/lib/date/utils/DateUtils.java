@@ -42,4 +42,72 @@ public class DateUtils
         }
         return dates;
     }
+
+    /**
+     * 
+     * @param date
+     * @return
+     */
+    public static Date getMidnight(Date date)
+    {
+        if (date == null)
+            return null;
+
+        Calendar calendarInizio = Calendar.getInstance();
+        calendarInizio.setTime(date);
+        calendarInizio.set(Calendar.HOUR_OF_DAY, 0);
+        calendarInizio.set(Calendar.MINUTE, 0);
+        calendarInizio.set(Calendar.SECOND, 0);
+        calendarInizio.set(Calendar.MILLISECOND, 0);
+
+        return calendarInizio.getTime();
+    }
+
+    /**
+     * 
+     * @param date
+     * @return
+     */
+    public static Date get23_59(Date date)
+    {
+        if (date == null)
+            return null;
+
+        Calendar calendarInizio = Calendar.getInstance();
+        calendarInizio.setTime(date);
+        calendarInizio.set(Calendar.HOUR_OF_DAY, 23);
+        calendarInizio.set(Calendar.MINUTE, 59);
+        calendarInizio.set(Calendar.SECOND, 59);
+        calendarInizio.set(Calendar.MILLISECOND, 999);
+
+        return calendarInizio.getTime();
+    }
+
+    /**
+     * 
+     * @param dateFrom
+     */
+    public static void addOneDay(Date date)
+    {
+        addDays(date, 1);
+    }
+
+    /**
+     * 
+     * @param date
+     * @param numberDays
+     */
+    public static void addDays(Date date, int numberDays)
+    {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DATE, numberDays);
+        date = c.getTime();
+    }
+
+    public static boolean between(Date data, Date dataInizio, Date dataFine)
+    {
+        return data.compareTo(dataInizio) >= 0 && data.compareTo(dataFine) <= 0;
+    }
+
 }

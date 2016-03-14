@@ -10,6 +10,8 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.SecretKey;
 
+import it.reexon.reexon.lib.crypt.enums.AlgorithmsEnum;
+
 
 /**
  * DES (the Data Encryption Standard) is a symmetric block cipher developed by IBM. 
@@ -26,7 +28,7 @@ public class DESCrypt
     {
         try
         {
-            cipher = Cipher.getInstance("DES");
+            cipher = Cipher.getInstance(AlgorithmsEnum.DES.name());
             cipher.init(Cipher.ENCRYPT_MODE, key);
 
         }

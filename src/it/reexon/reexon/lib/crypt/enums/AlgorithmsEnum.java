@@ -6,7 +6,9 @@ public enum AlgorithmsEnum
     ARCFOUR, //Constructs secret keys for use with the ARCFOUR algorithm.
     DES, //Constructs secrets keys for use with the DES algorithm.
     DESede, //Constructs secrets keys for use with the DESede (Triple-DES) algorithm.
-
+    
+    RSA, 
+    
     PBEWithMD5AndDES, 
     PBEWithHmacSHA256AndAES_128,
     

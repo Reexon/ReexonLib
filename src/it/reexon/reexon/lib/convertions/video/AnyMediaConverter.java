@@ -8,6 +8,7 @@ import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.xuggler.ICodec;
 import com.xuggle.xuggler.IContainer;
 import com.xuggle.xuggler.IContainerFormat;
+import com.xuggle.xuggler.io.FfmpegIO;
 
 
 public class AnyMediaConverter
@@ -23,7 +24,6 @@ public class AnyMediaConverter
     {
         if (StringUtils.isEmpty(args.toString()))
             throw new IllegalArgumentException("args is empty!!!");
-
         IMediaReader reader = ToolFactory.makeReader(args[0]);
         IMediaWriter writer = ToolFactory.makeWriter(args[1], reader);
         writer.open();

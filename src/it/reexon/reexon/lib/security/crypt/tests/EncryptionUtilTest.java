@@ -8,7 +8,7 @@ import java.security.PublicKey;
 import org.junit.Assert;
 import org.junit.Test;
 
-import it.reexon.reexon.lib.crypt.EncryptionUtil;
+import it.reexon.reexon.lib.security.crypt.EncryptionUtil;
 
 
 public class EncryptionUtilTest

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 
@@ -13,6 +14,40 @@ import java.util.List;
  */
 public class DateUtils
 {
+    /**
+     * 
+     * @param date
+     * @param numberDays
+     */
+    public static void addDays(Date date, int numberDays)
+    {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DATE, numberDays);
+        date = c.getTime();
+    }
+
+    /**
+     * 
+     * @param dateFrom
+     */
+    public static void addOneDay(Date date)
+    {
+        addDays(date, 1);
+    }
+
+    public static boolean between(Date data, Date dataInizio, Date dataFine)
+    {
+        return data.compareTo(dataInizio) >= 0 && data.compareTo(dataFine) <= 0;
+    }
+
+    public static Calendar getCalendarForNow()
+    {
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTime(new Date());
+        return calendar;
+    }
+
     /**
      * 
      * @param date1 min date
@@ -43,12 +78,20 @@ public class DateUtils
         return dates;
     }
 
+    public static void setTimeToBeginningOfDay(Calendar calendar)
+    {
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+    }
+
     /**
      * 
      * @param date
      * @return
      */
-    public static Date getMidnight(Date date)
+    public static Date setTimeToBeginningOfDay(Date date)
     {
         if (date == null)
             return null;
@@ -63,51 +106,115 @@ public class DateUtils
         return calendarInizio.getTime();
     }
 
+    public static void setTimeToEndofDay(Calendar calendar)
+    {
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+    }
+
     /**
      * 
      * @param date
      * @return
      */
-    public static Date get23_59(Date date)
+    public static Date setTimeToEndofDay(Date date)
     {
         if (date == null)
             return null;
 
-        Calendar calendarInizio = Calendar.getInstance();
-        calendarInizio.setTime(date);
-        calendarInizio.set(Calendar.HOUR_OF_DAY, 23);
-        calendarInizio.set(Calendar.MINUTE, 59);
-        calendarInizio.set(Calendar.SECOND, 59);
-        calendarInizio.set(Calendar.MILLISECOND, 999);
-
-        return calendarInizio.getTime();
-    }
-
-    /**
-     * 
-     * @param dateFrom
-     */
-    public static void addOneDay(Date date)
-    {
-        addDays(date, 1);
+        Calendar calendarEnd = Calendar.getInstance();
+        calendarEnd.setTime(date);
+        calendarEnd.set(Calendar.HOUR_OF_DAY, 23);
+        calendarEnd.set(Calendar.MINUTE, 59);
+        calendarEnd.set(Calendar.SECOND, 59);
+        calendarEnd.set(Calendar.MILLISECOND, 999);
+        return calendarEnd.getTime();
     }
 
     /**
      * 
      * @param date
-     * @param numberDays
+     * @return
      */
-    public static void addDays(Date date, int numberDays)
+    public static Date getDateBeginMonth(Date date)
     {
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        c.add(Calendar.DATE, numberDays);
-        date = c.getTime();
+        if (date == null)
+            return null;
+
+        Calendar calendarBegin = Calendar.getInstance();
+        calendarBegin.setTime(date);
+        calendarBegin.set(Calendar.DAY_OF_MONTH, calendarBegin.getActualMinimum(Calendar.DAY_OF_MONTH));
+
+        setTimeToBeginningOfDay(calendarBegin);
+
+        return calendarBegin.getTime();
+
     }
 
-    public static boolean between(Date data, Date dataInizio, Date dataFine)
+    /**
+     * 
+     * @param date
+     * @return
+     */
+    public static Date getDateEndMonth(Date date)
     {
-        return data.compareTo(dataInizio) >= 0 && data.compareTo(dataFine) <= 0;
+        if (date == null)
+            return null;
+
+        Calendar calendarEnd = Calendar.getInstance();
+        calendarEnd.setTime(date);
+        calendarEnd.set(Calendar.DAY_OF_MONTH, calendarEnd.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+        setTimeToEndofDay(calendarEnd);
+
+        return calendarEnd.getTime();
     }
 
+    /**
+     * 
+     * @param date
+     * @return
+     */
+    public static DateRange getDateRangeBeginEndMonth(Date date)
+    {
+        if (date == null)
+            return null;
+
+        return new DateRange(getDateBeginMonth(date), getDateBeginMonth(date));
+    }
+
+    public static class DateRange
+    {
+        private Date dateFrom;
+        private Date dateTo;
+
+        public DateRange(Date dateFrom, Date dateTo)
+        {
+            super();
+            this.dateFrom = dateFrom;
+            this.dateTo = dateTo;
+        }
+
+        public Date getDateFrom()
+        {
+            return dateFrom;
+        }
+
+        public void setDateFrom(Date dateFrom)
+        {
+            this.dateFrom = dateFrom;
+        }
+
+        public Date getDateTo()
+        {
+            return dateTo;
+        }
+
+        public void setDateTo(Date dateTo)
+        {
+            this.dateTo = dateTo;
+        }
+    }
 }

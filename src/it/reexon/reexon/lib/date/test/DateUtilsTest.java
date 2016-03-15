@@ -39,4 +39,37 @@ public class DateUtilsTest
         }
     }
 
+    @Test
+    public void getDateBeginMonthTest()
+    {
+        try
+        {
+            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2016-03-10 14:51:26");
+            Date dateReturn = DateUtils.getDateBeginMonth(date);
+
+            Assert.assertEquals("Tue Mar 01 00:00:00 CET 2016", dateReturn.toString());
+        }
+        catch (ParseException e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void getDateEndMonthTest()
+    {
+        try
+        {
+            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2016-03-01 14:51:26");
+            Date dateReturn = DateUtils.getDateEndMonth(date);
+
+            Assert.assertEquals("Thu Mar 31 23:59:59 CEST 2016", dateReturn.toString());
+        }
+        catch (ParseException e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
 }

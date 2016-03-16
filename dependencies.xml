@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+
+<ivy-module version="1.0">
+
+	<info organisation="it.reexon" module="reexon-lib" revision="${version}" />
+
+	<configurations>
+		<conf name="test" visibility="public" extends="compile" />
+		<conf name="compile" visibility="public" extends="runtime" />
+		<conf name="runtime" visibility="public" />
+		<conf name="provided" visibility="public" extends="compile" />
+		<conf name="junit" visibility="public" extends="provided, test" />
+	</configurations>
+
+	<dependencies>
+		<dependency org="org.apache.commons" name="commons-lang3" rev="3.4" />
+	</dependencies>
+</ivy-module>

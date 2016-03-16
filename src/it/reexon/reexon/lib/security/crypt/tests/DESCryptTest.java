@@ -17,7 +17,7 @@ import javax.crypto.spec.PBEParameterSpec;
 
 import org.junit.Test;
 
-import it.reexon.reexon.lib.crypt.enums.AlgorithmsEnum;
+import it.reexon.reexon.lib.security.crypt.enums.AlgorithmsEnum;
 
 
 //http://stackoverflow.com/questions/3451670/java-aes-and-using-my-own-key

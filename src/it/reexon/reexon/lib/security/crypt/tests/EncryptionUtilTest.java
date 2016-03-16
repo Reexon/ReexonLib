@@ -67,20 +67,4 @@ public class EncryptionUtilTest
             Assert.fail(e.toString());
         }
     }
-
-    @Test
-    public void testDecrypt()
-    {
-        try (ObjectInputStream privateInputStream = new ObjectInputStream(new FileInputStream(EncryptionUtil.PRIVATE_KEY_FILE));)
-        {
-            final PrivateKey privateKey = (PrivateKey) privateInputStream.readObject();
-            String str = EncryptionUtil.decrypt("[B@b97c004".getBytes(), privateKey);
-            System.out.println(str);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            Assert.fail(e.toString());
-        }
-    }
 }

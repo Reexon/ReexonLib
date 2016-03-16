@@ -28,7 +28,6 @@ public class DateUtils
     }
 
     /**
-     * 
      * @param dateFrom
      */
     public static void addOneDay(Date date)
@@ -49,11 +48,18 @@ public class DateUtils
     }
 
     /**
+     * @author marco.velluto
      * 
      * @param date1 min date
      * @param date2 max date
-     * @return list of dates
+     * @return list of dates 
      * @throws ParseException
+     * 
+     * @Example
+     *  @param date1 = 2016/03/01
+     *  @param date2 = 2016/03/31
+     *  
+     *  @return Collection{2016/03/01, 2016/03/02, ... , 2016/03/31} 
      */
     public static Collection<Date> getDatesBetween(Date date1, Date date2)
     {
@@ -70,7 +76,8 @@ public class DateUtils
 
         Long diffDay = (calendarDate2.getTimeInMillis() - calendarDate1.getTimeInMillis()) / (1000 * 60 * 60 * 24);
 
-        for (int c = 0; c <= diffDay; c++)
+        dates.add(new Date(calendarDate1.getTimeInMillis()));
+        for (int c = 0; c < diffDay; c++)
         {
             calendarDate1.add(Calendar.DATE, 1);
             dates.add(new Date(calendarDate1.getTimeInMillis()));

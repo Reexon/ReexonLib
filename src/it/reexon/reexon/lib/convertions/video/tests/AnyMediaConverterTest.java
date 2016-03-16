@@ -12,6 +12,11 @@ import com.xuggle.xuggler.ICodec;
 import com.xuggle.xuggler.IContainer;
 import com.xuggle.xuggler.IContainerFormat;
 
+import it.reexon.reexon.lib.convertions.video.livestreamprocessor.utils.MediaConcatenator;
+import it.reexon.reexon.lib.convertions.video.livestreamprocessor.utils.ProgressChangedListener;
+import it.reexon.reexon.lib.convertions.video.livestreamprocessor.utils.ProgressListener;
+import it.reexon.reexon.lib.convertions.video.livestreamprocessor.utils.VideoData;
+
 
 /**
  * @see http://www.ffmpeg.org/general.html#Video-Codecs
@@ -20,8 +25,9 @@ public class AnyMediaConverterTest
 {
 
     @Test
-    public final void testV1()
+    public void testV1()
     {
+
         String path = null;
         String outpath = null;
 
@@ -40,7 +46,7 @@ public class AnyMediaConverterTest
     }
 
     @Test
-    public final void testV2()
+    public void testV2()
     {
         String inputFile = null;
         String outputFile = null;
@@ -61,7 +67,7 @@ public class AnyMediaConverterTest
     }
 
     @Test
-    public final void testV3()
+    public void testV3()
     {
         final String inputFileName = "C:\\temp\\TEST.MOV";
         final String outputFileName = "C:\\temp\\TEST.MP4";

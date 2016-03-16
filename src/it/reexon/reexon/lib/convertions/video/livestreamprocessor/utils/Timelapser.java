@@ -17,10 +17,10 @@
  
 package it.reexon.reexon.lib.convertions.video.livestreamprocessor.utils; 
  
-import java.io.File; 
- 
-import com.xuggle.mediatool.IMediaReader; 
-import com.xuggle.mediatool.IMediaWriter; 
+import java.io.File;
+
+import com.xuggle.mediatool.IMediaReader;
+import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory; 
  
 public class Timelapser extends Processor { 

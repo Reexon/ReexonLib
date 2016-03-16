@@ -3,8 +3,6 @@
  */
 package it.reexon.reexon.lib.convertions.dwg.tests;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 

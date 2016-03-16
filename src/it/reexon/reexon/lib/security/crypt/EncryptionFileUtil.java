@@ -58,10 +58,13 @@ public class EncryptionFileUtil
                 cos.write(b, 0, i);
                 i = fis.read(b);
             }
-
+            
+            cos.flush();
+            
             //write key to file
             byte[] keyEncoded = key.getEncoded();
             kos.write(keyEncoded);
+            kos.flush();
         }
         finally
         {

@@ -17,32 +17,17 @@
  
 package net.sapium.livestreamprocessor.gui; 
  
-import java.io.File; 
- 
-import net.sapium.livestreamprocessor.utils.MediaTimelapser; 
-import net.sapium.livestreamprocessor.utils.ProgressChangedListener; 
-import net.sapium.livestreamprocessor.utils.Timelapser; 
-import net.sapium.livestreamprocessor.utils.VideoData; 
- 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyEvent; 
-import org.eclipse.swt.events.KeyListener; 
-import org.eclipse.swt.events.ModifyEvent; 
-import org.eclipse.swt.events.ModifyListener; 
-import org.eclipse.swt.events.SelectionEvent; 
-import org.eclipse.swt.events.SelectionListener; 
-import org.eclipse.swt.layout.FormAttachment; 
-import org.eclipse.swt.layout.FormData; 
-import org.eclipse.swt.layout.FormLayout; 
-import org.eclipse.swt.widgets.Button; 
-import org.eclipse.swt.widgets.Composite; 
-import org.eclipse.swt.widgets.Event; 
-import org.eclipse.swt.widgets.FileDialog; 
-import org.eclipse.swt.widgets.Label; 
-import org.eclipse.swt.widgets.Listener; 
-import org.eclipse.swt.widgets.Scale; 
-import org.eclipse.swt.widgets.Shell; 
-import org.eclipse.swt.widgets.Text; 
+import java.awt.Button;
+import java.awt.Composite;
+import java.awt.FileDialog;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.File;
+
+import it.reexon.reexon.lib.convertions.video.livestreamprocessor.utils.MediaTimelapser;
+import it.reexon.reexon.lib.convertions.video.livestreamprocessor.utils.ProgressChangedListener;
+import it.reexon.reexon.lib.convertions.video.livestreamprocessor.utils.Timelapser;
+import it.reexon.reexon.lib.convertions.video.livestreamprocessor.utils.VideoData; 
  
 public class TimelapseTab extends TabContent { 
     private static final int maxSpeedup = 500; 

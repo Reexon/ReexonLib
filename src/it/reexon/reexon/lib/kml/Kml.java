@@ -4,11 +4,8 @@
 package it.reexon.reexon.lib.kml;
 
 import java.util.Iterator;
-import java.util.List;
 
 import org.apache.commons.lang3.RandomUtils;
-
-import com.google.common.collect.Lists;
 
 
 /**

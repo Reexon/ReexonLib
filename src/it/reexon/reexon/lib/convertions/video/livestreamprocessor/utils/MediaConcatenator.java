@@ -23,17 +23,17 @@
  
 package it.reexon.reexon.lib.convertions.video.livestreamprocessor.utils; 
  
-import com.xuggle.mediatool.MediaToolAdapter; 
-import com.xuggle.mediatool.event.AudioSamplesEvent; 
-import com.xuggle.mediatool.event.IAddStreamEvent; 
-import com.xuggle.mediatool.event.IAudioSamplesEvent; 
-import com.xuggle.mediatool.event.ICloseCoderEvent; 
-import com.xuggle.mediatool.event.ICloseEvent; 
-import com.xuggle.mediatool.event.IOpenCoderEvent; 
-import com.xuggle.mediatool.event.IOpenEvent; 
-import com.xuggle.mediatool.event.IVideoPictureEvent; 
-import com.xuggle.mediatool.event.VideoPictureEvent; 
-import com.xuggle.xuggler.IAudioSamples; 
+import com.xuggle.mediatool.MediaToolAdapter;
+import com.xuggle.mediatool.event.AudioSamplesEvent;
+import com.xuggle.mediatool.event.IAddStreamEvent;
+import com.xuggle.mediatool.event.IAudioSamplesEvent;
+import com.xuggle.mediatool.event.ICloseCoderEvent;
+import com.xuggle.mediatool.event.ICloseEvent;
+import com.xuggle.mediatool.event.IOpenCoderEvent;
+import com.xuggle.mediatool.event.IOpenEvent;
+import com.xuggle.mediatool.event.IVideoPictureEvent;
+import com.xuggle.mediatool.event.VideoPictureEvent;
+import com.xuggle.xuggler.IAudioSamples;
 import com.xuggle.xuggler.IVideoPicture; 
  
 public class MediaConcatenator extends MediaToolAdapter { 

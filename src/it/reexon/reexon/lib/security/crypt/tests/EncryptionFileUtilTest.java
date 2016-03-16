@@ -14,13 +14,13 @@ import it.reexon.reexon.lib.security.crypt.EncryptionFileUtil;
 public class EncryptionFileUtilTest
 {
 
-    @Test(timeout = 1000L)
+    @Test
     public final void EncryptTest() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IOException
     {
         EncryptionFileUtil.encrypt();
     }
 
-    @Test(timeout = 1000L)
+    @Test
     public final void DecryptTest() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IOException
     {
         EncryptionFileUtil.decrypt();

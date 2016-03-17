@@ -26,7 +26,7 @@ public class EncryptionUtilTest
             {
                 // Method generates a pair of keys using the RSA algorithm and stores it
                 // in their respective files
-                EncryptionUtil.generateKey();
+                EncryptionUtil.generateKeyFile();
             }
 
             final String originalText = "Text to be encrypted ";

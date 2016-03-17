@@ -46,7 +46,7 @@ public class EncryptionUtil
      * @throws IOException
      * @throws FileNotFoundException
      */
-    public static void generateKey()
+    public static void generateKeyFile()
     {
         try
         {
@@ -178,7 +178,7 @@ public class EncryptionUtil
             {
                 // Method generates a pair of keys using the RSA algorithm and stores it
                 // in their respective files
-                generateKey();
+                generateKeyFile();
             }
 
             final String originalText = "Text to be encrypted ";

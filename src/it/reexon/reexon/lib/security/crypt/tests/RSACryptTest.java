@@ -2,7 +2,7 @@ package it.reexon.reexon.lib.security.crypt.tests;
 
 import org.junit.Test;
 
-import it.reexon.reexon.lib.security.crypt.RSACrypt;
+import it.reexon.reexon.lib.security.crypt.algorithmics.RSACrypt;
 
 
 public class RSACryptTest

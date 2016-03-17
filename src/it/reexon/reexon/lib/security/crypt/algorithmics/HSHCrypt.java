@@ -1,4 +1,4 @@
-package it.reexon.reexon.lib.security.crypt;
+package it.reexon.reexon.lib.security.crypt.algorithmics;
 
 /**
  * A 'hash algorithm' is used for computing a condensed representation of a fixed length message/file. 

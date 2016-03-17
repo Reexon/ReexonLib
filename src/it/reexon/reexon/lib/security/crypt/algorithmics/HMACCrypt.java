@@ -1,4 +1,4 @@
-package it.reexon.reexon.lib.security.crypt;
+package it.reexon.reexon.lib.security.crypt.algorithmics;
 
 /**
  * HMAC is a hashing method that uses a key in conjunction with an algorithm such as MD5 or SHA-1. 

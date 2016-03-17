@@ -1,4 +1,4 @@
-package it.reexon.reexon.lib.security.crypt;
+package it.reexon.reexon.lib.security.crypt.algorithmics;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

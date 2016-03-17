@@ -1,4 +1,4 @@
-package it.reexon.reexon.lib.security.crypt;
+package it.reexon.reexon.lib.security.crypt.algorithmics;
 
 /**
  * MD5 is a hashing algorithm that takes a message of up to 264 bits and reduces it to a digest of 128 bits (16 bytes).

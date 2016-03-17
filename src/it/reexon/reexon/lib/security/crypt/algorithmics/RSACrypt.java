@@ -1,4 +1,4 @@
-package it.reexon.reexon.lib.security.crypt;
+package it.reexon.reexon.lib.security.crypt.algorithmics;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

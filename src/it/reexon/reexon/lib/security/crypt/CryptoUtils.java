@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 
@@ -32,22 +33,22 @@ public class CryptoUtils
     private static final String ALGORITHM = "AES";
     private static final String TRANSFORMATION = "AES";
 
-    public static void encrypt(String key, File inputFile, File outputFile) throws CryptoException
+    public static void encrypt(Key key, File inputFile, File outputFile) throws CryptoException
     {
         doCrypto(Cipher.ENCRYPT_MODE, key, inputFile, outputFile);
     }
 
-    public static void decrypt(String key, File inputFile, File outputFile) throws CryptoException
+    public static void decrypt(Key key, File inputFile, File outputFile) throws CryptoException
     {
         doCrypto(Cipher.DECRYPT_MODE, key, inputFile, outputFile);
     }
 
-    private static void doCrypto(int cipherMode, String key, File inputFile, File outputFile) throws CryptoException
+    private static void doCrypto(int cipherMode, Key secretKey, File inputFile, File outputFile) throws CryptoException
     {
         try
         {
             //            Key secretKey = new SecretKeySpec(key.getBytes(), ALGORITHM);
-            Key secretKey = getSecretKey();
+            //            Key secretKey = getSecretKey();
 
             Cipher cipher = Cipher.getInstance(TRANSFORMATION);
             cipher.init(cipherMode, secretKey);
@@ -65,8 +66,8 @@ public class CryptoUtils
             outputStream.close();
 
         }
-        catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException | IOException
-                | InvalidKeySpecException ex)
+        catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException
+                | IOException ex)
         {
             throw new CryptoException("Error encrypting/decrypting file", ex);
         }

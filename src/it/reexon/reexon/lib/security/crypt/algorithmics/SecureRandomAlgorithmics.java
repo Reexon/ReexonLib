@@ -1,7 +1,13 @@
 package it.reexon.reexon.lib.security.crypt.algorithmics;
 
+/**
+ * @author marco.velluto
+ */
 public final class SecureRandomAlgorithmics
 {
+    public SecureRandomAlgorithmics()
+    {}
+
     /* Obtains random numbers from the underlying native OS. 
      * No assertions are made as to the blocking nature of generating these numbers. */
     public static final String NativePRNG = "NativePRNG";

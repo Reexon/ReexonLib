@@ -3,6 +3,7 @@ package it.reexon.reexon.lib.security.crypt.tests;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.security.Key;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,13 +20,13 @@ public class CryptoUtilsTest
     @Test
     public final void cryptoTest()
     {
-        String key = "Mary has one cat1";
         File inputFile = new File("resources\\tests\\document.txt");
         File encryptedFile = new File("resources\\tests\\document.encrypted");
         File decryptedFile = new File("resources\\tests\\document.decrypted");
 
         try
         {
+            Key key = CryptoUtils.getSecretKey();
             CryptoUtils.encrypt(key, inputFile, encryptedFile);
             CryptoUtils.decrypt(key, encryptedFile, decryptedFile);
         }

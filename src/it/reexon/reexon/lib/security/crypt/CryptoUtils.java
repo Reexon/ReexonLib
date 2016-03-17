@@ -47,9 +47,6 @@ public class CryptoUtils
     {
         try
         {
-            //            Key secretKey = new SecretKeySpec(key.getBytes(), ALGORITHM);
-            //            Key secretKey = getSecretKey();
-
             Cipher cipher = Cipher.getInstance(TRANSFORMATION);
             cipher.init(cipherMode, secretKey);
 

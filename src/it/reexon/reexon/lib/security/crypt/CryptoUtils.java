@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 
@@ -25,7 +24,8 @@ import it.reexon.reexon.lib.security.crypt.exceptions.CryptoException;
 
 /**
  * A utility class that encrypts or decrypts a file.
- * if trows "Illegal key size or default parameters" @see this {@http://stackoverflow.com/questions/6481627/java-security-illegal-key-size-or-default-parameters}
+ * if @throws "Illegal key size or default parameters" @see this {@http://stackoverflow.com/questions/6481627/java-security-illegal-key-size-or-default-parameters}
+ * 
  * @since Java 1.8
  */
 public class CryptoUtils

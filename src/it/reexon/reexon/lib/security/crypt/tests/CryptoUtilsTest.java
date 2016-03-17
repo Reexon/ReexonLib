@@ -18,11 +18,11 @@ public class CryptoUtilsTest
      * @see {@http://www.codejava.net/coding/file-encryption-and-decryption-simple-example}
      */
     @Test
-    public final void cryptoTest()
+    public final void cryptoTextTest()
     {
-        File inputFile = new File("resources\\tests\\document.txt");
-        File encryptedFile = new File("resources\\tests\\document.encrypted");
-        File decryptedFile = new File("resources\\tests\\document.decrypted");
+        File inputFile = new File("resources\\tests\\CryptoUtilsTest\\document.txt");
+        File encryptedFile = new File("resources\\tests\\CryptoUtilsTest\\document.encrypted");
+        File decryptedFile = new File("resources\\tests\\CryptoUtilsTest\\document.decrypted");
 
         try
         {
@@ -64,6 +64,27 @@ public class CryptoUtilsTest
             ex.printStackTrace();
             Assert.fail();
         }
+    }
 
+    @Test
+    public final void cryptoPDFTest()
+    {
+        File inputFile = new File("resources\\tests\\CryptoUtilsTest\\documentPdf.pdf");
+        File encryptedFile = new File("resources\\tests\\CryptoUtilsTest\\documentPdf.encrypted");
+        File decryptedFile = new File("resources\\tests\\CryptoUtilsTest\\documentPdf.decrypted");
+
+        try
+        {
+            Key key = CryptoUtils.getSecretKey();
+            CryptoUtils.encrypt(key, inputFile, encryptedFile);
+            CryptoUtils.decrypt(key, encryptedFile, decryptedFile);
+            Assert.assertTrue(true);
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+            Assert.fail();
+        }
     }
 }

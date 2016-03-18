@@ -11,6 +11,7 @@ import java.io.InputStream;
 
 import it.reexon.reexon.lib.files.exceptions.FileMoveException;
 
+
 /**
  * @author marco.velluto
  *
@@ -47,7 +48,7 @@ public class FileUtils
         }
         return ous.toByteArray();
     }
-    
+
     /**
      * 
      * @param file

@@ -5,7 +5,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.AlgorithmParameters;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
-import java.security.KeyStore.PasswordProtection;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;

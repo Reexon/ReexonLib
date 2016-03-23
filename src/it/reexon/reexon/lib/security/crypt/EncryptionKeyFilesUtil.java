@@ -20,7 +20,7 @@ import javax.crypto.Cipher;
  * @see https://docs.oracle.com/javase/7/docs/technotes/guides/security/StandardNames.html#KeyPairGenerator
  * @version v1.0
  */
-public class EncryptionUtil
+public class EncryptionKeyFilesUtil
 {
 
     /**
@@ -165,7 +165,7 @@ public class EncryptionUtil
     }
 
     /**
-     * Test the EncryptionUtil
+     * Test the EncryptionKeyFilesUtil
      */
     public static void main(String[] args)
     {

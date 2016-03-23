@@ -8,7 +8,7 @@ import java.security.PublicKey;
 import org.junit.Assert;
 import org.junit.Test;
 
-import it.reexon.reexon.lib.security.crypt.EncryptionUtil;
+import it.reexon.reexon.lib.security.crypt.EncryptionKeyFilesUtil;
 
 
 public class EncryptionUtilTest
@@ -17,28 +17,28 @@ public class EncryptionUtilTest
     @Test
     public final void testRSA()
     {
-        try (ObjectInputStream publicInputStream = new ObjectInputStream(new FileInputStream(EncryptionUtil.PUBLIC_KEY_FILE));
-                ObjectInputStream privateInputStream = new ObjectInputStream(new FileInputStream(EncryptionUtil.PRIVATE_KEY_FILE));)
+        try (ObjectInputStream publicInputStream = new ObjectInputStream(new FileInputStream(EncryptionKeyFilesUtil.PUBLIC_KEY_FILE));
+                ObjectInputStream privateInputStream = new ObjectInputStream(new FileInputStream(EncryptionKeyFilesUtil.PRIVATE_KEY_FILE));)
         {
 
             // Check if the pair of keys are present else generate those.
-            if (!EncryptionUtil.areKeysPresent())
+            if (!EncryptionKeyFilesUtil.areKeysPresent())
             {
                 // Method generates a pair of keys using the RSA algorithm and stores it
                 // in their respective files
-                EncryptionUtil.generateKeyFile();
+                EncryptionKeyFilesUtil.generateKeyFile();
             }
 
             final String originalText = "Text to be encrypted ";
             // Encrypt the string using the public key
 
             final PublicKey publicKey = (PublicKey) publicInputStream.readObject();
-            final byte[] cipherText = EncryptionUtil.encrypt(originalText, publicKey);
+            final byte[] cipherText = EncryptionKeyFilesUtil.encrypt(originalText, publicKey);
 
             // Decrypt the cipher text using the private key.
 
             final PrivateKey privateKey = (PrivateKey) privateInputStream.readObject();
-            final String plainText = EncryptionUtil.decrypt(cipherText, privateKey);
+            final String plainText = EncryptionKeyFilesUtil.decrypt(cipherText, privateKey);
 
             // Printing the Original, Encrypted and Decrypted Text
             System.out.println("Original: " + originalText);
@@ -55,10 +55,10 @@ public class EncryptionUtilTest
     @Test
     public void testEncrypt()
     {
-        try (ObjectInputStream publicInputStream = new ObjectInputStream(new FileInputStream(EncryptionUtil.PUBLIC_KEY_FILE));)
+        try (ObjectInputStream publicInputStream = new ObjectInputStream(new FileInputStream(EncryptionKeyFilesUtil.PUBLIC_KEY_FILE));)
         {
             final PublicKey publicKey = (PublicKey) publicInputStream.readObject();
-            byte[] cypt = EncryptionUtil.encrypt("CIAO!!!!", publicKey);
+            byte[] cypt = EncryptionKeyFilesUtil.encrypt("CIAO!!!!", publicKey);
             System.out.println("Crypt: " + cypt.toString());
         }
         catch (Exception e)

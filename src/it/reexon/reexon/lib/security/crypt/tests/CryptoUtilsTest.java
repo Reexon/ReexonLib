@@ -13,8 +13,10 @@ import it.reexon.reexon.lib.security.crypt.CryptoUtils;
 
 public class CryptoUtilsTest
 {
+    
 
     /**
+     * @exception java.security.InvalidKeyException: Illegal key size or default parameters
      * @see {@http://www.codejava.net/coding/file-encryption-and-decryption-simple-example}
      */
     @Test
@@ -22,7 +24,7 @@ public class CryptoUtilsTest
     {
         File inputFile = new File("resources\\tests\\CryptoUtilsTest\\document.txt");
         File encryptedFile = new File("resources\\tests\\CryptoUtilsTest\\document.encrypted");
-        File decryptedFile = new File("resources\\tests\\CryptoUtilsTest\\document.decrypted");
+        File decryptedFile = new File("resources\\tests\\CryptoUtilsTest\\document.decrypted.txt");
 
         try
         {
@@ -66,12 +68,11 @@ public class CryptoUtilsTest
         }
     }
 
-    @Test
     public final void cryptoPDFTest()
     {
         File inputFile = new File("resources\\tests\\CryptoUtilsTest\\documentPdf.pdf");
         File encryptedFile = new File("resources\\tests\\CryptoUtilsTest\\documentPdf.encrypted");
-        File decryptedFile = new File("resources\\tests\\CryptoUtilsTest\\documentPdf.decrypted");
+        File decryptedFile = new File("resources\\tests\\CryptoUtilsTest\\documentPdf.decrypted.pdf");
 
         try
         {

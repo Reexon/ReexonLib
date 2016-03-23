@@ -1,2 +1,4 @@
 # ReexonLib
-![Build Status](https://travis-ci.org/Reexon/ReexonLib.svg?branch=master)&nbsp;
+
+<h4>Required</h4>
+Java 8

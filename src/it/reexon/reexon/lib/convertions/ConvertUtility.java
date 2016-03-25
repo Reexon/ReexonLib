@@ -11,12 +11,11 @@ public class ConvertUtility
      */
     public static String byteArrayToHexString(byte[] byteArray)
     {
-        String result = "";
-
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < byteArray.length; i++)
         {
-            result += Integer.toString((byteArray[i] & 0xff) + 0x100, 16).substring(1);
+            sb.append(Integer.toString((byteArray[i] & 0xff) + 0x100, 16).substring(1));
         }
-        return result;
+        return sb.toString();
     }
 }

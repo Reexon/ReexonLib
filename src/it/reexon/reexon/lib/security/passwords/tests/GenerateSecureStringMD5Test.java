@@ -1,12 +1,11 @@
 package it.reexon.reexon.lib.security.passwords.tests;
 
 import static it.reexon.reexon.lib.security.passwords.GenerateSecureStringMD5.generateSecurePassword;
-import static it.reexon.reexon.lib.security.passwords.GenerateSecureStringMD5.getSalt;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import it.reexon.reexon.lib.convertions.ConvertUtility;
+import it.reexon.reexon.lib.security.GenerateSecureSalt;
 
 
 public class GenerateSecureStringMD5Test
@@ -35,7 +34,7 @@ public class GenerateSecureStringMD5Test
         try
         {
 
-            String passwordCrypted = generateSecurePassword("Passw0rd!", getSalt());
+            String passwordCrypted = generateSecurePassword("Passw0rd!", GenerateSecureSalt.getSalt());
             System.out.println(passwordCrypted);
 
         }
@@ -45,23 +44,4 @@ public class GenerateSecureStringMD5Test
             fail(e.getMessage());
         }
     }
-
-    @Test
-    public final void testGetSalt()
-    {
-        System.out.println(" --- testGetSalt --- ");
-        try
-        {
-
-            String salt = getSalt();
-            System.out.println(ConvertUtility.byteArrayToHexString(salt.getBytes()));
-
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            fail(e.getMessage());
-        }
-    }
-
 }

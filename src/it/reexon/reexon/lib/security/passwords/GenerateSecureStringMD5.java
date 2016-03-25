@@ -2,11 +2,15 @@ package it.reexon.reexon.lib.security.passwords;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 
 import it.reexon.reexon.lib.convertions.ConvertUtility;
 
 
+/**
+ * Simple and more secure password security using MD5 algorithm
+ * @author marco.velluto
+ *
+ */
 public class GenerateSecureStringMD5
 {
 
@@ -37,23 +41,30 @@ public class GenerateSecureStringMD5
      * @return Secure String
      * @throws NoSuchAlgorithmException
      */
-    public static String generateSecurePassword(String passwordToHash) throws NoSuchAlgorithmException
+    public static String generateSecurePassword(String passwordToHash)
     {
         String generatedPassword = null;
 
-        //Create MessageDigest instance for MD5
-        MessageDigest md = MessageDigest.getInstance("MD5");
+        try
+        {
+            //Create MessageDigest instance for MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
 
-        //Add password bytes to digest
-        md.update(passwordToHash.getBytes());
+            //Add password bytes to digest
+            md.update(passwordToHash.getBytes());
 
-        //Get the hash's bytes 
-        byte[] bytes = md.digest();
+            //Get the hash's bytes 
+            byte[] bytes = md.digest();
 
-        //This bytes[] has byte in decimal format
-        //Convert it to hexadecimal format
-        //Get complete hashed password in hex format
-        generatedPassword = ConvertUtility.byteArrayToHexString(bytes);
+            //This bytes[] has byte in decimal format
+            //Convert it to hexadecimal format
+            //Get complete hashed password in hex format
+            generatedPassword = ConvertUtility.byteArrayToHexString(bytes);
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
 
         return generatedPassword;
     }
@@ -82,46 +93,26 @@ public class GenerateSecureStringMD5
      * @return
      * @throws NoSuchAlgorithmException
      */
-    public static String generateSecurePassword(String passwordToHash, String salt) throws NoSuchAlgorithmException
+    public static String generateSecurePassword(String passwordToHash, String salt)
     {
         String generatedPassword = null;
+        try
+        {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            //Add password bytes to digest
+            md.update(salt.getBytes());
+            //Get the hash's bytes 
+            byte[] bytes = md.digest(passwordToHash.getBytes());
+            //This bytes[] has bytes in decimal format;
+            //Convert it to hexadecimal format
+            //Get complete hashed password in hex format
+            generatedPassword = ConvertUtility.byteArrayToHexString(bytes);
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
         // Create MessageDigest instance for MD5
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        //Add password bytes to digest
-        md.update(salt.getBytes());
-        //Get the hash's bytes 
-        byte[] bytes = md.digest(passwordToHash.getBytes());
-        //This bytes[] has bytes in decimal format;
-        //Convert it to hexadecimal format
-        //Get complete hashed password in hex format
-        generatedPassword = ConvertUtility.byteArrayToHexString(bytes);
         return generatedPassword;
-    }
-
-    /**
-     * Create a random salt using SHA1PRNG algorithm
-     * 
-     * <p>
-     * Note:
-     * SHA1PRNG algorithm is used as cryptographically strong pseudo-random number generator based on the SHA-1 message digest algorithm. 
-     * Note that if a seed is not provided, it will generate a seed from a true random number generator (TRNG).
-     * </p>
-     * 
-     * @return
-     * @throws NoSuchAlgorithmException
-     */
-    public static String getSalt() throws NoSuchAlgorithmException
-    {
-        //Always use a SecureRandom generator
-        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
-
-        //Create array for salt
-        byte[] salt = new byte[16];
-
-        //Get a random salt
-        sr.nextBytes(salt);
-
-        //return salt
-        return salt.toString();
     }
 }

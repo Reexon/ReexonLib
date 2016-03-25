@@ -8,6 +8,8 @@ import java.security.PublicKey;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.sun.org.apache.xml.internal.security.utils.Base64;
+
 import it.reexon.reexon.lib.security.crypt.EncryptionKeyFilesUtil;
 
 
@@ -42,6 +44,7 @@ public class EncryptionUtilTest
 
             // Printing the Original, Encrypted and Decrypted Text
             System.out.println("Original: " + originalText);
+            System.out.println("Encrypted: " + Base64.encode(cipherText).toString());
             System.out.println("Encrypted: " + cipherText.toString());
             System.out.println("Decrypted: " + plainText);
         }
@@ -59,7 +62,7 @@ public class EncryptionUtilTest
         {
             final PublicKey publicKey = (PublicKey) publicInputStream.readObject();
             byte[] cypt = EncryptionKeyFilesUtil.encrypt("CIAO!!!!", publicKey);
-            System.out.println("Crypt: " + cypt.toString());
+            System.out.println("Crypt: " + Base64.encode(cypt).toString());
         }
         catch (Exception e)
         {

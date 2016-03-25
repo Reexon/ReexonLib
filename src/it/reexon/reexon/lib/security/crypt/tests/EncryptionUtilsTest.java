@@ -3,7 +3,9 @@ package it.reexon.reexon.lib.security.crypt.tests;
 import org.junit.Assert;
 import org.junit.Test;
 
+import it.reexon.reexon.lib.security.GenerateSecureString;
 import it.reexon.reexon.lib.security.crypt.EncryptionUtils;
+import it.reexon.reexon.lib.security.crypt.algorithmics.SecureRandomAlgorithmics;
 
 
 public class EncryptionUtilsTest
@@ -12,7 +14,9 @@ public class EncryptionUtilsTest
     @Test
     public final void test() throws Exception
     {
-        final EncryptionUtils td = new EncryptionUtils("ThisIsSpartaThisIsSparta");
+        String password = GenerateSecureString.secureString(1024, SecureRandomAlgorithmics.SHA1PRNG);
+        System.out.println(password);
+        final EncryptionUtils td = new EncryptionUtils(password);
 
         String target = "password@123";
         String encrypted = td.encrypt(target);
@@ -38,7 +42,6 @@ public class EncryptionUtilsTest
     public final String testEncrypt(String stringToEncrypted, String password) throws Exception
     {
         final EncryptionUtils td = new EncryptionUtils(password);
-
         return td.encrypt(stringToEncrypted);
     }
 

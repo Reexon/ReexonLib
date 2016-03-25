@@ -1,5 +1,8 @@
 package it.reexon.reexon.lib.security.crypt;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 
 import javax.crypto.Cipher;
@@ -20,7 +23,7 @@ public class EncryptionUtils
     byte[] arrayBytes;
     private String myEncryptionKey;
     private String myEncryptionScheme;
-    SecretKey key;
+    private SecretKey key;
 
     public EncryptionUtils(String myEncryptionKey) throws Exception
     {
@@ -33,7 +36,6 @@ public class EncryptionUtils
         key = skf.generateSecret(ks);
     }
 
-    
     public EncryptionUtils() throws Exception
     {
         myEncryptionKey = "ThisIsSpartaThisIsSparta";
@@ -77,6 +79,37 @@ public class EncryptionUtils
             e.printStackTrace();
         }
         return decryptedText;
+    }
+
+    /**
+     * 
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws NoSuchProviderException
+     */
+    public static String getSalt() throws NoSuchAlgorithmException, NoSuchProviderException
+    {
+        //Always use a SecureRandom generator
+        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG", "SUN");
+        //Create array for salt
+        byte[] salt = new byte[16];
+        //Get a random salt
+        sr.nextBytes(salt);
+        //return salt
+        return salt.toString();
+    }
+
+    /**
+     * 
+     */
+    public final void destroy()
+    {
+        this.ks = null;
+        this.key = null;
+        this.skf = null;
+        this.cipher = null;
+        this.arrayBytes = null;
+        this.myEncryptionKey = null;
     }
 
 }

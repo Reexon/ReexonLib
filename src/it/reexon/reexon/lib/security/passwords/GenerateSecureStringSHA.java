@@ -128,6 +128,14 @@ public class GenerateSecureStringSHA
         return password;
     }
 
+    /**
+     * 
+     * @param passwordToHash
+     * @param salt
+     * @param algorithm
+     * @return
+     * @throws NoSuchAlgorithmException
+     */
     public static final String getSecurePassowrd(String passwordToHash, String salt, String algorithm) throws NoSuchAlgorithmException
     {
         String generatedPassword = null;

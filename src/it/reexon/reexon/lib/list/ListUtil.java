@@ -1,4 +1,4 @@
-package it.reexon.reexon.lib.list.utils;
+package it.reexon.reexon.lib.list;
 
 import java.util.ArrayList;
 import java.util.Collection;

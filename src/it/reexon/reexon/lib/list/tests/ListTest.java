@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.reexon.reexon.lib.list.utils.tests;
+package it.reexon.reexon.lib.list.tests;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,5 @@
 package it.reexon.reexon.lib.security.crypt.tests;
 
-import java.io.InputStream;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -70,11 +69,4 @@ public class DESCryptTest
         byte[] ciphertext = pbeCipher.doFinal(cleartext);
         System.out.println("ciphertext: " + ciphertext);
     }
-
-    private char[] readPassword(InputStream in)
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }

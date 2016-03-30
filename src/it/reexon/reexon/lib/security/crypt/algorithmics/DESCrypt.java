@@ -24,6 +24,7 @@ public class DESCrypt
 {
     Cipher cipher;
 
+    @SuppressWarnings("unused")
     public DESCrypt(SecretKey key)
     {
         try
@@ -40,6 +41,7 @@ public class DESCrypt
         {}
     }
 
+    @SuppressWarnings({ "unused", "hiding" })
     public String encrypt(String stringa)
     {
         try

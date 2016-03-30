@@ -1,7 +1,6 @@
 package it.reexon.reexon.lib.security.crypt.algorithmics;
 
 import java.math.BigInteger;
-import java.security.SecureRandom;
 import java.util.Random;
 
 
@@ -26,7 +25,6 @@ import java.util.Random;
  */
 public class RSACrypt
 {
-    private final static SecureRandom random = new SecureRandom();
     private final static BigInteger one = new BigInteger("1");
 
     private BigInteger modulus;
@@ -38,8 +36,6 @@ public class RSACrypt
     {
         BigInteger p = BigInteger.probablePrime(bitLength / 2, new Random());
         BigInteger q = BigInteger.probablePrime(bitLength / 2, new Random());
-//        BigInteger p = BigInteger.probablePrime(bitLength, new Random());
-//        BigInteger q = BigInteger.probablePrime(bitLength, new Random());
         BigInteger phi = (p.subtract(one)).multiply(q.subtract(one));
 
         this.modulus = p.multiply(q);

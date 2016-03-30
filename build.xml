@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE project>
-<project name="pcp-tabelledominio" basedir="." 
-	xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:if="ant:if" xmlns:unless="ant:unless">
+<project name="reexon.lib" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:if="ant:if" xmlns:unless="ant:unless">
 
-	<property name="project.local.lib" value="${basedir}/webapp/WEB-INF/lib" />
-
-	<property name="ivy.resolver" value="cst" />
+	<property name="ivy.resolver" value="reexon" />
 	<property name="ivy.dep.file" value="${basedir}/dependencies.xml" />
 	<property file="build.properties" />
-	<property name="project.local.lib" value="${basedir}/webapp/WEB-INF/lib" />
+	<property name="project.local.lib" value="${basedir}/lib" />
 	<property environment="env" />
-
 
 
 	<!-- Properties -->
 
 	<path id="phoenix.web.classpath">
-		<fileset dir="${basedir}/webapp/WEB-INF/lib">
+		<fileset dir="${basedir}/lib">
 			<include name="*.jar" />
 		</fileset>
 	</path>
@@ -30,6 +26,30 @@
 		<antcall target="ivy-retrieve-eclipse" />
 		<antcall target="prepare" />
 		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
+	</target>
+	
+	<target name="1 - prepareManual" description="Prepares a nightly Phoenix build">
+		<antcall target="clean" />
+		<antcall target="ivy-retrieve-eclipse" />
+		<mkdir dir="zips" />
+		<touch file="zips/DOWNLOAD_PHOENIX_ZIP_HERE" />
+	
+		<echo message="******************************************************************" />
+		<echo message="*  Be sure to download Phoenix.zip from Bamboo to zips/          *" />
+		<echo message="******************************************************************" />
+	
+		<input message="Now type OK" validargs="ok,OK" />
+	
+		<condition property="zipOk">
+			<resourcecount count="1" when="ge">
+				<fileset id="fs" dir="zips" includes="phoenix*.zip" />
+			</resourcecount>
+		</condition>
+	
+		<fail message="Did you download Phoenix!?!!?!??!?! Phoenix zip must be in zips/" unless="zipOk" />
+	
+		<!-- TODO usare Bamboo API per scaricare artifact -->
+		<antcall target="unzip" />
 	</target>
 
 	<target name="2 - jar" description="Pack project classes into jar library and increase build.number.">
@@ -48,9 +68,17 @@
 		<antcall target="war" />
 	</target>
 
-
 	<target name="5 - dist" description="Create distributable version" depends="dist" />
-
+	
+	<target name="6 - deploy-test" description="Build WAR and deploy to test environment">
+		<antcall target="1 - prepare" />
+		<antcall target="4 - war" />
+		
+		<antcall target="deploy-test" />
+		
+		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
+	</target>
+	
 	<!-- BUILD TARGETS -->
 
 	<target name="clean">
@@ -75,7 +103,7 @@
 		<antcall target="ivy-retrieve-zip" />
 
 		<antcall target="unzip" />
-		
+
 		<delete dir="zips" failonerror="true" />
 	</target>
 
@@ -118,12 +146,12 @@
 		<delete dir="build/compiled/META-INF" failonerror="false" />
 		<mkdir dir="build/compiled/META-INF" />
 
-		<javac includeantruntime="false" srcdir="src" destdir="build/compiled" deprecation="on" target="1.7" source="1.7" debug="true" verbose="false" classpathref="phoenix.web.classpath" encoding="utf-8" />
+		<javac includeantruntime="false" srcdir="src" destdir="build/compiled" deprecation="on" target="1.8" source="1.8" debug="true" verbose="false" classpathref="phoenix.web.classpath" encoding="utf-8" />
 
 		<jar compress="true" destfile="build/publish/${artifact.name}-${version}.jar">
 			<manifest>
-				<attribute name="Built-By" value="${user.name}" />
-				<attribute name="Specification-Title" value="${module.name}" />
+				<attribute name="Built-By" value="CST" />
+				<attribute name="Specification-Title" value="Copernico" />
 				<attribute name="Specification-Version" value="${version}" />
 				<attribute name="Specification-Vendor" value="CST srl" />
 				<attribute name="Implementation-Version" value="${build.number}" />
@@ -158,7 +186,7 @@
 
 		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
 	</target>
-	
+
 	<target name="unzip">
 		<unzip dest="temp" overwrite="true">
 			<patternset>
@@ -173,7 +201,10 @@
 			<fileset dir="temp/phoenix-conf" />
 		</copy>
 		<copy overwrite="true" todir="webapp" failonerror="false">
-			<fileset dir="temp/webapp" />
+			<fileset dir="temp/webapp">
+				<exclude name="login.jsp" />
+				<exclude name="changepassword.jsp" />
+			</fileset>
 		</copy>
 
 		<mkdir dir="webapp/secure/${context.name}" />
@@ -206,9 +237,9 @@
 		<jar compress="true" destfile="build/publish/${artifact.name}-test-${version}.jar">
 			<manifest>
 				<attribute name="Built-By" value="${user.name}" />
-				<attribute name="Specification-Title" value="TABELLE DOMINIO" />
+				<attribute name="Specification-Title" value="Copernico" />
 				<attribute name="Specification-Version" value="${version}" />
-				<attribute name="Specification-Vendor" value="CST Technobank" />
+				<attribute name="Specification-Vendor" value="CST srl " />
 			</manifest>
 			<fileset dir="build/compiled-test">
 				<include name="**/*" />
@@ -226,6 +257,7 @@
 
 	<target name="war">
 		<fail unless:set="module.pcp" message="Please at least tell me if this project is a PCP project in build.properties!!"/>
+		<setVersion />
 		<mkdir dir="build/publish" />
 		<mkdir dir="build/lib-runtime" />
 		<condition property="jarOk">
@@ -241,7 +273,7 @@
 		<echo level="info" message="Creating distributable version..." />
 		<echo level="info" />
 
-		<war destfile="build/war/${context.name}.war">
+		<war destfile="build/war/${context.name}-${version}.war">
 			<fileset dir="webapp/">
 				<include name="**" />
 				<exclude name="WEB-INF/lib/**" />
@@ -253,10 +285,6 @@
 			</fileset>
 
 			<lib dir="build/publish" includes="*.jar" />
-			<!--
-			<lib dir="build/publish" includes="*.jar" unless:true="${module.pcp}" />
-			<lib dir="build/publish/pcp" includes="*.jar" if:true="${module.pcp}" />
-			-->
 			<lib dir="build/lib-runtime" />
 		</war>
 		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
@@ -284,8 +312,8 @@
 			</fileset>
 		</copy>
 
-		<mkdir dir="build/dist/webapp/META-INF" />
-		<mkdir dir="build/dist/webapp/WEB-INF/lib" />
+		<mkdir dir="build/dist//META-INF" />
+		<mkdir dir="build/dist/lib" />
 
 		<zip destfile="build/publish/${artifact.name}-${version}.zip">
 			<fileset dir="build/dist" />
@@ -322,6 +350,25 @@
 		<antcall target="ivy-release" />
 	</target>
 
+	<target name="deploy-test">
+		<sequential>
+			<setVersion />
+			
+			<loadproperties srcfile="app-conf/test/deploy/deploy.test.properties" />
+	
+			<echo>Connessione a ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.ssh.project_dir}</echo>
+			<echo>Password utente tomcat: ${deploy.ssh.password}</echo>
+	
+			<scp file="build/war/${context.name}-${version}.war" todir="${deploy.ssh.user}@${deploy.ssh.host}:${deploy.ssh.project_dir}" password="${deploy.ssh.password}" trust="true" verbose="true" />
+	
+			<sshexec host="${deploy.ssh.host}" trust="true" usepty="true" username="${deploy.ssh.user}" password="${deploy.ssh.password}" command="sh ${deploy.ssh.project_dir}/deploy.sh ${deploy.ssh.project_dir}/${context.name}-${version}.war ${deploy.ssh.project_dir}" />
+			
+			<echo message="******************************************************************" />
+			<echo message="*     Deploy completed successfully for Copenrico ${version}     *" />
+			<echo message="******************************************************************" />
+		</sequential>
+	</target>
+	
 	<target name="testVersion">
 		<setVersion />
 	</target>
@@ -382,7 +429,14 @@
 		</sequential>
 	</macrodef>
 
+	<target name="pushJavascriptVersion">
+		<echo message="Pushing build number for javascript files" />
+		<setVersion />
 
+		<replace file="webapp/common/common.jsp" token="Phoenix.getPhoenixVersion()" value="&quot;${version}-${build.number}&quot;"></replace>
+		<replace file="webapp/secure/copernico/dashboard/pages/index.jsp" token="${applicationVersion}" value="${version}-${build.number}"></replace>
+		<replace file="webapp/secure/copernico/dashboard/pages/js.jsp" token="${applicationVersion}" value="${version}-${build.number}"></replace>
+	</target>
 
 	<!-- IVY TARGETS -->
 	<target name="ivy-report">
@@ -395,7 +449,7 @@
 
 	<target name="ivy-retrieve-eclipse">
 		<ivy:configure override="true" file="${ivy.install.dir}/ivy-settings.xml" />
-		<ivy:retrieve sync="true" conf="*" type="jar,bundle" pattern="${project.local.lib}/[artifact]-[revision].[ext]" />
+		<ivy:retrieve sync="true" conf="compile,runtime,junit" type="jar,bundle" pattern="${project.local.lib}/[artifact]-[revision].[ext]" />
 
 		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
 	</target>

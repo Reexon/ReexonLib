@@ -12,7 +12,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import it.reexon.reexon.lib.date.utils.DateUtils;
+import it.reexon.reexon.lib.date.DateUtils;
 
 
 /**

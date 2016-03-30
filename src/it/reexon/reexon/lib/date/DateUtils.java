@@ -1,4 +1,4 @@
-package it.reexon.reexon.lib.date.utils;
+package it.reexon.reexon.lib.date;
 
 import java.text.ParseException;
 import java.util.ArrayList;

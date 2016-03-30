@@ -28,7 +28,7 @@ import it.reexon.reexon.lib.security.GenerateSecureSalt;
  * This value determines how slow the hash function will be. 
  * When computers become faster next year we can increase the work factor to balance it out.
  * 
- * Java has implementation of “PBKDF2” algorithm as “PBKDF2WithHmacSHA1“.
+ * Java has implementation of "PBKDF2" algorithm as "PBKDF2WithHmacSHA1".
  * </p>
  * 
  *

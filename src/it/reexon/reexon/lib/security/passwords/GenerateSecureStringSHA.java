@@ -15,7 +15,7 @@ import it.reexon.reexon.lib.convertions.ConvertUtility;
  * The SHA (Secure Hash Algorithm) is a family of cryptographic hash functions. 
  * It is very similar to MD5 except it generates more strong hashes. 
  * However these hashes are not always unique, and it means that for two different inputs we could have equal hashes. 
- * When this happens it’s called a “collision”. Chances of collision in SHA is less than MD5. 
+ * When this happens it’s called a "collision". Chances of collision in SHA is less than MD5. 
  * But, do not worry about these collisions because they are really very rare.
  * Java has 4 implementations of SHA algorithm. They generate following length hashes in comparison to MD5 (128 bit hash):
  * - SHA-1 (Simplest one – 160 bits Hash)

@@ -26,7 +26,7 @@ public class GenerateSecureStringMD5
      * Now these blocks are processed by the MD5 algorithm, which operates in a 128-bit state, and the result will be a 128-bit hash value. 
      * After applying MD5, generated hash is typically a 32-digit hexadecimal number.
      * 
-     * Here, the password to be encoded is often called the “message” and the generated hash value is called the message digest or simply “digest”
+     * Here, the password to be encoded is often called the "message" and the generated hash value is called the message digest or simply "digest"
      * 
      * Although MD5 is a widely spread hashing algorithm, is far from being secure, 
      * MD5 generates fairly weak hashes. It’s main advantages are that it is fast, and easy to implement. 
@@ -82,7 +82,7 @@ public class GenerateSecureStringMD5
      * many password hashes at once.
      * 
      * <b>Important: </b> We always need to use a SecureRandom to create good Salts, and in Java, 
-     * the SecureRandom class supports the “SHA1PRNG” pseudo random number generator algorithm, 
+     * the SecureRandom class supports the "SHA1PRNG" pseudo random number generator algorithm, 
      * and we can take advantage of it.
      * <b>Important: </b> Please note that now you have to store this salt value for every password you hash. 
      * Because when user login back in system, you must use only originally generated salt to again create the 

@@ -1,9 +1,1 @@
-it.reexon.reexon.lib.file.io
-it.reexon.reexon.lib.file.io.exception
-it.reexon.reexon.lib.file.utils
-it.reexon.reexon.lib.gpx
-it.reexon.reexon.lib.gpx.abstracts
-it.reexon.reexon.lib.gpx.tests
-it.reexon.reexon.lib.gpx.validators
-it.reexon.reexon.lib.gpx.validators.implementations
-it.reexon.reexon.lib.list.utils
+it.reexon.reexon.lib.security.passwords

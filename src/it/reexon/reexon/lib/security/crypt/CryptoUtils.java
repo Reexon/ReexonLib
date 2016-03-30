@@ -24,7 +24,8 @@ import it.reexon.reexon.lib.security.crypt.exceptions.CryptoException;
 
 /**
  * A utility class that encrypts or decrypts a file.
- * if @throws "Illegal key size or default parameters" @see this {@http://stackoverflow.com/questions/6481627/java-security-illegal-key-size-or-default-parameters}
+ * if @throws "Illegal key size or default parameters" 
+ *      @see this {@http://stackoverflow.com/questions/6481627/java-security-illegal-key-size-or-default-parameters}
  * 
  * @since Java 1.8
  */

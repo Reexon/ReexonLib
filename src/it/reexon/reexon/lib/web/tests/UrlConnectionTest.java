@@ -59,7 +59,6 @@ public class UrlConnectionTest
         }
     }
 
-    @Test
     public final void sendPostTest()
     {
         System.out.println("START --- sendPostTest");

@@ -16,7 +16,7 @@ public class GenerateSecureChecksumTest
     @Test(timeout = 10000L)
     public final void getChecksumWithAlgoritmsTest()
     {
-
+        System.out.println("getChecksumWithAlgoritmsTest");
         try
         {
             String md2 = GenerateSecureChecksum.getChecksum("C:\\Users\\Marco.Velluto\\Downloads\\IMG_5341.dng", MessageDigestAlgorithms.MD2);

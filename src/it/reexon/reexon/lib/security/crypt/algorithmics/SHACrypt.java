@@ -2,7 +2,7 @@ package it.reexon.reexon.lib.security.crypt.algorithmics;
 
 import java.security.MessageDigest;
 
-import org.apache.commons.codec.digest.MessageDigestAlgorithms;
+import it.reexon.reexon.lib.security.algorithms.MessageDigestAlgorithms;
 
 
 /**

@@ -6,9 +6,8 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import org.apache.commons.codec.digest.MessageDigestAlgorithms;
-
 import it.reexon.reexon.lib.convertions.ConvertUtility;
+import it.reexon.reexon.lib.security.algorithms.MessageDigestAlgorithms;
 
 
 /**

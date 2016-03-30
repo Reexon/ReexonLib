@@ -1,5 +1,8 @@
 package it.reexon.reexon.lib.security.checksums.tests;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -59,4 +62,29 @@ public class MD5ChecksumTest
             Assert.fail();
         }
     }
+
+    @Test(timeout = 10000L)
+    public final void testChecksumTrue()
+    {
+        System.out.println("testChecksumTrue");
+
+        try
+        {
+            String getMd5 = MD5Checksum.getMD5Checksum("C:\\Users\\Marco.Velluto\\Downloads\\IMG_5341.dng");
+
+            System.out.println("getMd5 - string: " + getMd5);
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            System.out.println("Errore in testChecksumTrue: " + e.getMessage());
+            e.printStackTrace();
+            Assert.fail();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Errore in testChecksumTrue: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 }

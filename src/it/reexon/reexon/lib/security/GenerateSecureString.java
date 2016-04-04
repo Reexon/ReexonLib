@@ -13,9 +13,8 @@ public final class GenerateSecureString
     /**
      * 
      * @return string with length 32 and SHA1PRNG algorithm
-     * @throws NoSuchAlgorithmException
      */
-    public static String secureString() throws NoSuchAlgorithmException
+    public static String secureString()
     {
         return secureString(32);
     }
@@ -26,9 +25,17 @@ public final class GenerateSecureString
      * @return
      * @throws NoSuchAlgorithmException
      */
-    public static String secureString(int stringLength) throws NoSuchAlgorithmException
+    public static String secureString(int stringLength)
     {
-        return secureString(stringLength, SecureRandomAlgorithmics.SHA1PRNG);
+        try
+        {
+            return secureString(stringLength, SecureRandomAlgorithmics.SHA1PRNG);
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     /**

@@ -1,7 +1,5 @@
 package it.reexon.reexon.lib.security.tests;
 
-import java.security.NoSuchAlgorithmException;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,14 +10,14 @@ public class GenerateSecureStringTest
 {
 
     @Test
-    public final void nextSessionId()
+    public final void secureStringTest()
     {
-        System.out.println("nextSessionId");
+        System.out.println("secureStringTest");
         try
         {
             System.out.println(GenerateSecureString.secureString());
         }
-        catch (NoSuchAlgorithmException e)
+        catch (Exception e)
         {
             System.out.println(e.getMessage());
             e.printStackTrace();

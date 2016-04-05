@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -61,6 +62,22 @@ public class FileUtils
         else
         {
             throw new FileMoveException("Il file chiamato " + file.getName() + " non è stato spostato nella directory " + newDirectory);
+        }
+    }
+
+    /**
+     * Write file on disk
+     * 
+     * @param writeFile
+     * @param outputFile
+     * 
+     * @throws IOException
+     */
+    public static void writeFile(File writeFile, File outputFile) throws IOException
+    {
+        try (OutputStream o = new FileOutputStream(outputFile);)
+        {
+            IOUtils.write(getByteFromFile(writeFile), o);
         }
     }
 

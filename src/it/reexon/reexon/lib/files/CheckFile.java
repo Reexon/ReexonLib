@@ -30,11 +30,11 @@ public class CheckFile
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public static final Boolean checkFiles(String firstFileName, String secondFileName) throws FileNotFoundException, IOException
+    public static final Boolean checkEqualsFiles(String firstFileName, String secondFileName) throws FileNotFoundException, IOException
     {
         try
         {
-            return generalCheckFiles(firstFileName, secondFileName, MessageDigestAlgorithms.SHA_256);
+            return checkEqualsFiles(firstFileName, secondFileName, MessageDigestAlgorithms.SHA_256);
         }
         catch (NoSuchAlgorithmException e)
         {
@@ -53,11 +53,11 @@ public class CheckFile
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public static final Boolean checkFasterFiles(String firstFileName, String secondFileName) throws FileNotFoundException, IOException
+    public static final Boolean checkEqualsFasterFiles(String firstFileName, String secondFileName) throws FileNotFoundException, IOException
     {
         try
         {
-            return generalCheckFiles(firstFileName, secondFileName, MessageDigestAlgorithms.MD5);
+            return checkEqualsFiles(firstFileName, secondFileName, MessageDigestAlgorithms.MD5);
         }
         catch (NoSuchAlgorithmException e)
         {
@@ -76,11 +76,11 @@ public class CheckFile
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public static final Boolean checkSlowFiles(String firstFileName, String secondFileName) throws FileNotFoundException, IOException
+    public static final Boolean checkEqualsSlowFiles(String firstFileName, String secondFileName) throws FileNotFoundException, IOException
     {
         try
         {
-            return generalCheckFiles(firstFileName, secondFileName, MessageDigestAlgorithms.SHA_512);
+            return checkEqualsFiles(firstFileName, secondFileName, MessageDigestAlgorithms.SHA_512);
         }
         catch (NoSuchAlgorithmException e)
         {
@@ -100,7 +100,7 @@ public class CheckFile
      * @throws IOException
      * @throws NoSuchAlgorithmException 
      */
-    public static Boolean generalCheckFiles(String firstFileName, String secondFileName, String algorithm)
+    public static Boolean checkEqualsFiles(String firstFileName, String secondFileName, String algorithm)
             throws IOException, NoSuchAlgorithmException
     {
         String checksumFirst = GenerateSecureChecksum.getChecksum(firstFileName, algorithm);

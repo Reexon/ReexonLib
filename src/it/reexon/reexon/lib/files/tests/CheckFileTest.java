@@ -19,7 +19,7 @@ public class CheckFileTest
         System.out.println("getChecksumWithAlgoritmsTest");
         try
         {
-            Assert.assertTrue(CheckFile.checkFiles("C:\\Users\\Marco.Velluto\\Downloads\\IMG_5341.dng",
+            Assert.assertTrue(CheckFile.checkEqualsFiles("C:\\Users\\Marco.Velluto\\Downloads\\IMG_5341.dng",
                                                    "C:\\Users\\Marco.Velluto\\Downloads\\IMG_5341.dng"));
         }
         catch (IOException e)

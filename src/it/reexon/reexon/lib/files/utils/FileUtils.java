@@ -6,52 +6,49 @@ package it.reexon.reexon.lib.files.utils;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+
+import org.apache.commons.io.IOUtils;
 
 import it.reexon.reexon.lib.files.exceptions.FileMoveException;
 
 
 /**
- * @author marco.velluto
- *
+ * @author Marco Velluto.
+ * @since Java 1.8
  */
 public class FileUtils
 {
     /**
+     * Generate byte[] form file
      * 
-     * @param file
-     * @return
+     * @param file to be generate byte[]
+     * @return byte[] file
+     * 
      * @throws IOException
      */
     public static byte[] getByteFromFile(File file) throws IOException
     {
-        ByteArrayOutputStream ous = null;
-        InputStream ios = null;
-        try
+        try (ByteArrayOutputStream ous = new ByteArrayOutputStream(); InputStream ios = new FileInputStream(file);)
         {
             byte[] buffer = new byte[4096];
-            ous = new ByteArrayOutputStream();
-            ios = new FileInputStream(file);
+
             int read = 0;
             while ((read = ios.read(buffer)) != -1)
             {
                 ous.write(buffer, 0, read);
             }
+            return ous.toByteArray();
         }
-        finally
-        {
-            if (ous != null)
-                ous.close();
-            if (ios != null)
-                ios.close();
-        }
-        return ous.toByteArray();
     }
 
     /**
+     * Move file in a new directory     
      * 
-     * @param file
+     * @param file to move
      * @param newDirectory
      * @throws IOException
      */
@@ -64,6 +61,22 @@ public class FileUtils
         else
         {
             throw new FileMoveException("Il file chiamato " + file.getName() + " non è stato spostato nella directory " + newDirectory);
+        }
+    }
+
+    /**
+     * Write lines on selected file
+     * 
+     * @param file file to write
+     * @param lines to be write
+     * 
+     * @throws IOException
+     */
+    public static void writeLines(File file, List<String> lines) throws IOException
+    {
+        try (FileOutputStream fout = new FileOutputStream(file);)
+        {
+            IOUtils.writeLines(lines, null, fout);
         }
     }
 }

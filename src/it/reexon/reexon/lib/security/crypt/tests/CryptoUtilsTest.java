@@ -17,7 +17,8 @@ public class CryptoUtilsTest
 
     /**
      * @exception java.security.InvalidKeyException: Illegal key size or default parameters
-     * @see {@http://www.codejava.net/coding/file-encryption-and-decryption-simple-example}
+     * @see {@http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html}
+     * Install the file in ${java.home}/jre/lib/security/
      */
     @Test
     public final void cryptoTextTest()
@@ -34,7 +35,7 @@ public class CryptoUtilsTest
         }
         catch (Exception ex)
         {
-            System.out.println(ex.getMessage());
+            System.err.println(ex.getMessage());
             ex.printStackTrace();
             Assert.fail();
         }

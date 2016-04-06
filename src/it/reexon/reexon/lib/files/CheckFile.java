@@ -1,5 +1,6 @@
 package it.reexon.reexon.lib.files;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -22,19 +23,19 @@ public class CheckFile
     /**
      * Check the checksum files with algorithm SHA-256
      * 
-     * @param firstFileName     fileName orginal
-     * @param secondFileName    fileName to check
+     * @param firstFile     file orginal
+     * @param secondFile    file to check
      * @return - true if files are equals
      *         - null if there was an error         
      * 
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public static final Boolean checkEqualsFiles(String firstFileName, String secondFileName) throws FileNotFoundException, IOException
+    public static final Boolean checkEqualsFiles(File firstFile, File secondFile) throws FileNotFoundException, IOException
     {
         try
         {
-            return checkEqualsFiles(firstFileName, secondFileName, MessageDigestAlgorithms.SHA_256);
+            return checkEqualsFiles(firstFile, secondFile, MessageDigestAlgorithms.SHA_256);
         }
         catch (NoSuchAlgorithmException e)
         {
@@ -46,18 +47,18 @@ public class CheckFile
     /**
      * Check the checksum files with algorithm MD5
      * 
-     * @param firstFileName     fileName orginal
-     * @param secondFileName    fileName to check
+     * @param firstFile     file orginal
+     * @param secondFile    file to check
      * @return - true if files are equals
      *         - null if there was an error       
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public static final Boolean checkEqualsFasterFiles(String firstFileName, String secondFileName) throws FileNotFoundException, IOException
+    public static final Boolean checkEqualsFasterFiles(File firstFile, File secondFile) throws FileNotFoundException, IOException
     {
         try
         {
-            return checkEqualsFiles(firstFileName, secondFileName, MessageDigestAlgorithms.MD5);
+            return checkEqualsFiles(firstFile, secondFile, MessageDigestAlgorithms.MD5);
         }
         catch (NoSuchAlgorithmException e)
         {
@@ -69,18 +70,18 @@ public class CheckFile
     /**
      * Check the checksum files with algorithm SHA-512
      * 
-     * @param firstFileName     fileName orginal
-     * @param secondFileName    fileName to check
+     * @param firstFile     file orginal
+     * @param secondFile    filefileName to check
      * @return - true if files are equals
      *         - null if there was an error         
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public static final Boolean checkEqualsSlowFiles(String firstFileName, String secondFileName) throws FileNotFoundException, IOException
+    public static final Boolean checkEqualsSlowFiles(File firstFile, File secondFile) throws FileNotFoundException, IOException
     {
         try
         {
-            return checkEqualsFiles(firstFileName, secondFileName, MessageDigestAlgorithms.SHA_512);
+            return checkEqualsFiles(firstFile, secondFile, MessageDigestAlgorithms.SHA_512);
         }
         catch (NoSuchAlgorithmException e)
         {
@@ -92,19 +93,18 @@ public class CheckFile
     /**
      * Check the checksum files with algorithm
      * 
-     * @param firstFileName     fileName orginal 
-     * @param secondFileName    fileName to check
+     * @param firstFile     file orginal 
+     * @param secondFile    file to check
      * @param algorithm         algorithm to use. @see it.reexon.reexon.lib.security.algorithms.MessageDigestAlgorithms
      * 
      * @return true             if files are equals 
      * @throws IOException
      * @throws NoSuchAlgorithmException 
      */
-    public static Boolean checkEqualsFiles(String firstFileName, String secondFileName, String algorithm)
-            throws IOException, NoSuchAlgorithmException
+    public static Boolean checkEqualsFiles(File firstFile, File secondFile, String algorithm) throws IOException, NoSuchAlgorithmException
     {
-        String checksumFirst = GenerateSecureChecksum.getChecksum(firstFileName, algorithm);
-        String checksumSecond = GenerateSecureChecksum.getChecksum(secondFileName, algorithm);
+        String checksumFirst = GenerateSecureChecksum.getChecksum(firstFile, algorithm);
+        String checksumSecond = GenerateSecureChecksum.getChecksum(secondFile, algorithm);
         if (StringUtils.equals(checksumFirst, checksumSecond))
             return true;
         return false;

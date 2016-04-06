@@ -18,7 +18,7 @@ public class ZipUtilsTest
 {
     private static final File outputZip = new File("C:\\TEMP.zip");
 
-    @Test(timeout = 10000)
+    @Test(timeout = 1000000L)
     public final void createZipOfDirectoryTest()
     {
         try
@@ -37,15 +37,15 @@ public class ZipUtilsTest
         }
     }
 
-    @Test(timeout = 10000)
+    @Test(timeout = 10000L)
     public final void createZipOfDirectorySoruceDirZipOutLevelTest()
     {}
 
-    @Test(timeout = 10000)
+    @Test(timeout = 10000L)
     public final void createZipOutFiles()
     {}
 
-    @Test(timeout = 10000)
+    @Test(timeout = 10000L)
     public final void createZipOutFile()
     {}
 

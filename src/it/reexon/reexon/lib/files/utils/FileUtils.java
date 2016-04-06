@@ -6,14 +6,18 @@ package it.reexon.reexon.lib.files.utils;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 
+import it.reexon.reexon.lib.files.CheckFile;
 import it.reexon.reexon.lib.files.exceptions.FileMoveException;
 
 
@@ -95,5 +99,41 @@ public class FileUtils
         {
             IOUtils.writeLines(lines, null, fout);
         }
+    }
+
+    /**
+     * Write line on selected file
+     * 
+     * @param file file to write
+     * @param line to be write
+     * 
+     * @throws IOException
+     */
+    public static void writeLine(File file, String line) throws IOException
+    {
+        try (FileOutputStream fout = new FileOutputStream(file);)
+        {
+            List<String> list = new LinkedList<>();
+            list.add(StringUtils.trimToEmpty(line));
+            IOUtils.writeLines(list, null, fout);
+            fout.flush();
+        }
+    }
+
+    /**
+     * Check the checksum files with algorithm SHA-256
+     * 
+     * @param firstFile     file orginal
+     * @param secondFile    file to check
+     * @return - true if files are equals
+     *         - null if there was an error         
+     * {@linkplain}{@it.reexon.reexon.lib.files.CheckFile.checkEqualsFiles(File, File)} 
+     * 
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    public static Boolean checkFile(File firstFile, File secondFile) throws FileNotFoundException, IOException
+    {
+        return CheckFile.checkEqualsFiles(firstFile, secondFile);
     }
 }

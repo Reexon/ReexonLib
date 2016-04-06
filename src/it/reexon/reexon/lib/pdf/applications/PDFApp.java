@@ -1,9 +1,11 @@
-package it.reexon.reexon.lib.pdf;
+package it.reexon.reexon.lib.pdf.applications;
 
 import java.io.File;
 import java.util.Scanner;
 
 import org.apache.commons.lang3.StringUtils;
+
+import it.reexon.reexon.lib.pdf.PDFUtils;
 
 
 public class PDFApp
@@ -40,6 +42,5 @@ public class PDFApp
         {
             System.out.println("Bye :)");
         }
-
     }
 }

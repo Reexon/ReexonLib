@@ -4,7 +4,7 @@ import com.aspose.imaging.Image;
 import com.aspose.imaging.imageoptions.CadRasterizationOptions;
 import com.aspose.imaging.imageoptions.PdfOptions;
 
-import it.reexon.reexon.lib.files.exceptions.ConvertionException;
+import it.reexon.reexon.lib.exceptions.ConvertionException;
 
 
 /**

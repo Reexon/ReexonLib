@@ -1,15 +1,15 @@
 /**
- * 
+ *  Copyright (c) 2016 Marco Velluto
  */
-package it.reexon.reexon.lib.files.exceptions;
+package it.reexon.reexon.lib.exceptions;
 
 /**
- * @author marco.velluto
- *
+ * @author Marco Velluto
+ * @since Java 1.7
  */
 public class FileMoveException extends RuntimeException
 {
-    
+
     private static final long serialVersionUID = 1L;
 
     public FileMoveException()

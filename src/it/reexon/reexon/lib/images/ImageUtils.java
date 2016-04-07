@@ -1,4 +1,4 @@
-package it.reexon.reexon.lib.images.utils;
+package it.reexon.reexon.lib.images;
 
 import com.aspose.imaging.FontStyle;
 import com.aspose.imaging.Image;
@@ -6,7 +6,7 @@ import com.aspose.imaging.fileformats.metafile.EmfMetafileImage;
 import com.aspose.imaging.imageoptions.PngOptions;
 
 
-public class ImagesUtils
+public class ImageUtils
 {
     public static void addWatermark(String sourceFilePath, String destinationFilePath)
     {

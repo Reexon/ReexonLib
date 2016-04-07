@@ -10,8 +10,8 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import it.reexon.reexon.lib.files.utils.FileUtils;
-import it.reexon.reexon.lib.files.utils.ZipUtils;
+import it.reexon.reexon.lib.files.FileUtils;
+import it.reexon.reexon.lib.files.ZipUtils;
 
 
 public class ZipUtilsTest

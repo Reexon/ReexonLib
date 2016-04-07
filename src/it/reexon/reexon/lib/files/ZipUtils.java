@@ -1,4 +1,4 @@
-package it.reexon.reexon.lib.files.utils;
+package it.reexon.reexon.lib.files;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,7 +17,6 @@ import org.apache.commons.io.IOUtils;
 
 
 /**
- * 
  * @author Marco Velluto
  * @since Java 1.8
  *

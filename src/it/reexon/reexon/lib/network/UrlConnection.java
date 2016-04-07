@@ -1,4 +1,4 @@
-package it.reexon.reexon.lib.web;
+package it.reexon.reexon.lib.network;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

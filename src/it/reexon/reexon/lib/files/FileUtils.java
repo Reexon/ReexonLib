@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.reexon.reexon.lib.files.utils;
+package it.reexon.reexon.lib.files;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -11,14 +11,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 
-import it.reexon.reexon.lib.files.CheckFile;
-import it.reexon.reexon.lib.files.exceptions.FileMoveException;
+import it.reexon.reexon.lib.exceptions.FileMoveException;
 
 
 /**
@@ -70,22 +67,6 @@ public class FileUtils
     }
 
     /**
-     * Write file on disk
-     * 
-     * @param writeFile
-     * @param outputFile
-     * 
-     * @throws IOException
-     */
-    public static void writeFile(File writeFile, File outputFile) throws IOException
-    {
-        try (OutputStream o = new FileOutputStream(outputFile);)
-        {
-            IOUtils.write(getByteFromFile(writeFile), o);
-        }
-    }
-
-    /**
      * Write lines on selected file
      * 
      * @param file file to write
@@ -102,25 +83,6 @@ public class FileUtils
     }
 
     /**
-     * Write line on selected file
-     * 
-     * @param file file to write
-     * @param line to be write
-     * 
-     * @throws IOException
-     */
-    public static void writeLine(File file, String line) throws IOException
-    {
-        try (FileOutputStream fout = new FileOutputStream(file);)
-        {
-            List<String> list = new LinkedList<>();
-            list.add(StringUtils.trimToEmpty(line));
-            IOUtils.writeLines(list, null, fout);
-            fout.flush();
-        }
-    }
-
-    /**
      * Check the checksum files with algorithm SHA-256
      * 
      * @param firstFile     file orginal
@@ -132,8 +94,25 @@ public class FileUtils
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public static Boolean checkFile(File firstFile, File secondFile) throws FileNotFoundException, IOException
+    public static Boolean checkEqualFiles(File firstFile, File secondFile) throws FileNotFoundException, IOException
     {
         return CheckFile.checkEqualsFiles(firstFile, secondFile);
+    }
+
+    /**
+     * Copy inputstream on file
+     * 
+     * @param file file you want to copy
+     * @param inputStream  that you want to copy
+     * 
+     * @throws IOException
+     */
+    public static void copyInputStreamOnFile(File file, InputStream inputStream) throws IOException
+    {
+        try (OutputStream outputStream = new FileOutputStream(file);)
+        {
+            IOUtils.copy(inputStream, outputStream);
+            outputStream.close();
+        }
     }
 }

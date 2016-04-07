@@ -1,11 +1,11 @@
-package it.reexon.reexon.lib.web.tests;
+package it.reexon.reexon.lib.network.tests;
 
 import static org.junit.Assert.fail;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import it.reexon.reexon.lib.web.UrlConnection;
+import it.reexon.reexon.lib.network.UrlConnection;
 
 
 public class UrlConnectionTest

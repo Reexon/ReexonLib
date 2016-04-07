@@ -8,8 +8,6 @@ import it.reexon.reexon.lib.files.exceptions.ConvertionException;
 
 
 /**
- *  * @author marco.velluto
- *  
  * Exporting DWG AutoCAD Drawings to PDF
  * 
  *  Supported AutoCAD Primitives
@@ -55,6 +53,8 @@ import it.reexon.reexon.lib.files.exceptions.ConvertionException;
  *      If ExactReallocateOnly is set to the default value, false, the space is re-allocated to the same medium.
  *      When set to true, re-allocation cannot exceed the maximum specified space. In this case the existing allocated in-memory cache (which requires re-allocation) is freed and extended space is allocated on disk.
  *
+ * @author Marco Velluto
+ * @since Java 1.8
  */
 public class DwgToPdf
 {

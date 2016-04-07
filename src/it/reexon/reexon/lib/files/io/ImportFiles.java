@@ -1,6 +1,3 @@
-/**
- * 
- */
 package it.reexon.reexon.lib.files.io;
 
 import java.io.File;

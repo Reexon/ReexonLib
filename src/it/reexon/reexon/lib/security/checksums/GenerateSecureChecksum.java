@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import it.reexon.reexon.lib.convertions.ConvertUtility;
+import it.reexon.reexon.lib.convertions.ConvertUtils;
 import it.reexon.reexon.lib.security.algorithms.MessageDigestAlgorithms;
 
 
@@ -58,7 +58,7 @@ public class GenerateSecureChecksum
     public static String getChecksum(File file, String algorithm) throws NoSuchAlgorithmException, IOException
     {
         byte[] checksum = createChecksum(file, algorithm);
-        return ConvertUtility.byteArrayToHexString(checksum);
+        return ConvertUtils.byteArrayToHexString(checksum);
     }
 
     /**
@@ -79,7 +79,7 @@ public class GenerateSecureChecksum
         }
         catch (@SuppressWarnings("unused") NoSuchAlgorithmException e)
         {}
-        return ConvertUtility.byteArrayToHexString(checksum);
+        return ConvertUtils.byteArrayToHexString(checksum);
     }
 
 }

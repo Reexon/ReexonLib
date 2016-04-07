@@ -14,7 +14,7 @@ import it.reexon.reexon.lib.security.checksums.GenerateSecureChecksum;
 public class GenerateSecureChecksumTest
 {
 
-    @Test(timeout = 10000L)
+    @Test(timeout = 100000L)
     public final void getChecksumWithAlgoritmsTest()
     {
         System.out.println("getChecksumWithAlgoritmsTest");

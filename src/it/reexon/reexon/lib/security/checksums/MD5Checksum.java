@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import it.reexon.reexon.lib.convertions.ConvertUtility;
+import it.reexon.reexon.lib.convertions.ConvertUtils;
 import it.reexon.reexon.lib.security.algorithms.MessageDigestAlgorithms;
 
 
@@ -59,7 +59,7 @@ public class MD5Checksum
     public static String getMD5Checksum(String filename) throws NoSuchAlgorithmException, IOException
     {
         byte[] checksum = createChecksum(filename);
-        return ConvertUtility.byteArrayToHexString(checksum);
+        return ConvertUtils.byteArrayToHexString(checksum);
     }
 
 }

@@ -1,3 +1,6 @@
+/**
+ *  Copyright (c) 2016 Marco Velluto
+ */
 package it.reexon.reexon.lib.date;
 
 import java.text.ParseException;
@@ -10,7 +13,8 @@ import java.util.List;
 
 
 /**
- * @author marco.velluto
+ * @author Marco Velluto
+ * @since Java 1.8
  */
 public class DateUtils
 {

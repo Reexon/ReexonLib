@@ -1,16 +1,21 @@
+/**
+ *  Copyright (c) 2016 Marco Velluto
+ */
 package it.reexon.reexon.lib.convertions;
 
-import java.security.NoSuchAlgorithmException;
-
-
-public class ConvertUtility
+/**
+ * @author Marco Velluto
+ * @since Java 1.8
+ */
+public class ConvertUtils
 {
     /** 
      * How-to for a faster way to convert
      * a byte array to a HEX string
      * 
-     * @param byteArray
-     * @return
+     * @param byteArray hex byte[] to covert in string
+     * 
+     * @return string converted
      */
     public static String byteArrayToHexString(byte[] byteArray)
     {
@@ -23,17 +28,17 @@ public class ConvertUtility
     }
 
     /**
+     * Convert string in hex characters
      * 
-     * @param hex
-     * @return
-     * @throws NoSuchAlgorithmException
+     * @param str String to convert
+     * @return byte[] of characters
      */
-    public static byte[] fromHex(String hex) throws NoSuchAlgorithmException
+    public static byte[] fromHex(String str)
     {
-        byte[] bytes = new byte[hex.length() / 2];
+        byte[] bytes = new byte[str.length() / 2];
         for (int i = 0; i < bytes.length; i++)
         {
-            bytes[i] = (byte) Integer.parseInt(hex.substring(2 * i, 2 * i + 2), 16);
+            bytes[i] = (byte) Integer.parseInt(str.substring(2 * i, 2 * i + 2), 16);
         }
         return bytes;
     }

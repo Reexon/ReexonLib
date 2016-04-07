@@ -2,3 +2,7 @@
 /target/
 /build/
 /ivy-report/
+/lib/
+/
+/.classpath
+/build2.xml

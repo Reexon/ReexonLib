@@ -1,450 +1,150 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE project>
+<?xml version="1.0" encoding="UTF-8"?>
 <project name="reexon.lib" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:if="ant:if" xmlns:unless="ant:unless">
 
-	<property name="ivy.resolver" value="reexon" />
-	<property name="ivy.dep.file" value="${basedir}/dependencies.xml" />
-	<property file="build.properties" />
+	<description>A Java Library</description>
+
+	<!-- set global properties for this build -->
+	<property name="src" location="src" />
+	<property name="build" location="build" />
+	<property name="dist" location="dist" />
+
 	<property name="project.local.lib" value="${basedir}/lib" />
-	<property environment="env" />
+	<property name="ivy.install.version" value="2.0.0-beta1" />
+	<property name="ivy.jar.dir" value="${basedir}/ivy" />
+	<property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
+	<property name="ivy.depency" value="${basedir}/dependencies.xml" />
+	<property name="build.dir" value="build" />
+	<property name="dist" value="${basedir}" />
+	<property name="src.dir" value="src" />
 
-
-	<!-- Properties -->
-
-	<path id="phoenix.web.classpath">
-		<fileset dir="${basedir}/lib">
-			<include name="*.jar" />
-		</fileset>
-	</path>
-
-	<!-- Targets -->
-
-	<target name="0 - clean" depends="clean" />
-
-	<target name="1 - prepare" description="Basic ops">
-		<antcall target="clean" />
-		<antcall target="ivy-retrieve-eclipse" />
-		<antcall target="prepare" />
-		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
-	</target>
-	
-	<target name="1 - prepareManual" description="Prepares a nightly Phoenix build">
-		<antcall target="clean" />
-		<antcall target="ivy-retrieve-eclipse" />
-		<mkdir dir="zips" />
-		<touch file="zips/DOWNLOAD_PHOENIX_ZIP_HERE" />
-	
-		<echo message="******************************************************************" />
-		<echo message="*  Be sure to download Phoenix.zip from Bamboo to zips/          *" />
-		<echo message="******************************************************************" />
-	
-		<input message="Now type OK" validargs="ok,OK" />
-	
-		<condition property="zipOk">
-			<resourcecount count="1" when="ge">
-				<fileset id="fs" dir="zips" includes="phoenix*.zip" />
-			</resourcecount>
-		</condition>
-	
-		<fail message="Did you download Phoenix!?!!?!??!?! Phoenix zip must be in zips/" unless="zipOk" />
-	
-		<!-- TODO usare Bamboo API per scaricare artifact -->
-		<antcall target="unzip" />
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp />
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}" />
 	</target>
 
-	<target name="2 - jar" description="Pack project classes into jar library and increase build.number.">
-		<antcall target="ivy-retrieve-jar" />
-		<antcall target="jar" />
+	<target name="compile" depends="init" description="compile the source">
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${src}" destdir="${build}" excludes="**/*Test.java" encoding="utf-8">
+			<classpath>
+				<fileset dir="${project.local.lib}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
 	</target>
 
-	<target name="3 - makeZip" description="Create distributable version">
-		<antcall target="zip" />
+	<target name="dist" depends="compile" description="generate the distribution">
+		<!-- Create the distribution directory -->
+		<mkdir dir="${dist}/lib" />
+
+		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+		<jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" basedir="${build}" />
 	</target>
 
-	<target name="4 - war" description="Create WAR">
-		<antcall target="jar" />
-		<antcall target="ivy-retrieve-runtime" />
-
-		<antcall target="war" />
+	<target name="clean" description="clean up">
+		<!-- Delete the ${build} and ${dist} directory trees -->
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
 	</target>
 
-	<target name="5 - dist" description="Create distributable version" depends="dist" />
-	
-	<target name="6 - deploy-test" description="Build WAR and deploy to test environment">
-		<antcall target="1 - prepare" />
-		<antcall target="4 - war" />
-		
-		<antcall target="deploy-test" />
-		
-		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
-	</target>
-	
-	<!-- BUILD TARGETS -->
-
-	<target name="clean">
-		<delete failonerror="false" dir="build" />
-		<delete failonerror="false" dir="${project.local.lib}" />
-		<delete failonerror="false" dir="webapp/bower_components" />
-		<delete failonerror="false" dir="webapp/node_modules" />
-		<delete failonerror="false" dir="webapp/common" />
-		<delete failonerror="false" dir="webapp/secure/admin" />
-		<delete failonerror="false" dir="webapp/secure/audit" />
-		<delete failonerror="false" dir="ivy-report" />
-		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
-	</target>
-
-	<target name="prepare">
-		<mkdir dir="temp" />
-		<mkdir dir="zips" />
-		<mkdir dir="phoenix-files" />
-		<mkdir dir="build" />
-
-		<antcall target="ivy-retrieve-eclipse" />
-		<antcall target="ivy-retrieve-zip" />
-
-		<antcall target="unzip" />
-
-		<delete dir="zips" failonerror="true" />
-	</target>
-
-	<target name="gulp">
-		<echo message="Calling Gulp" />
-		<echo message="${os.name}" />
-		<input message="Please enter task name:" addproperty="gulp.taskName" validargs="install,dev,prod" />
-		<exec osfamily="windows" failonerror="true" executable="cmd" dir="${basedir}/webapp">
-			<arg value="/c" />
-			<arg value="npm.cmd" />
-			<arg value="run" />
-			<arg value="pnx${gulp.taskName}" />
-		</exec>
-
-		<exec osfamily="unix" failonerror="true" executable="npm" dir="${basedir}/webapp">
-			<arg value="run" />
-			<arg value="pnx${gulp.taskName}" />
-		</exec>
-
-
-		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
-	</target>
-
-	<target name="jar">
-		<setVersion />
-
-		<mkdir dir="build" />
-		<!-- Serve solo per i test su Bamboo -->
-		<mkdir dir="src" />
-
-		<delete dir="build/compiled" failonerror="false" />
-		<mkdir dir="build/compiled" />
-
-		<delete dir="build/javadoc" failonerror="false" />
-		<mkdir dir="build/javadoc" />
-
-		<delete dir="build/publish/*.jar" failonerror="false" />
-		<mkdir dir="build/publish" />
-
-		<delete dir="build/compiled/META-INF" failonerror="false" />
-		<mkdir dir="build/compiled/META-INF" />
-
-		<javac includeantruntime="false" srcdir="src" destdir="build/compiled" deprecation="on" target="1.8" source="1.8" debug="true" verbose="false" classpathref="phoenix.web.classpath" encoding="utf-8" />
-
-		<jar compress="true" destfile="build/publish/${artifact.name}-${version}.jar">
-			<manifest>
-				<attribute name="Built-By" value="CST" />
-				<attribute name="Specification-Title" value="Copernico" />
-				<attribute name="Specification-Version" value="${version}" />
-				<attribute name="Specification-Vendor" value="CST srl" />
-				<attribute name="Implementation-Version" value="${build.number}" />
-				<attribute name="Built-Date" value="${TODAY}" />
-			</manifest>
-			<fileset dir="build/compiled">
-				<include name="**/*" />
-			</fileset>
-			<fileset dir="src">
-				<include name="**" />
-				<exclude name="**/*.java" />
-				<exclude name="rebel.xml" />
-			</fileset>
-			<!--
-		            <fileset dir="src">
-		                <include name="it/phoenix/core/shell/phoenixbanner.txt" />
-		            </fileset>
-		            <fileset dir="src">
-		                <include name="**/*.xsd" />
-		                <exclude name="META-INF/**"/>
-		            </fileset>
-		            <fileset dir="src">
-		                <include name="**/*.csv" />
-		                <exclude name="META-INF/**"/>
-		            </fileset>
-		            <fileset dir="src">
-		                <include name="**/*.tld" />
-		                <exclude name="META-INF/**"/>
-		            </fileset>
-		            -->
-		</jar>
-
-		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
-	</target>
-
-	<target name="unzip">
-		<unzip dest="temp" overwrite="true">
-			<patternset>
-				<include name="**/*" />
-			</patternset>
-			<fileset dir="zips">
-				<include name="**/phoenix-*.zip" />
-			</fileset>
-		</unzip>
-
-		<copy todir="phoenix-files" failonerror="false">
-			<fileset dir="temp/phoenix-conf" />
-		</copy>
-		<copy overwrite="true" todir="webapp" failonerror="false">
-			<fileset dir="temp/webapp">
-				<exclude name="login.jsp" />
-				<exclude name="changepassword.jsp" />
-			</fileset>
-		</copy>
-
-		<mkdir dir="webapp/secure/${context.name}" />
-		<delete dir="temp" />
-
-		<echo message="******************************************************************" />
-		<echo message="*               Phoenix.web dowloaded successfully               *" />
-		<echo message="******************************************************************" />
-	</target>
-
-	<target name="jarTest">
-		<setVersion />
-
-		<mkdir dir="build" />
-
-		<delete dir="build/compiled-test" failonerror="false" />
-		<mkdir dir="build/compiled-test" />
-		<mkdir dir="build/compiled/META-INF" />
-
-		<javac includeantruntime="false" srcdir="tests" destdir="build/compiled-test" deprecation="on" target="1.7" source="1.7" debug="true" verbose="false" classpathref="phoenix.testjar.classpath" encoding="utf-8" />
-
+	<target name="download-ivy" unless="skip.download">
+		<mkdir dir="${ivy.jar.dir}" />
 		<!--
-	        <copy todir="build/compiled/META-INF" overwrite="true">
-	          <fileset dir="webapp/WEB-INF/tlds">
-	            <include name="*.tld" />
-	          </fileset>
-	        </copy>
-	        -->
-
-		<jar compress="true" destfile="build/publish/${artifact.name}-test-${version}.jar">
-			<manifest>
-				<attribute name="Built-By" value="${user.name}" />
-				<attribute name="Specification-Title" value="Copernico" />
-				<attribute name="Specification-Version" value="${version}" />
-				<attribute name="Specification-Vendor" value="CST srl " />
-			</manifest>
-			<fileset dir="build/compiled-test">
-				<include name="**/*" />
-			</fileset>
-			<fileset dir="tests">
-				<include name="**/*.csv" />
-			</fileset>
-			<fileset dir="tests">
-				<include name="META-INF/**/phoenix-process-context.xml" />
-			</fileset>
-		</jar>
-
-		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
+	 download Ivy from web site so that it can be used even without any special installation 
+	-->
+		<echo message="installing ivy..." />
+		<get src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar" dest="${ivy.jar.file}" usetimestamp="true" />
 	</target>
 
-	<target name="war">
-		<fail unless:set="module.pcp" message="Please at least tell me if this project is a PCP project in build.properties!!"/>
-		<setVersion />
-		<mkdir dir="build/publish" />
-		<mkdir dir="build/lib-runtime" />
-		<condition property="jarOk">
-			<resourcecount count="1">
-				<fileset id="fs" dir="build/publish" includes="${artifact.name}-*.jar" />
-			</resourcecount>
-		</condition>
-
-		<fail message="No jar file" unless="jarOk" />
-
-		<antcall target="ivy-retrieve-runtime" />
-		<echo level="info" />
-		<echo level="info" message="Creating distributable version..." />
-		<echo level="info" />
-
-		<war destfile="build/war/${context.name}-${version}.war">
-			<fileset dir="webapp/">
-				<include name="**" />
-				<exclude name="WEB-INF/lib/**" />
-				<exclude name="bower_components/**" />
-				<exclude name="node_modules/**" />
-				<exclude name="test/**" />
-				<exclude name="less/**" />
-				<exclude name="**/*.scss" />
-			</fileset>
-
-			<lib dir="build/publish" includes="*.jar" />
-			<lib dir="build/lib-runtime" />
-		</war>
-		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
-	</target>
-
-	<target name="zip">
-		<setVersion />
-
-		<delete dir="build/dist" failonerror="false" />
-		<mkdir dir="build/dist" />
-
-		<copy todir="build/dist" failonerror="true">
-			<fileset dir=".">
-				<include name="phoenix-conf/**" />
-				<include name="phoenix-db/**" />
-				<include name="webapp/common/resources/**" />
-				<include name="webapp/common/style/**" />
-				<include name="webapp/common/*.jsp" />
-				<include name="webapp/secure/**" />
-				<include name="webapp/*.jsp" />
-				<include name="webapp/*.css" />
-				<include name="webapp/favicon.ico" />
-				<include name="webapp/WEB-INF/web.xml" />
-				<exclude name="**/*.scss" />
-			</fileset>
-		</copy>
-
-		<mkdir dir="build/dist//META-INF" />
-		<mkdir dir="build/dist/lib" />
-
-		<zip destfile="build/publish/${artifact.name}-${version}.zip">
-			<fileset dir="build/dist" />
-		</zip>
-
-
-		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
-	</target>
-
-	<target name="dist">
-		<setVersion />
-
-		<echo message="Searching for zip file ${artifact.name}-${version}.zip" />
-		<echo message="Searching for jar file ${artifact.name}-${version}.jar" />
-
-		<condition property="zipOk">
-			<resourcecount count="1">
-				<fileset id="fs" dir="build/publish" includes="${artifact.name}-${version}.zip" />
-			</resourcecount>
-		</condition>
-
-		<condition property="jarOk">
-			<resourcecount count="1">
-				<fileset id="fs" dir="build/publish" includes="${artifact.name}-${version}.jar" />
-			</resourcecount>
-		</condition>
-
-		<fail message="No zip file" unless="zipOk" />
-
-		<fail message="No jar file" unless="jarOk" />
-
-		<input message="Please enter resolver:" addproperty="ivy.resolver" validargs="cst,cst-nightly" />
-
-		<antcall target="ivy-release" />
-	</target>
-
-	<target name="deploy-test">
-		<sequential>
-			<setVersion />
-			
-			<loadproperties srcfile="app-conf/test/deploy/deploy.test.properties" />
-	
-			<echo>Connessione a ${deploy.ssh.user}@${deploy.ssh.host}:${deploy.ssh.project_dir}</echo>
-			<echo>Password utente tomcat: ${deploy.ssh.password}</echo>
-	
-			<scp file="build/war/${context.name}-${version}.war" todir="${deploy.ssh.user}@${deploy.ssh.host}:${deploy.ssh.project_dir}" password="${deploy.ssh.password}" trust="true" verbose="true" />
-	
-			<sshexec host="${deploy.ssh.host}" trust="true" usepty="true" username="${deploy.ssh.user}" password="${deploy.ssh.password}" command="sh ${deploy.ssh.project_dir}/deploy.sh ${deploy.ssh.project_dir}/${context.name}-${version}.war ${deploy.ssh.project_dir}" />
-			
-			<echo message="******************************************************************" />
-			<echo message="*     Deploy completed successfully for Copenrico ${version}     *" />
-			<echo message="******************************************************************" />
-		</sequential>
-	</target>
-	
-	<target name="testVersion">
-		<setVersion />
-	</target>
-
-	<macrodef name="setVersion">
-		<sequential>
-			<!--
-				Scegliamo la versione in base a un ordine di priorità:
-				
-				JIRA vince sempre
-				In alternativa Bamboo imposta un argomento Ant
-				Se non basta, leggiamo il build.properties
-				In assenza di altre indicazioni chiediamo all'utente
-			-->
-
-			<property name="jira.version" value="" />
-			<property name="project.version" value="" />
-			<property name="build.version" value="" />
-
-			<!-- Primo classificato: Jira -->
-			<condition property="version" value="${jira.version}">
-				<not>
-					<equals arg1="${jira.version}" arg2="" />
-				</not>
-			</condition>
-
-			<!-- Secondo: Bamboo -->
-			<condition property="version" value="${project.version}">
-				<not>
-					<equals arg1="${project.version}" arg2="" />
-				</not>
-			</condition>
-
-			<!-- Terzo: build.properties (solo da Eclipse, Bamboo setta sempre) -->
-			<condition property="version" value="${build.version}">
-				<not>
-					<equals arg1="${build.version}" arg2="" />
-				</not>
-			</condition>
-
-			<!-- Quarto: user input -->
-			<input addproperty="version" message="Input current Phoenix version or use arguments" unless:set="${version}" />
-
-			<tstamp>
-				<format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
-			</tstamp>
-			<tstamp>
-				<format property="build.number" pattern="yyyyMMddHHmmss" />
-			</tstamp>
-			<echo message="*************************************************************************" />
-			<echo message="*  Project version set by Jira: ${jira.version}                         *" />
-			<echo message="*  Project version set by argument or Bamboo: ${project.version}        *" />
-			<echo message="*  Project version set by build.properties: ${build.version}             *" />
-			<echo message="*  Build number (Bamboo-injected or timestamp): ${build.number}         *" />
-			<echo message="*                                                                       *" />
-			<echo message="*  Final version number: ${version}                                     *" />
-			<echo message="*************************************************************************" />
-		</sequential>
-	</macrodef>
-
-	<target name="pushJavascriptVersion">
-		<echo message="Pushing build number for javascript files" />
-		<setVersion />
-
-		<replace file="webapp/common/common.jsp" token="Phoenix.getPhoenixVersion()" value="&quot;${version}-${build.number}&quot;"></replace>
-		<replace file="webapp/secure/copernico/dashboard/pages/index.jsp" token="${applicationVersion}" value="${version}-${build.number}"></replace>
-		<replace file="webapp/secure/copernico/dashboard/pages/js.jsp" token="${applicationVersion}" value="${version}-${build.number}"></replace>
-	</target>
-
-	<!-- IVY TARGETS -->
-	<target name="ivy-report">
+	<!--
+	 ================================= 
+	          target: install-ivy         
+	            this target is not necessary if you put ivy.jar in your ant lib directory
+	            if you already have ivy in your ant lib, you can simply remove this
+	            target and the dependency the 'go' target has on it
+	         ================================= 
+	-->
+	<target name="install-ivy" depends="download-ivy" description="--> install ivy">
+		<!--
+	 try to load ivy here from local ivy dir, in case the user has not already dropped
+	    	      it into ant's lib dir (note that the latter copy will always take precedence).
+	    	      We will not fail as long as local lib dir exists (it may be empty) and
+	    	      ivy is in at least one of ant's lib dir or the local lib dir. 
+	-->
+		<path id="ivy.lib.path">
+			<fileset dir="${ivy.jar.dir}" includes="*.jar" />
+		</path>
 		<ivy:configure override="true" file="${ivy.install.dir}/ivy-settings.xml" />
-		<mkdir dir="ivy-report" />
-		<ivy:resolve file="dependencies.xml" haltonfailure="false" />
-		<ivy:report todir="ivy-report" />
-		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
+		<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path" />
+	</target>
+	<!--
+	 ================================= 
+	          target: go
+	                    Go ivy, go!
+	         ================================= 
+	-->
+	<target name="go" depends="install-ivy, generate-src" description="--> resolve dependencies, compile and run the project">
+		<echo message="using ivy to resolve commons-lang 2.1..." />
+		<!--
+	 here comes the magic line: asks ivy to resolve a dependency on 
+	             commons-lang 2.1 and to build an ant path with it from its cache  
+	-->
+		<ivy:cachepath organisation="commons-lang" module="commons-lang" revision="2.1" pathid="lib.path.id" inline="true" />
+		<echo message="compiling..." />
+		<mkdir dir="${build.dir}" />
+		<javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="lib.path.id" />
+		<echo>
+	We are now ready to execute our simple program with its dependency on commons-lang. Let's go!
+	</echo>
+		<java classname="example.Hello">
+			<classpath>
+				<path refid="lib.path.id" />
+				<path location="${build.dir}" />
+			</classpath>
+		</java>
+	</target>
+	<!--
+	 ================================= 
+	          target: generate-src
+	            'Generates' the class source. It actually just echo a simple java 
+	            source code to a file. In real life this file would already be
+	            present on your file system, and this target wouldn't be necessary.
+	         ================================= 
+	-->
+	<target name="generate-src">
+		<mkdir dir="${src.dir}/example" />
+		<echo file="${src.dir}/example/Hello.java">
+	package example; import org.apache.commons.lang.WordUtils; public class Hello { public static void main(String[] args) { String message = "hello ivy !"; System.out.println("standard message : " + message); System.out.println("capitalized by " + WordUtils.class.getName() + " : " + WordUtils.capitalizeFully(message)); } }
+	</echo>
+	</target>
+	<!--
+	 ================================= 
+	          target: clean              
+	         ================================= 
+	-->
+	<target name="clean2" description="--> clean the project">
+		<delete includeemptydirs="true" quiet="true">
+			<fileset dir="${src.dir}" />
+			<fileset dir="${build.dir}" />
+		</delete>
+	</target>
+	<!--
+	 ================================= 
+	          target: clean-ivy              
+	         ================================= 
+	-->
+	<target name="clean-ivy" description="--> clean the ivy installation">
+		<delete dir="${ivy.jar.dir}" />
+	</target>
+	<!--
+	 ================================= 
+	          target: clean-cache              
+	         ================================= 
+	-->
+	<target name="clean-cache" depends="install-ivy" description="--> clean the ivy cache">
+		<ivy:cleancache />
 	</target>
 
 	<target name="ivy-retrieve-eclipse">
@@ -454,50 +154,69 @@
 		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
 	</target>
 
-	<target name="ivy-retrieve-zip">
-		<property name="ivy.dep.file" value="${basedir}/dependencies.xml" />
-		<ivy:configure override="true" file="${ivy.install.dir}/ivy-settings.xml" />
-		<ivy:retrieve sync="true" conf="*" type="zip" pattern="${basedir}/zips/[artifact]-[revision].[ext]" />
+	<!--
+	 ================================= 
+	          target: JAR              
+	         ================================= 
+	-->
 
-		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
+
+	<jar destfile="${basedir}/temp_final.jar" >
+		<zipgroupfileset dir="${basedir}/lib" includes="*.jar" />
+	</jar>
+
+	<path id="build.classpath">
+		<fileset dir="${basedir}/">
+			<include name="${lib.dir}/*.jar" />
+		</fileset>
+	</path>
+
+	<pathconvert property="mf.classpath" pathsep=" ">
+		<path refid="build.classpath" />
+		<mapper>
+			<chainedmapper>
+				<flattenmapper />
+				<globmapper from="*.jar" to="lib/*.jar" />
+			</chainedmapper>
+		</mapper>
+	</pathconvert>
+
+	<!--
+	 ================================= 
+	          mf.classpath is used from the package target posted above. This part I copied from somewhere else, so I'm not all that familiar with it.
+	         ================================= 
+	-->
+	<path id="jars">
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
+	</path>
+	
+	<target name="-post-jar">
+
+	    <property name="store.jar.name" value="MyJarName"/>
+
+	    <property name="store.dir" value="dist"/>
+	    <property name="store.jar" value="${store.dir}/${store.jar.name}.jar"/>
+
+	    <echo message="Packaging ${application.title} into a single JAR at ${store.jar}"/>
+
+	    <jar destfile="${store.dir}/temp_final.jar" filesetmanifest="skip">
+	        <zipgroupfileset dir="dist" includes="*.jar"/>
+	        <zipgroupfileset dir="dist/lib" includes="*.jar"/>
+
+	        <manifest>
+	            <attribute name="Main-Class" value="${main.class}"/>
+	        </manifest>
+	    </jar>
+
+	    <zip destfile="${store.jar}">
+	        <zipfileset src="${store.dir}/temp_final.jar"
+	        excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
+	    </zip>
+
+	    <delete file="${store.dir}/temp_final.jar"/>
+	    <delete dir="${store.dir}/lib"/>
+	    <delete file="${store.dir}/README.TXT"/>
 	</target>
 
-	<target name="ivy-retrieve-runtime">
-		<ivy:configure override="true" file="${ivy.install.dir}/ivy-settings.xml" />
-		<ivy:retrieve sync="true" conf="runtime" type="jar,bundle" pattern="build/lib-runtime/[artifact]-[revision].[ext]" />
-
-		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
-	</target>
-
-	<target name="ivy-retrieve-junit">
-		<ivy:configure override="true" file="${ivy.install.dir}/ivy-settings.xml" />
-		<ivy:retrieve sync="true" conf="junit" type="jar,bundle" pattern="${project.local.lib}/[artifact]-[revision].[ext]" />
-
-		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
-	</target>
-
-	<target name="ivy-retrieve-jar">
-		<ivy:configure override="true" file="${ivy.install.dir}/ivy-settings.xml" />
-		<ivy:retrieve sync="true" type="jar,bundle" pattern="${project.local.lib}/[artifact].[ext]" conf="provided" />
-
-		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
-	</target>
-
-	<target name="ivy-retrieve-src">
-		<ivy:configure override="true" file="${ivy.install.dir}/ivy-settings.xml" />
-		<ivy:retrieve sync="true" type="source" conf="*" pattern="build/srclib/[artifact]-[revision]-[type].[ext]" />
-
-		<eclipse.refreshLocal depth="infinite" resource="/" if:set="eclipse.running" />
-	</target>
-
-	<target name="ivy-release">
-		<ivy:configure override="true" file="${ivy.install.dir}/ivy-settings.xml" />
-		<fail message="No ivy resolver selected" unless="ivy.resolver" />
-		<ivy:resolve file="${ivy.dep.file}" conf="*" type="jar,zip" />
-		<ivy:publish artifactspattern="${basedir}/build/publish/[artifact]-[revision].[ext]" resolver="${ivy.resolver}" pubrevision="${version}" status="release" overwrite="true" />
-	</target>
-
-	<target name="ivy-cleancache">
-		<ivy:cleancache />
-	</target>
+	
 </project>

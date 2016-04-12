@@ -1,16 +1,25 @@
 package it.reexon.reexon.lib.security.crypt;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESedeKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
+
+import it.reexon.reexon.lib.security.crypt.exceptions.CryptoException;
 
 
 public class EncryptionUtils
@@ -36,6 +45,7 @@ public class EncryptionUtils
         key = skf.generateSecret(ks);
     }
 
+    @Deprecated
     public EncryptionUtils() throws Exception
     {
         myEncryptionKey = "ThisIsSpartaThisIsSparta";
@@ -112,4 +122,46 @@ public class EncryptionUtils
         this.myEncryptionKey = null;
     }
 
+    public void decryptFile(File inputFile, File outputFile) throws CryptoException
+    {
+        doCrypto(Cipher.DECRYPT_MODE, inputFile, outputFile);
+    }
+
+    public void encryptFile(File inputFile, File outputFile) throws CryptoException
+    {
+        doCrypto(Cipher.ENCRYPT_MODE, inputFile, outputFile);
+    }
+
+    private void doCrypto(int cipherMode, File inputFile, File outputFile) throws CryptoException
+    {
+        try
+        {
+            cipher.init(cipherMode, key);
+
+            FileInputStream inputStream = new FileInputStream(inputFile);
+            byte[] inputBytes = new byte[(int) inputFile.length()];
+            inputStream.read(inputBytes);
+
+            byte[] outputBytes = cipher.doFinal(inputBytes);
+
+            FileOutputStream outputStream = new FileOutputStream(outputFile);
+            outputStream.write(outputBytes);
+
+            inputStream.close();
+            outputStream.close();
+
+        }
+        catch (BadPaddingException ex)
+        {
+            throw new CryptoException("Wrong key", ex);
+        }
+        catch (IllegalBlockSizeException | IOException ex)
+        {
+            throw new CryptoException("Error encrypting/decrypting file", ex);
+        }
+        catch (InvalidKeyException ex)
+        {
+            throw new CryptoException("Error encrypting/decrypting file", ex);
+        }
+    }
 }

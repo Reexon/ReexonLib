@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="1" failures="0" hostname="NB-CST150911" name="it.reexon.reexon.lib.security.crypt.tests.EncryptionFileUtilTest" skipped="0" tests="1" time="0.0" timestamp="2016-04-11T14:09:17">
+  <properties>
+    <property name="java.vendor" value="Oracle Corporation" />
+    <property name="env.USERDOMAIN_ROAMINGPROFILE" value="CSTTECH" />
+    <property name="ivy.install.dir" value="C:\Program Files\apache-ivy-2.4.0" />
+    <property name="sun.java.launcher" value="SUN_STANDARD" />
+    <property name="eclipse.pdebuild.templates" value="/C:/Users/Marco.Velluto/Desktop/eclipse/plugins/org.eclipse.pde.build_3.9.100.v20150521-1524/templates/" />
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
+    <property name="env.UOIPME_REG_PATH" value="C:\Program Files\Intel Corporation\USB over IP" />
+    <property name="env.PROMPT" value="$P$G" />
+    <property name="os.name" value="Windows 10" />
+    <property name="env.FP_NO_HOST_CHECK" value="NO" />
+    <property name="sun.boot.class.path" value="C:\Program Files\Java\jre1.8.0_77\lib\resources.jar;C:\Program Files\Java\jre1.8.0_77\lib\rt.jar;C:\Program Files\Java\jre1.8.0_77\lib\sunrsasign.jar;C:\Program Files\Java\jre1.8.0_77\lib\jsse.jar;C:\Program Files\Java\jre1.8.0_77\lib\jce.jar;C:\Program Files\Java\jre1.8.0_77\lib\charsets.jar;C:\Program Files\Java\jre1.8.0_77\lib\jfr.jar;C:\Program Files\Java\jre1.8.0_77\classes" />
+    <property name="env.COMPUTERNAME" value="NB-CST150911" />
+    <property name="env.CommonProgramW6432" value="C:\Program Files\Common Files" />
+    <property name="env.ALLUSERSPROFILE" value="C:\ProgramData" />
+    <property name="sun.desktop" value="windows" />
+    <property name="java.vm.specification.vendor" value="Oracle Corporation" />
+    <property name="env.GDAL_DATA" value="C:\Program Files\PostgreSQL\9.5\gdal-data" />
+    <property name="ant.home" value="C:\Users\Marco.Velluto\Desktop\eclipse\plugins\org.apache.ant_1.9.6.v201510161327" />
+    <property name="java.runtime.version" value="1.8.0_77-b03" />
+    <property name="env.HOMEPATH" value="\Users\Marco.Velluto" />
+    <property name="env.POSTGIS_GDAL_ENABLED_DRIVERS" value="GTiff PNG JPEG GIF XYZ DTED USGSDEM AAIGrid" />
+    <property name="user.name" value="marco.velluto" />
+    <property name="ivy.mapped.drive" value="R:" />
+    <property name="env.POSTGIS_ENABLE_OUTDB_RASTERS" value="1" />
+    <property name="user.language" value="it" />
+    <property name="env.windows_tracing_flags" value="3" />
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jre1.8.0_77\bin" />
+    <property name="env.MYSQL_HOME" value="C:\Program Files\MySQL\MySQL Server 5.5" />
+    <property name="ant.project.default-target" value="build" />
+    <property name="ant.project.name" value="ReexonLib" />
+    <property name="java.version" value="1.8.0_77" />
+    <property name="env.PROCESSOR_IDENTIFIER" value="Intel64 Family 6 Model 60 Stepping 3, GenuineIntel" />
+    <property name="env.OnlineServices" value="Online Services" />
+    <property name="user.timezone" value="" />
+    <property name="env.TEMP" value="C:\Users\MARCO~1.VEL\AppData\Local\Temp" />
+    <property name="sun.arch.data.model" value="64" />
+    <property name="java.endorsed.dirs" value="C:\Program Files\Java\jre1.8.0_77\lib\endorsed" />
+    <property name="sun.cpu.isalist" value="amd64" />
+    <property name="env.OOBEUILang" value="it-IT" />
+    <property name="env.HOMEDRIVE" value="C:" />
+    <property name="sun.jnu.encoding" value="Cp1252" />
+    <property name="file.encoding.pkg" value="sun.io" />
+    <property name="ECLIPSE_HOME" value="../../Desktop/eclipse/" />
+    <property name="file.separator" value="\" />
+    <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="java.class.version" value="52.0" />
+    <property name="user.country" value="IT" />
+    <property name="java.home" value="C:\Program Files\Java\jre1.8.0_77" />
+    <property name="env.PSModulePath" value="C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules\" />
+    <property name="env.APPDATA" value="C:\Users\Marco.Velluto\AppData\Roaming" />
+    <property name="env.PUBLIC" value="C:\Users\Public" />
+    <property name="env.windows_tracing_logfile" value="C:\BVTBin\Tests\installpackage\csilogfile.log" />
+    <property name="java.vm.info" value="mixed mode" />
+    <property name="env.ComSpec" value="C:\WINDOWS\system32\cmd.exe" />
+    <property name="env.TOMCAT_HOME" value="C:\Program Files\apache-tomcat-7.0.64" />
+    <property name="env.OS" value="Windows_NT" />
+    <property name="env.CommonProgramFiles" value="C:\Program Files\Common Files" />
+    <property name="ant.file" value="C:\Users\Marco.Velluto\git\ReexonLib\build-auto.xml" />
+    <property name="os.version" value="10.0" />
+    <property name="env.ProgramW6432" value="C:\Program Files" />
+    <property name="path.separator" value=";" />
+    <property name="java.vm.version" value="25.77-b03" />
+    <property name="env.USERPROFILE" value="C:\Users\Marco.Velluto" />
+    <property name="user.variant" value="" />
+    <property name="ant.library.dir" value="C:\Users\Marco.Velluto\Desktop\eclipse\plugins\org.apache.ant_1.9.6.v201510161327\lib" />
+    <property name="junit.output.dir" value="junit" />
+    <property name="env.JAVA_HOME" value="C:\Program Files\Java\jre1.8.0_66" />
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob" />
+    <property name="env.TMP" value="C:\Users\MARCO~1.VEL\AppData\Local\Temp" />
+    <property name="env.FPS_BROWSER_USER_PROFILE_STRING" value="Default" />
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+    <property name="JAVA_HOME" value="../../../../Program Files/Java/jre1.8.0_74" />
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
+    <property name="ant.file.ReexonLib" value="C:\Users\Marco.Velluto\git\ReexonLib\build-auto.xml" />
+    <property name="user.script" value="" />
+    <property name="eclipse.pdebuild.scripts" value="/C:/Users/Marco.Velluto/Desktop/eclipse/plugins/org.eclipse.pde.build_3.9.100.v20150521-1524/scripts/" />
+    <property name="target" value="1.8" />
+    <property name="user.home" value="C:\Users\Marco.Velluto" />
+    <property name="env.ProgramData" value="C:\ProgramData" />
+    <property name="env.SESSIONNAME" value="Console" />
+    <property name="env.ProgramFiles(x86)" value="C:\Program Files (x86)" />
+    <property name="java.specification.vendor" value="Oracle Corporation" />
+    <property name="java.vendor.url" value="http://java.oracle.com/" />
+    <property name="java.library.path" value="C:\Program Files\Java\jre1.8.0_77\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jre1.8.0_77/bin/server;C:/Program Files/Java/jre1.8.0_77/bin;C:/Program Files/Java/jre1.8.0_77/lib/amd64;C:\ProgramData\Oracle\Java\javapath;c:\Program Files (x86)\Intel\iCLS Client\;c:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\MySQL\MySQL Server 5.5\bin;c:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;c:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;c:\Program Files\Microsoft SQL Server\100\Tools\Binn\;c:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\PrivateAssemblies\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\OpenCL SDK\3.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\3.0\bin\x64;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\apache-ant-1.9.6\bin;C:\Users\Marco.Velluto\AppData\Roaming\npm;C:\Users\Marco.Velluto\Desktop\eclipse;;." />
+    <property name="env.NUMBER_OF_PROCESSORS" value="4" />
+    <property name="env.USERDNSDOMAIN" value="CSTTECH.IT" />
+    <property name="java.vm.vendor" value="Oracle Corporation" />
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
+    <property name="ant.version" value="Apache Ant(TM) version 1.9.6 compiled on June 29 2015" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner it.reexon.reexon.lib.security.crypt.tests.EncryptionFileUtilTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Marco.Velluto\git\ReexonLib\junit\TEST-it.reexon.reexon.lib.security.crypt.tests.EncryptionFileUtilTest.xml crashfile=C:\Users\Marco.Velluto\git\ReexonLib\junitvmwatcher7603877690918045106.properties propsfile=C:\Users\Marco.Velluto\git\ReexonLib\junit238442702231007389.properties" />
+    <property name="java.class.path" value="C:\Users\Marco.Velluto\git\ReexonLib\target\classes;C:\Users\Marco.Velluto\Desktop\eclipse\plugins\org.junit_4.12.0.v201504281640\junit.jar;C:\Users\Marco.Velluto\Desktop\eclipse\plugins\org.hamcrest.core_1.3.0.v201303031735.jar;C:\Users\Marco.Velluto\.ivy2\cache\commons-codec\commons-codec\jars\commons-codec-1.10.jar;C:\Users\Marco.Velluto\.ivy2\cache\commons-io\commons-io\jars\commons-io-2.4.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.apache.commons\commons-lang3\jars\commons-lang3-3.4.jar;C:\Users\Marco.Velluto\.ivy2\cache\com.google.code.gson\gson\jars\gson-2.6.2.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.apache.pdfbox\pdfbox\bundles\pdfbox-1.8.11.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.apache.pdfbox\fontbox\bundles\fontbox-1.8.11.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.apache.pdfbox\jempbox\bundles\jempbox-1.8.11.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.bouncycastle\bcmail-jdk15\jars\bcmail-jdk15-1.44.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.bouncycastle\bcprov-jdk15\jars\bcprov-jdk15-1.44.jar;C:\Users\Marco.Velluto\.ivy2\cache\com.ibm.icu\icu4j\jars\icu4j-3.8.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.jsoup\jsoup\jars\jsoup-1.8.3.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.seleniumhq.selenium\selenium-java\jars\selenium-java-2.53.0.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.seleniumhq.selenium\selenium-chrome-driver\jars\selenium-chrome-driver-2.53.0.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.seleniumhq.selenium\selenium-remote-driver\jars\selenium-remote-driver-2.53.0.jar;C:\Users\Marco.Velluto\.ivy2\cache\cglib\cglib-nodep\jars\cglib-nodep-2.1_3.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.seleniumhq.selenium\selenium-api\jars\selenium-api-2.53.0.jar;C:\Users\Marco.Velluto\.ivy2\cache\com.google.guava\guava\bundles\guava-19.0.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.apache.httpcomponents\httpclient\jars\httpclient-4.5.1.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.apache.httpcomponents\httpcore\jars\httpcore-4.4.3.jar;C:\Users\Marco.Velluto\.ivy2\cache\commons-logging\commons-logging\jars\commons-logging-1.2.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.apache.commons\commons-exec\jars\commons-exec-1.3.jar;C:\Users\Marco.Velluto\.ivy2\cache\net.java.dev.jna\jna\jars\jna-4.1.0.jar;C:\Users\Marco.Velluto\.ivy2\cache\net.java.dev.jna\jna-platform\jars\jna-platform-4.1.0.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.seleniumhq.selenium\selenium-edge-driver\jars\selenium-edge-driver-2.53.0.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.seleniumhq.selenium\selenium-firefox-driver\jars\selenium-firefox-driver-2.53.0.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.seleniumhq.selenium\selenium-ie-driver\jars\selenium-ie-driver-2.53.0.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.seleniumhq.selenium\selenium-safari-driver\jars\selenium-safari-driver-2.53.0.jar;C:\Users\Marco.Velluto\.ivy2\cache\io.netty\netty\bundles\netty-3.5.7.Final.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.seleniumhq.selenium\selenium-support\jars\selenium-support-2.53.0.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.seleniumhq.selenium\selenium-leg-rc\jars\selenium-leg-rc-2.53.0.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.seleniumhq.selenium\selenium-server\jars\selenium-server-2.53.0.jar;C:\Users\Marco.Velluto\.ivy2\cache\com.beust\jcommander\jars\jcommander-1.48.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.bouncycastle\bcprov-jdk15on\jars\bcprov-jdk15on-1.48.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.bouncycastle\bcpkix-jdk15on\jars\bcpkix-jdk15on-1.48.jar;C:\Users\Marco.Velluto\.ivy2\cache\mx4j\mx4j-tools\jars\mx4j-tools-3.0.1.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.seleniumhq.selenium\jetty-repacked\jars\jetty-repacked-9.2.13.v20150730.jar;C:\Users\Marco.Velluto\.ivy2\cache\javax.servlet\javax.servlet-api\jars\javax.servlet-api-3.1.0.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.seleniumhq.selenium\jetty-rc-repacked\jars\jetty-rc-repacked-5.jar;C:\Users\Marco.Velluto\.ivy2\cache\net.jcip\jcip-annotations\jars\jcip-annotations-1.0.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.yaml\snakeyaml\jars\snakeyaml-1.8.jar;C:\Users\Marco.Velluto\.ivy2\cache\junit\junit\jars\junit-4.12.jar;C:\Users\Marco.Velluto\.ivy2\cache\org.hamcrest\hamcrest-core\jars\hamcrest-core-1.3.jar;C:\Users\Marco.Velluto\Documents\Marco\workspace\ReexonLib\lib\commons-lang3-3.3.2.jar;C:\Users\Marco.Velluto\Documents\Marco\workspace\ReexonLib\lib\aspose-imaging-3.0.1-jdk16.jar;C:\Users\Marco.Velluto\.m2;C:\Program Files\Java\jre1.8.0_74;C:\Users\Marco.Velluto\Desktop\eclipse\plugins\org.apache.ant_1.9.6.v201510161327\lib\ant-launcher.jar;C:\Users\Marco.Velluto\Desktop\eclipse\plugins\org.apache.ant_1.9.6.v201510161327\lib\ant.jar;C:\Users\Marco.Velluto\Desktop\eclipse\plugins\org.apache.ant_1.9.6.v201510161327\lib\ant-junit.jar;C:\Users\Marco.Velluto\Desktop\eclipse\plugins\org.apache.ant_1.9.6.v201510161327\lib\ant-junit4.jar" />
+    <property name="env.PCBRAND" value="Pavilion" />
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+    <property name="env.windir" value="C:\WINDOWS" />
+    <property name="env.LOGONSERVER" value="\\ZEUS" />
+    <property name="env.PROCESSOR_ARCHITECTURE" value="AMD64" />
+    <property name="java.vm.specification.version" value="1.8" />
+    <property name="sun.os.patch.level" value="" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="debuglevel" value="source,lines,vars" />
+    <property name="env.ANT_HOME" value="C:\Users\Marco.Velluto\Desktop\eclipse\plugins\org.apache.ant_1.9.6.v201510161327" />
+    <property name="ant.file.type.ReexonLib" value="file" />
+    <property name="env.ProgramFiles" value="C:\Program Files" />
+    <property name="java.io.tmpdir" value="C:\Users\MARCO~1.VEL\AppData\Local\Temp\" />
+    <property name="env.PROCESSOR_REVISION" value="3c03" />
+    <property name="eclipse.pdebuild.home" value="/C:/Users/Marco.Velluto/Desktop/eclipse/plugins/org.eclipse.pde.build_3.9.100.v20150521-1524/./" />
+    <property name="env.CommonProgramFiles(x86)" value="C:\Program Files (x86)\Common Files" />
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/" />
+    <property name="env.SystemRoot" value="C:\WINDOWS" />
+    <property name="env.FPS_BROWSER_APP_PROFILE_STRING" value="Internet Explorer" />
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment" />
+    <property name="os.arch" value="amd64" />
+    <property name="java.ext.dirs" value="C:\Program Files\Java\jre1.8.0_77\lib\ext;C:\WINDOWS\Sun\Java\lib\ext" />
+    <property name="user.dir" value="C:\Users\Marco.Velluto\git\ReexonLib" />
+    <property name="env.LOCALAPPDATA" value="C:\Users\Marco.Velluto\AppData\Local" />
+    <property name="line.separator" value="&#xd;&#xa;" />
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM" />
+    <property name="env.PATHEXT" value=".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC" />
+    <property name="env.Path" value="C:/Program Files/Java/jre1.8.0_77/bin/server;C:/Program Files/Java/jre1.8.0_77/bin;C:/Program Files/Java/jre1.8.0_77/lib/amd64;C:\ProgramData\Oracle\Java\javapath;c:\Program Files (x86)\Intel\iCLS Client\;c:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\MySQL\MySQL Server 5.5\bin;c:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;c:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;c:\Program Files\Microsoft SQL Server\100\Tools\Binn\;c:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\PrivateAssemblies\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\OpenCL SDK\3.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\3.0\bin\x64;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\apache-ant-1.9.6\bin;C:\Users\Marco.Velluto\AppData\Roaming\npm;C:\Users\Marco.Velluto\Desktop\eclipse;" />
+    <property name="basedir" value="C:\Users\Marco.Velluto\git\ReexonLib" />
+    <property name="env.FPPUILang" value="en-US" />
+    <property name="ant.java.version" value="1.8" />
+    <property name="ant.core.lib" value="C:\Users\Marco.Velluto\Desktop\eclipse\plugins\org.apache.ant_1.9.6.v201510161327\lib\ant.jar" />
+    <property name="env.USERNAME" value="marco.velluto" />
+    <property name="source" value="1.8" />
+    <property name="env.SystemDrive" value="C:" />
+    <property name="file.encoding" value="Cp1252" />
+    <property name="env.USERDOMAIN" value="CSTTECH" />
+    <property name="java.specification.version" value="1.8" />
+    <property name="ant.project.invoked-targets" value="1 -ReexonLib" />
+    <property name="env.Platform" value="BNB" />
+    <property name="INECLIPSE" value="TRUE" />
+    <property name="env.PROCESSOR_LEVEL" value="6" />
+    <property name="env.VBOX_MSI_INSTALL_PATH" value="C:\Program Files\Oracle\VirtualBox\" />
+  </properties>
+  <error message="it.reexon.reexon.lib.security.crypt.tests.EncryptionFileUtilTest" type="java.lang.ClassNotFoundException">java.lang.ClassNotFoundException: it.reexon.reexon.lib.security.crypt.tests.EncryptionFileUtilTest
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Unknown Source)
+</error>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

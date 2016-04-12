@@ -1,4 +1,4 @@
-package it.reexon.reexon.lib.gpx.demo;
+package it.reexon.reexon.lib.gpx.demo.csv;
 
 import java.io.File;
 import java.util.Date;

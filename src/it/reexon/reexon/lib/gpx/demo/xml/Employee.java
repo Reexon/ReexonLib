@@ -1,4 +1,4 @@
-package it.reexon.reexon.lib.gpx.demo;
+package it.reexon.reexon.lib.gpx.demo.xml;
 
 import java.util.Date;
 
@@ -48,6 +48,11 @@ public class Employee
     public void setHireDate(Date hireDate)
     {
         this.hireDate = hireDate;
+    }
+    @Override
+    public String toString()
+    {
+        return String.format("Employee [firstName=%s, lastName=%s, title=%s, salary=%s, hireDate=%s]", firstName, lastName, title, salary, hireDate);
     }
     
     

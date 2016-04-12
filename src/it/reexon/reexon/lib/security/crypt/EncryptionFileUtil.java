@@ -24,6 +24,8 @@ import it.reexon.reexon.lib.security.algorithms.SecretKeySpecAlgorithms;
  * @author Marco Velluto
  * @since Java 1.8
  * 
+ * *** ATTENTION *** 
+ * NOT USE THIS AGAIN 
  */
 public class EncryptionFileUtil
 {

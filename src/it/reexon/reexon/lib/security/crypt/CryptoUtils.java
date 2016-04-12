@@ -19,6 +19,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import it.reexon.reexon.lib.security.GenerateSecureSalt;
 import it.reexon.reexon.lib.security.crypt.exceptions.CryptoException;
 
 
@@ -64,7 +65,11 @@ public class CryptoUtils
             outputStream.close();
 
         }
-        catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | BadPaddingException | IllegalBlockSizeException
+        catch (@SuppressWarnings("unused") BadPaddingException e)
+        {
+            throw new RuntimeException("Wrong key");
+        }
+        catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException
                 | IOException ex)
         {
             throw new CryptoException("Error encrypting/decrypting file", ex);
@@ -91,7 +96,28 @@ public class CryptoUtils
         SecretKey secret = new SecretKeySpec(tmp.getEncoded(), ALGORITHM);
 
         return secret;
+    }
 
+    //    public static SecretKey getSecretKey(String salt) throws NoSuchAlgorithmException, InvalidKeySpecException
+    //    {
+    //        char[] password = "PBKDF2WithHmacSHA256".toCharArray();
+    //        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+    //        KeySpec spec = new PBEKeySpec(password, salt.getBytes(), 65536, 256);
+    //        SecretKey tmp = factory.generateSecret(spec);
+    //        SecretKey secret = new SecretKeySpec(tmp.getEncoded(), ALGORITHM);
+    //
+    //        return secret;
+    //    }
+
+    public static SecretKey getSecretKey(String password) throws NoSuchAlgorithmException, InvalidKeySpecException
+    {
+        byte[] salt = GenerateSecureSalt.getSalt();
+        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 256);
+        SecretKey tmp = factory.generateSecret(spec);
+        SecretKey secret = new SecretKeySpec(tmp.getEncoded(), ALGORITHM);
+
+        return secret;
     }
 
     /**

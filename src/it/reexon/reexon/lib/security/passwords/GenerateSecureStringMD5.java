@@ -93,14 +93,14 @@ public class GenerateSecureStringMD5
      * @return
      * @throws NoSuchAlgorithmException
      */
-    public static String generateSecurePassword(String passwordToHash, String salt)
+    public static String generateSecurePassword(String passwordToHash, byte[] salt)
     {
         String generatedPassword = null;
         try
         {
             MessageDigest md = MessageDigest.getInstance("MD5");
             //Add password bytes to digest
-            md.update(salt.getBytes());
+            md.update(salt);
             //Get the hash's bytes 
             byte[] bytes = md.digest(passwordToHash.getBytes());
             //This bytes[] has bytes in decimal format;

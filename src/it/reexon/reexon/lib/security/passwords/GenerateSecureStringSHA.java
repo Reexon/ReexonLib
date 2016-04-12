@@ -39,7 +39,7 @@ public class GenerateSecureStringSHA
      * @param salt
      * @return
      */
-    public static String generateSecurePassword(String passwordToHash, String salt)
+    public static String generateSecurePassword(String passwordToHash, byte[] salt)
     {
         return get_SHA_512_SecurePassword(passwordToHash, salt);
     }
@@ -51,13 +51,13 @@ public class GenerateSecureStringSHA
      * @param salt
      * @return
      */
-    public static String get_SHA_1_SecurePassword(String passwordToHash, String salt)
+    public static String get_SHA_1_SecurePassword(String passwordToHash, byte[] salt)
     {
         String generatedPassword = null;
         try
         {
             MessageDigest md = MessageDigest.getInstance("SHA-1");
-            md.update(salt.getBytes());
+            md.update(salt);
             byte[] bytes = md.digest(passwordToHash.getBytes());
             generatedPassword = ConvertUtils.byteArrayToHexString(bytes);
         }
@@ -74,7 +74,7 @@ public class GenerateSecureStringSHA
      * @param salt
      * @return
      */
-    public static String get_SHA_256_SecurePassword(String passwordToHash, String salt)
+    public static String get_SHA_256_SecurePassword(String passwordToHash, byte[] salt)
     {
         String password = null;
         try
@@ -94,7 +94,7 @@ public class GenerateSecureStringSHA
      * @param salt
      * @return
      */
-    public static String get_SHA_384_SecurePassword(String passwordToHash, String salt)
+    public static String get_SHA_384_SecurePassword(String passwordToHash, byte[] salt)
     {
         String password = null;
         try
@@ -114,7 +114,7 @@ public class GenerateSecureStringSHA
      * @param salt
      * @return
      */
-    public static String get_SHA_512_SecurePassword(String passwordToHash, String salt)
+    public static String get_SHA_512_SecurePassword(String passwordToHash, byte[] salt)
     {
         String password = null;
         try
@@ -136,12 +136,12 @@ public class GenerateSecureStringSHA
      * @return
      * @throws NoSuchAlgorithmException
      */
-    public static final String getSecurePassowrd(String passwordToHash, String salt, String algorithm) throws NoSuchAlgorithmException
+    public static final String getSecurePassowrd(String passwordToHash, byte[] salt, String algorithm) throws NoSuchAlgorithmException
     {
         String generatedPassword = null;
 
         MessageDigest md = MessageDigest.getInstance(algorithm);
-        md.update(salt.getBytes());
+        md.update(salt);
         byte[] bytes = md.digest(passwordToHash.getBytes());
         generatedPassword = ConvertUtils.byteArrayToHexString(bytes);
 

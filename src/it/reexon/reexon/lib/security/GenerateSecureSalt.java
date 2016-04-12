@@ -18,7 +18,7 @@ public class GenerateSecureSalt
      * @return
      * @throws NoSuchAlgorithmException
      */
-    public static String getSalt()
+    public static byte[] getSalt()
     {
         try
         {
@@ -32,7 +32,8 @@ public class GenerateSecureSalt
             sr.nextBytes(salt);
 
             //return salt
-            return salt.toString();
+            return salt;
+
         }
         catch (NoSuchAlgorithmException e)
         {

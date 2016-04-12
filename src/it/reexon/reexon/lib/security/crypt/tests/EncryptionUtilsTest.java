@@ -1,5 +1,9 @@
 package it.reexon.reexon.lib.security.crypt.tests;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
+import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -48,8 +52,29 @@ public class EncryptionUtilsTest
     public final String testDecrypt(String encrypted, String password) throws Exception
     {
         final EncryptionUtils td = new EncryptionUtils(password);
-
         return td.decrypt(encrypted);
+    }
+
+    public final void fileCryptTest() throws Exception
+    {
+        try
+        {
+            File f = new File("test/tetsss.TXT");
+            IOUtils.write("CIAO", new FileOutputStream(f));
+            final EncryptionUtils tf = new EncryptionUtils("myP4ss0rD");
+            tf.encryptFile(f, new File("f.crypt"));
+
+            File file = new File("test/f.crypt");
+            final EncryptionUtils fff = new EncryptionUtils("myP4ss0rD");
+            fff.decryptFile(file, new File("test/f22.txt"));
+        }
+        catch (Exception e)
+        {
+            e.getLocalizedMessage();
+            e.printStackTrace();
+            Assert.fail();
+        }
+
     }
 
 }

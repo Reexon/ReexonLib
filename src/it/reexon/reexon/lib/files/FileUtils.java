@@ -48,6 +48,24 @@ public class FileUtils
     }
 
     /**
+     * Check the checksum files with algorithm SHA-256
+     * 
+     * @param firstFile     file orginal
+     * @param secondFile    file to check
+     * @return - true if files are equals
+     *         - null if there was an error         
+     * {@linkplain}{@it.reexon.reexon.lib.files.CheckFile.checkEqualsFiles(File, File)} 
+     * 
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    public static Boolean checkEqualFiles(File firstFile, File secondFile) throws FileNotFoundException, IOException
+    {
+        return CheckFile.checkEqualsFiles(firstFile, secondFile);
+    }
+
+    /**
+     * @deprecated user IOUtils
      * Move file in a new directory     
      * 
      * @param file to move
@@ -67,6 +85,8 @@ public class FileUtils
     }
 
     /**
+     * @deprecated user IOUtils
+     * 
      * Write lines on selected file
      * 
      * @param file file to write
@@ -83,23 +103,7 @@ public class FileUtils
     }
 
     /**
-     * Check the checksum files with algorithm SHA-256
-     * 
-     * @param firstFile     file orginal
-     * @param secondFile    file to check
-     * @return - true if files are equals
-     *         - null if there was an error         
-     * {@linkplain}{@it.reexon.reexon.lib.files.CheckFile.checkEqualsFiles(File, File)} 
-     * 
-     * @throws FileNotFoundException
-     * @throws IOException
-     */
-    public static Boolean checkEqualFiles(File firstFile, File secondFile) throws FileNotFoundException, IOException
-    {
-        return CheckFile.checkEqualsFiles(firstFile, secondFile);
-    }
-
-    /**
+     *  @deprecated user IOUtils
      * Copy inputstream on file
      * 
      * @param file file you want to copy

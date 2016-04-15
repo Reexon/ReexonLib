@@ -1,6 +1,3 @@
-/**
- * 
- */
 package it.reexon.reexon.lib.date.test;
 
 import java.text.ParseException;
@@ -15,10 +12,6 @@ import org.junit.Test;
 import it.reexon.reexon.lib.date.DateUtils;
 
 
-/**
- * @author marco.velluto
- *
- */
 public class DateUtilsTest
 {
     @Test
@@ -56,7 +49,7 @@ public class DateUtilsTest
         try
         {
             Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2016-03-10 14:51:26");
-            Date dateReturn = DateUtils.getDateBeginMonth(date);
+            Date dateReturn = DateUtils.getDateBeginningMonth(date);
 
             Assert.assertEquals("Tue Mar 01 00:00:00 CET 2016", dateReturn.toString());
         }
@@ -84,13 +77,6 @@ public class DateUtilsTest
         }
     }
 
-    /**
-     * 
-     * @param year 
-     * @param month month star 0 (January = 0)
-     * @param day
-     * @return
-     */
     private Date getDate(int year, int month, int day)
     {
         Calendar c = Calendar.getInstance();

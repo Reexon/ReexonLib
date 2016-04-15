@@ -14,10 +14,9 @@ public class ConvertUtils
      * a byte array to a HEX string
      * 
      * @param byteArray hex byte[] to covert in string
-     * 
      * @return string converted
      */
-    public static String byteArrayToHexString(byte[] byteArray)
+    public static String toHexString(byte[] byteArray)
     {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < byteArray.length; i++)
@@ -33,7 +32,7 @@ public class ConvertUtils
      * @param str String to convert
      * @return byte[] of characters
      */
-    public static byte[] fromHex(String str)
+    public static byte[] toHex(String str)
     {
         byte[] bytes = new byte[str.length() / 2];
         for (int i = 0; i < bytes.length; i++)

@@ -11,7 +11,7 @@ public class ConvertUtilsTest
     @Test
     public final void testByteArrayToHexString()
     {
-        System.out.println(ConvertUtils.byteArrayToHexString("[B@17579e0f".getBytes()));
+        System.out.println(ConvertUtils.toHexString("[B@17579e0f".getBytes()));
     }
 
 }

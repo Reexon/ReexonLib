@@ -224,34 +224,34 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.convertions.dwg.tests.DwgToPdfTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.convertions.tests.ConvertUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.date.test.DateUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.files.tests.CheckFileTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.files.tests.ImportFilesUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.files.tests.ZipUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.gpx.tests.GPXValidaroImplTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.images.tests.ImageUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.list.tests.ListTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.network.interceptions.test.SeleniumTrafficAnalyserExampleTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.network.tests.NetworkUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.network.tests.UrlConnectionTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.parsing.tests.ParseJspTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.pdf.tests.PDFUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.checksums.tests.GenerateSecureChecksumTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.checksums.tests.MD5ChecksumTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.crypt.tests.AESCryptTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.crypt.tests.CryptoUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.crypt.tests.DESCryptTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.crypt.tests.EncryptionFileUtilTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.crypt.tests.EncryptionUtilTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.crypt.tests.EncryptionUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.crypt.tests.RSACryptTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.passwords.tests.GenerateSecureStringMD5Test" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.passwords.tests.GenerateSecureStringPBKDF2WithHmacSHA1Test" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.passwords.tests.GenerateSecureStringSHATest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.tests.GenerateSecureStringTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.strings.tests.StringTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.convertions.dwg.tests.DwgToPdfTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.convertions.tests.ConvertUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.date.test.DateUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.files.tests.CheckFileTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.files.tests.ImportFilesUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.files.tests.ZipUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.gpx.tests.GPXValidaroImplTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.images.tests.ImageUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.list.tests.ListTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.network.interceptions.test.SeleniumTrafficAnalyserExampleTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.network.tests.NetworkUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.network.tests.UrlConnectionTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.parsing.tests.ParseJspTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.pdf.tests.PDFUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.checksums.tests.GenerateSecureChecksumTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.checksums.tests.MD5ChecksumTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.crypt.tests.AESCryptTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.crypt.tests.CryptoUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.crypt.tests.DESCryptTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.crypt.tests.EncryptionFileUtilTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.crypt.tests.EncryptionUtilTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.crypt.tests.EncryptionUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.crypt.tests.RSACryptTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.passwords.tests.GenerateSecureStringMD5Test" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.passwords.tests.GenerateSecureStringPBKDF2WithHmacSHA1Test" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.passwords.tests.GenerateSecureStringSHATest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.tests.GenerateSecureStringTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.strings.tests.StringTest" todir="${junit.output.dir}"/>
             <classpath refid="run.1 -ReexonLib.classpath"/>
         </junit>
     </target>
@@ -259,7 +259,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.files.tests.CheckFileTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.files.tests.CheckFileTest" todir="${junit.output.dir}"/>
             <classpath refid="run.CheckFileTest.classpath"/>
         </junit>
     </target>
@@ -267,7 +267,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.convertions.tests.ConvertUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.convertions.tests.ConvertUtilsTest" todir="${junit.output.dir}"/>
             <classpath refid="run.ConvertUtilsTest.classpath"/>
         </junit>
     </target>
@@ -275,17 +275,17 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.security.crypt.tests.CryptoUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.crypt.tests.CryptoUtilsTest" todir="${junit.output.dir}"/>
             <classpath refid="run.CryptoUtilsTest.classpath"/>
         </junit>
     </target>
     <target name="EncryptionUtil">
-        <java classname="it.reexon.reexon.lib.crypt.EncryptionUtil" failonerror="true" fork="yes">
+        <java classname="it.reexon.lib.crypt.EncryptionUtil" failonerror="true" fork="yes">
             <classpath refid="run.EncryptionUtil.classpath"/>
         </java>
     </target>
     <target name="EncryptionUtilsTest (1)">
-        <java classname="it.reexon.reexon.lib.security.crypt.tests.EncryptionUtilsTest" failonerror="true" fork="yes">
+        <java classname="it.reexon.lib.security.crypt.tests.EncryptionUtilsTest" failonerror="true" fork="yes">
             <classpath refid="run.EncryptionUtilsTest (1).classpath"/>
         </java>
     </target>
@@ -293,7 +293,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.security.crypt.tests.EncryptionUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.crypt.tests.EncryptionUtilsTest" todir="${junit.output.dir}"/>
             <classpath refid="run.EncryptionUtilsTest.classpath"/>
         </junit>
     </target>
@@ -301,7 +301,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.security.crypt.tests.EncryptionUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.crypt.tests.EncryptionUtilsTest" todir="${junit.output.dir}"/>
             <classpath refid="run.EncryptionUtilsTest.testFile.classpath"/>
         </junit>
     </target>
@@ -309,7 +309,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.security.crypt.tests.EncryptionUtilTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.crypt.tests.EncryptionUtilTest" todir="${junit.output.dir}"/>
             <classpath refid="run.EncryptionUtilTest.classpath"/>
         </junit>
     </target>
@@ -317,7 +317,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.security.checksums.tests.GenerateSecureChecksumTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.checksums.tests.GenerateSecureChecksumTest" todir="${junit.output.dir}"/>
             <classpath refid="run.GenerateSecureChecksumTest.classpath"/>
         </junit>
     </target>
@@ -325,7 +325,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.security.passwords.tests.GenerateSecureStringMD5Test" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.passwords.tests.GenerateSecureStringMD5Test" todir="${junit.output.dir}"/>
             <classpath refid="run.GenerateSecureStringMD5Test.classpath"/>
         </junit>
     </target>
@@ -333,7 +333,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.security.passwords.tests.GenerateSecureStringPBKDF2WithHmacSHA1Test" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.passwords.tests.GenerateSecureStringPBKDF2WithHmacSHA1Test" todir="${junit.output.dir}"/>
             <classpath refid="run.GenerateSecureStringPBKDF2WithHmacSHA1Test.classpath"/>
         </junit>
     </target>
@@ -341,7 +341,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.security.passwords.tests.GenerateSecureStringSHATest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.passwords.tests.GenerateSecureStringSHATest" todir="${junit.output.dir}"/>
             <classpath refid="run.GenerateSecureStringSHATest.classpath"/>
         </junit>
     </target>
@@ -349,7 +349,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.security.tests.GenerateSecureStringTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.tests.GenerateSecureStringTest" todir="${junit.output.dir}"/>
             <classpath refid="run.GenerateSecureStringTest.classpath"/>
         </junit>
     </target>
@@ -357,17 +357,17 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.files.tests.ImportFilesUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.files.tests.ImportFilesUtilsTest" todir="${junit.output.dir}"/>
             <classpath refid="run.ImportFilesUtilsTest.classpath"/>
         </junit>
     </target>
     <target name="JsonGenerated">
-        <java classname="it.reexon.reexon.lib.json.JsonGenerated" failonerror="true" fork="yes">
+        <java classname="it.reexon.lib.json.JsonGenerated" failonerror="true" fork="yes">
             <classpath refid="run.JsonGenerated.classpath"/>
         </java>
     </target>
     <target name="Kml (1)">
-        <java classname="it.reexon.reexon.lib.kml.Kml" failonerror="true" fork="yes">
+        <java classname="it.reexon.lib.kml.Kml" failonerror="true" fork="yes">
             <classpath refid="run.Kml (1).classpath"/>
         </java>
     </target>
@@ -375,7 +375,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.security.checksums.tests.MD5ChecksumTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.checksums.tests.MD5ChecksumTest" todir="${junit.output.dir}"/>
             <classpath refid="run.MD5ChecksumTest.classpath"/>
         </junit>
     </target>
@@ -383,12 +383,12 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.network.tests.NetworkUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.network.tests.NetworkUtilsTest" todir="${junit.output.dir}"/>
             <classpath refid="run.NetworkUtilsTest.classpath"/>
         </junit>
     </target>
     <target name="PDFApp">
-        <java classname="it.reexon.reexon.lib.pdf.applications.PDFApp" failonerror="true" fork="yes">
+        <java classname="it.reexon.lib.pdf.applications.PDFApp" failonerror="true" fork="yes">
             <classpath refid="run.PDFApp.classpath"/>
         </java>
     </target>
@@ -396,17 +396,17 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.pdf.tests.PDFUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.pdf.tests.PDFUtilsTest" todir="${junit.output.dir}"/>
             <classpath refid="run.PDFUtilsTest.classpath"/>
         </junit>
     </target>
     <target name="SecurityApp">
-        <java classname="it.reexon.reexon.lib.security.applications.SecurityApp" failonerror="true" fork="yes">
+        <java classname="it.reexon.lib.security.applications.SecurityApp" failonerror="true" fork="yes">
             <classpath refid="run.SecurityApp.classpath"/>
         </java>
     </target>
     <target name="SecurityApplication">
-        <java classname="it.reexon.reexon.lib.gui.SecurityApplication" failonerror="true" fork="yes">
+        <java classname="it.reexon.lib.gui.SecurityApplication" failonerror="true" fork="yes">
             <classpath refid="run.SecurityApplication.classpath"/>
         </java>
     </target>
@@ -414,7 +414,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.network.interceptions.test.SeleniumTrafficAnalyserExampleTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.network.interceptions.test.SeleniumTrafficAnalyserExampleTest" todir="${junit.output.dir}"/>
             <classpath refid="run.SeleniumTrafficAnalyserExampleTest.classpath"/>
         </junit>
     </target>
@@ -422,34 +422,34 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.convertions.dwg.tests.DwgToPdfTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.convertions.tests.ConvertUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.date.test.DateUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.files.tests.CheckFileTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.files.tests.ImportFilesUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.files.tests.ZipUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.gpx.tests.GPXValidaroImplTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.images.tests.ImageUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.list.tests.ListTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.network.interceptions.test.SeleniumTrafficAnalyserExampleTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.network.tests.NetworkUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.network.tests.UrlConnectionTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.parsing.tests.ParseJspTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.pdf.tests.PDFUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.checksums.tests.GenerateSecureChecksumTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.checksums.tests.MD5ChecksumTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.crypt.tests.AESCryptTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.crypt.tests.CryptoUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.crypt.tests.DESCryptTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.crypt.tests.EncryptionFileUtilTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.crypt.tests.EncryptionUtilTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.crypt.tests.EncryptionUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.crypt.tests.RSACryptTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.passwords.tests.GenerateSecureStringMD5Test" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.passwords.tests.GenerateSecureStringPBKDF2WithHmacSHA1Test" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.passwords.tests.GenerateSecureStringSHATest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.security.tests.GenerateSecureStringTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.reexon.lib.strings.tests.StringTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.convertions.dwg.tests.DwgToPdfTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.convertions.tests.ConvertUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.date.test.DateUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.files.tests.CheckFileTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.files.tests.ImportFilesUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.files.tests.ZipUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.gpx.tests.GPXValidaroImplTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.images.tests.ImageUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.list.tests.ListTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.network.interceptions.test.SeleniumTrafficAnalyserExampleTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.network.tests.NetworkUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.network.tests.UrlConnectionTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.parsing.tests.ParseJspTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.pdf.tests.PDFUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.checksums.tests.GenerateSecureChecksumTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.checksums.tests.MD5ChecksumTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.crypt.tests.AESCryptTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.crypt.tests.CryptoUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.crypt.tests.DESCryptTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.crypt.tests.EncryptionFileUtilTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.crypt.tests.EncryptionUtilTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.crypt.tests.EncryptionUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.crypt.tests.RSACryptTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.passwords.tests.GenerateSecureStringMD5Test" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.passwords.tests.GenerateSecureStringPBKDF2WithHmacSHA1Test" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.passwords.tests.GenerateSecureStringSHATest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.security.tests.GenerateSecureStringTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.strings.tests.StringTest" todir="${junit.output.dir}"/>
             <classpath refid="run.src.classpath"/>
         </junit>
     </target>
@@ -457,12 +457,12 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.network.tests.UrlConnectionTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.network.tests.UrlConnectionTest" todir="${junit.output.dir}"/>
             <classpath refid="run.UrlConnectionTest.classpath"/>
         </junit>
     </target>
     <target name="WordsGenerated">
-        <java classname="it.reexon.reexon.lib.words.WordsGenerated" failonerror="true" fork="yes">
+        <java classname="it.reexon.lib.words.WordsGenerated" failonerror="true" fork="yes">
             <classpath refid="run.WordsGenerated.classpath"/>
         </java>
     </target>
@@ -470,7 +470,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.reexon.lib.files.tests.ZipUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.files.tests.ZipUtilsTest" todir="${junit.output.dir}"/>
             <classpath refid="run.ZipUtilsTest.classpath"/>
         </junit>
     </target>

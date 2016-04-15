@@ -5,11 +5,10 @@ package it.reexon.reexon.lib.date;
 
 import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -21,8 +20,8 @@ public class DateUtils
     /**
      * Add days to the date
      * 
-     * @param date - Date on which to add the days
-     * @param numberDays - number of days
+     * @param date Date on which to add the days
+     * @param numberDays number of days
      * @return date - Date on which you have added days 
      */
     public static Date addDays(final Date date, int numberDays)
@@ -36,7 +35,7 @@ public class DateUtils
     /**
      * Add one day to the date
      * 
-     * @param dateFrom - Date on which to add one day
+     * @param dateFrom Date on which to add one day
      * @return date - Date on which you have added one day 
      */
     public static Date addOneDay(final Date date)
@@ -47,9 +46,9 @@ public class DateUtils
     /**
      * Checks whether the date is between the start date and end date
      * 
-     * @param dateToCheck - date to check
-     * @param startDate - start date
-     * @param endDate - end date
+     * @param dateToCheck date to check
+     * @param startDate start date
+     * @param endDate end date
      * 
      * @return true - if the date is within the range provided
      * @throws if dateToCheck, startDate, endDate are null.
@@ -79,7 +78,7 @@ public class DateUtils
     }
 
     /**
-     * Generates an ordered list of data from first to last
+     * Generates an list of data from first to last
      * 
      * @param date1 min date
      * @param date2 max date
@@ -90,15 +89,14 @@ public class DateUtils
      *  @param date1 = 2016/03/01
      *  @param date2 = 2016/03/31
      *  
-     *  @return Collection{2016/03/01, 2016/03/02, ... , 2016/03/31} 
+     *  @return Set{2016/03/01, 2016/03/02, ... , 2016/03/31} 
      */
-    public static Collection<Date> getDatesBetween(final Date date1, final Date date2)
+    public static List<Date> getDatesBetween(final Date date1, final Date date2)
     {
         if (date2.getTime() < date1.getTime())
             throw new IllegalArgumentException("Date2 have to max date1");
 
-        Set<Date> dates = new TreeSet<Date>();
-
+        List<Date> dates = new LinkedList<>();
         Calendar calendarDate1 = Calendar.getInstance();
         calendarDate1.setTimeInMillis(date1.getTime());
 
@@ -124,10 +122,10 @@ public class DateUtils
      * * MINUTE
      * * SECOND
      * * MILLISECOND
-     * @param calendar - calendar to be set
+     * @param calendar calendar to be set
      * @return date - date set as the beginning of the day
      * 
-     * @throws - calendar is null
+     * @throws if calendar is null
      */
     public static Calendar setTimeToBeginningOfDay(final Calendar calendar) throws NullPointerException
     {
@@ -153,10 +151,10 @@ public class DateUtils
      * * SECOND
      * * MILLISECOND
      * 
-     * @param date - date to be set
+     * @param date date to be set
      * @return date - Date set as the beginning of the day
      * 
-     * @throws NullPointerException - date is null
+     * @throws NullPointerException if date is null
      */
     public static Date setTimeToBeginningOfDay(final Date date) throws NullPointerException
     {
@@ -182,9 +180,9 @@ public class DateUtils
      * * SECOND -> 59
      * * MILLISECOND -> 999
      * 
-     * @param calendar - calendar to be set
+     * @param calendar calendar to be set
      * @return caledar - calendar set as the ending of the day
-     * @throws NullPointerException - calendar is null
+     * @throws NullPointerException if calendar is null
      */
     public static Calendar setTimeToEndofDay(final Calendar calendar) throws NullPointerException
     {
@@ -210,10 +208,10 @@ public class DateUtils
      * * SECOND -> 59
      * * MILLISECOND -> 999
      * 
-     * @param date - date to be set
+     * @param date date to be set
      * @return date - date set as the ending of the day
      * 
-     * @throws NullPointerException - if date is null
+     * @throws NullPointerException if date is null
      */
     public static Date setTimeToEndofDay(Date date) throws NullPointerException
     {
@@ -232,10 +230,10 @@ public class DateUtils
     /**
      * Returns the date with the beginning of the month
      * 
-     * @param date - date to get beginning month
+     * @param date date to get beginning month
      * @return data - date of beginning month 
      */
-    public static Date getDateBeginningMonth(Date date)
+    public static Date getDateBeginningMonth(final Date date)
     {
         if (date == null)
             return null;
@@ -244,7 +242,7 @@ public class DateUtils
         calendarBegin.setTime(date);
         calendarBegin.set(Calendar.DAY_OF_MONTH, calendarBegin.getActualMinimum(Calendar.DAY_OF_MONTH));
 
-        setTimeToBeginningOfDay(calendarBegin);
+        calendarBegin = setTimeToBeginningOfDay(calendarBegin);
 
         return calendarBegin.getTime();
 
@@ -253,10 +251,10 @@ public class DateUtils
     /**
      * Returns the date with the ending of the month
      * 
-     * @param date - date to get ending month
+     * @param date date to get ending month
      * @return data - date of ending month 
      */
-    public static Date getDateEndMonth(Date date)
+    public static Date getDateEndMonth(final Date date)
     {
         if (date == null)
             return null;
@@ -265,7 +263,7 @@ public class DateUtils
         calendarEnd.setTime(date);
         calendarEnd.set(Calendar.DAY_OF_MONTH, calendarEnd.getActualMaximum(Calendar.DAY_OF_MONTH));
 
-        setTimeToEndofDay(calendarEnd);
+        calendarEnd = setTimeToEndofDay(calendarEnd);
 
         return calendarEnd.getTime();
     }
@@ -273,7 +271,7 @@ public class DateUtils
     /**
      * Returns a range of dates that between the beginning and the end of the month
      * 
-     * @param date - date to fetch range of dates
+     * @param date date to fetch range of dates
      * @return dateRange - date range of dates that between the beginning and the end of the month
      */
     public static DateRange getDateRangeBeginEndMonth(Date date)

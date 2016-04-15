@@ -15,14 +15,14 @@ import it.reexon.reexon.lib.date.DateUtils;
 public class DateUtilsTest
 {
     @Test
-    public void getDatesBetween()
+    public void getDatesBetweenTest()
     {
         try
         {
             final Date date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2016-03-01 00:00:000");
             final Date date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2016-03-10 00:00:000");
 
-            List<Date> listOfDate = (List<Date>) DateUtils.getDatesBetween(date1, date2);
+            List<Date> listOfDate = DateUtils.getDatesBetween(date1, date2);
             Assert.assertNotNull(listOfDate);
             Assert.assertEquals(10, listOfDate.size());
             Assert.assertTrue(listOfDate.contains(this.getDate(2016, 02, 1)));
@@ -36,10 +36,11 @@ public class DateUtilsTest
             Assert.assertTrue(listOfDate.contains(this.getDate(2016, 02, 9)));
             Assert.assertTrue(listOfDate.contains(this.getDate(2016, 02, 10)));
         }
-        catch (ParseException e)
+        catch (Exception e)
         {
-            Assert.fail();
+            System.err.println("Error in getDatesBetweenTest: " + e.getLocalizedMessage());
             e.printStackTrace();
+            Assert.fail(e.getLocalizedMessage());
         }
     }
 
@@ -81,7 +82,7 @@ public class DateUtilsTest
     {
         Calendar c = Calendar.getInstance();
         c.set(year, month, day);
-        DateUtils.setTimeToBeginningOfDay(c);
+        c = DateUtils.setTimeToBeginningOfDay(c);
         return c.getTime();
     }
 }

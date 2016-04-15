@@ -58,7 +58,7 @@ public class GenerateSecureChecksum
     public static String getChecksum(File file, String algorithm) throws NoSuchAlgorithmException, IOException
     {
         byte[] checksum = createChecksum(file, algorithm);
-        return ConvertUtils.byteArrayToHexString(checksum);
+        return ConvertUtils.toHexString(checksum);
     }
 
     /**
@@ -79,7 +79,7 @@ public class GenerateSecureChecksum
         }
         catch (@SuppressWarnings("unused") NoSuchAlgorithmException e)
         {}
-        return ConvertUtils.byteArrayToHexString(checksum);
+        return ConvertUtils.toHexString(checksum);
     }
 
 }

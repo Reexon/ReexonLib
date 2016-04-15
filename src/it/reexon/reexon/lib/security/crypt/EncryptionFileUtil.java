@@ -15,7 +15,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import it.reexon.reexon.lib.security.algorithms.CipherAlgorithms;
+import it.reexon.reexon.lib.security.algorithms.CipherAlgorithmsNames;
 import it.reexon.reexon.lib.security.algorithms.KeyGeneratorAlgorithms;
 import it.reexon.reexon.lib.security.algorithms.SecretKeySpecAlgorithms;
 
@@ -39,15 +39,15 @@ public class EncryptionFileUtil
     public static void encrypt() throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IOException
     {
         CipherOutputStream cos = null;
-        try (FileInputStream fis = new FileInputStream("resources/FileTo.encrypt");
-                FileOutputStream fos = new FileOutputStream("resources/Encrypted.file");
-                FileOutputStream kos = new FileOutputStream("resources/crypt.key");)
+        try (FileInputStream fis = new FileInputStream("resources/tests/FileTo.encrypt");
+                FileOutputStream fos = new FileOutputStream("resources/tests/Encrypted.file");
+                FileOutputStream kos = new FileOutputStream("resources/tests/crypt.key");)
         {
             KeyGenerator kg = KeyGenerator.getInstance(KeyGeneratorAlgorithms.AES);
             kg.init(128);
             SecretKey key = kg.generateKey();
 
-            Cipher c = Cipher.getInstance(CipherAlgorithms.AES);
+            Cipher c = Cipher.getInstance(CipherAlgorithmsNames.AES);
             c.init(Cipher.ENCRYPT_MODE, key);
 
             //write encrypted to file
@@ -59,9 +59,9 @@ public class EncryptionFileUtil
                 cos.write(b, 0, i);
                 i = fis.read(b);
             }
-            
+
             cos.flush();
-            
+
             //write key to file
             byte[] keyEncoded = key.getEncoded();
             kos.write(keyEncoded);
@@ -84,18 +84,18 @@ public class EncryptionFileUtil
     public static void decrypt() throws IOException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException
     {
         CipherInputStream in = null;
-        try (/*Load Key*/ FileInputStream fis2 = new FileInputStream("resources/crypt.key");
-                FileInputStream fis1 = new FileInputStream("resources/Encrypted.file");
-                FileOutputStream fos0 = new FileOutputStream("resources/decrypted.file");)
+        try (/*Load Key*/ FileInputStream fis2 = new FileInputStream("resources/tests/crypt.key");
+                FileInputStream fis1 = new FileInputStream("resources/tests/Encrypted.file");
+                FileOutputStream fos0 = new FileOutputStream("resources/tests/decrypted.file");)
         {
-            File f = new File("resources/crypt.key");
+            File f = new File("resources/tests/crypt.key");
             long l = f.length();
             byte[] b1 = new byte[(int) l];
             fis2.read(b1, 0, (int) l);
 
             SecretKeySpec ks2 = new SecretKeySpec(b1, SecretKeySpecAlgorithms.AES);
 
-            Cipher c1 = Cipher.getInstance(CipherAlgorithms.AES);
+            Cipher c1 = Cipher.getInstance(CipherAlgorithmsNames.AES);
             c1.init(Cipher.DECRYPT_MODE, ks2);
 
             in = new CipherInputStream(fis1, c1);

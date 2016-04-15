@@ -59,7 +59,7 @@ public class GenerateSecureStringMD5
             //This bytes[] has byte in decimal format
             //Convert it to hexadecimal format
             //Get complete hashed password in hex format
-            generatedPassword = ConvertUtils.byteArrayToHexString(bytes);
+            generatedPassword = ConvertUtils.toHexString(bytes);
         }
         catch (NoSuchAlgorithmException e)
         {
@@ -106,7 +106,7 @@ public class GenerateSecureStringMD5
             //This bytes[] has bytes in decimal format;
             //Convert it to hexadecimal format
             //Get complete hashed password in hex format
-            generatedPassword = ConvertUtils.byteArrayToHexString(bytes);
+            generatedPassword = ConvertUtils.toHexString(bytes);
         }
         catch (NoSuchAlgorithmException e)
         {

@@ -6,13 +6,17 @@ package it.reexon.reexon.lib.security.algorithms;
  * @see http://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#MessageDigest
  * @since Java 1.8
  */
-public abstract class MessageDigestAlgorithms
+public class MessageDigestAlgorithms
 {
-    public static final  String MD2 = "MD2"; //The MD2 message digest algorithm as defined in RFC 1319.
+    private MessageDigestAlgorithms() {
+        // cannot be instantiated.
+    }
 
-    public static final  String MD5 = "MD5"; //The MD5 message digest algorithm as defined in RFC 1321.
+    public static final String MD2 = "MD2"; //The MD2 message digest algorithm as defined in RFC 1319.
 
-    public static final  String SHA_1 = "SHA-1"; //Hash algorithms defined in the FIPS PUB 180-2. 
+    public static final String MD5 = "MD5"; //The MD5 message digest algorithm as defined in RFC 1321.
+
+    public static final String SHA_1 = "SHA-1"; //Hash algorithms defined in the FIPS PUB 180-2. 
 
     /*
      * Secure hash algorithms - SHA-1, SHA-224, SHA-256, SHA-384, SHA-512 - +
@@ -22,11 +26,11 @@ public abstract class MessageDigestAlgorithms
      * the result is an output called a message digest. A message digest ranges in length from 160 to 512 bits, 
      * depending on the algorithm.
      * */
-    public static final  String SHA_256 = "SHA-256";
+    public static final String SHA_256 = "SHA-256";
 
-    public static final  String SHA_224 = "SHA-224";
+    public static final String SHA_224 = "SHA-224";
 
-    public static final  String SHA_384 = "SHA-384";
+    public static final String SHA_384 = "SHA-384";
 
-    public static final  String SHA_512 = "SHA-512";
+    public static final String SHA_512 = "SHA-512";
 }

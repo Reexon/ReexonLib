@@ -27,7 +27,6 @@ public class BeanReaderExample
             list.add(employee);
             // process the employee...
         }
-        list.forEach(p -> System.out.println(p));
         in.close();
     }
 }

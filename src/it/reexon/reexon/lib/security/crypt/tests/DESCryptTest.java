@@ -1,9 +1,7 @@
 package it.reexon.reexon.lib.security.crypt.tests;
 
-import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -11,62 +9,103 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 import org.junit.Test;
 
-import it.reexon.reexon.lib.security.crypt.enums.AlgorithmsEnum;
+import com.ibm.icu.impl.Assert;
+
+import it.reexon.reexon.lib.convertions.ConvertUtils;
+import it.reexon.reexon.lib.security.crypt.enums.SecretKeyFactoryAlgorithms;
 
 
 //http://stackoverflow.com/questions/3451670/java-aes-and-using-my-own-key
 public class DESCryptTest
 {
 
+    private final static String PASSWORD = "PaSSw0Rd!";
+
     @Test
-    public final void testCryptV1() throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException,
-            InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException
+    public final void testCrypt()
     {
-        PBEKeySpec pbeKeySpec;
-        PBEParameterSpec pbeParamSpec;
-        SecretKeyFactory keyFac;
+        try
+        {
+            final String textToCrypt = "HelloWorld!";
+            SecretKey key = new SecretKeySpec(PASSWORD.getBytes(), "DESede");
 
-        // Salt
-        byte[] salt = { //@f:off
-            (byte)0xc7, (byte)0x73, (byte)0x21, (byte)0x8c,
-            (byte)0x7e, (byte)0xc8, (byte)0xee, (byte)0x99
-        }; //@f:on
+            final IvParameterSpec iv = new IvParameterSpec(new byte[4]);   
+            final Cipher cipher = Cipher.getInstance("DESede/CBC/PKCS5Padding"); 
+            cipher.init(Cipher.ENCRYPT_MODE, key, iv);
+            
+            byte[] buffer = new byte[1024];
+            byte[] result = cipher.doFinal(buffer);
+            String abc = new sun.misc.BASE64Encoder().encode(result);
 
-        // Iteration count
-        int count = 20;
+            System.out.print(abc);
+        }
+        catch (Exception e)
+        {
+            System.err.println("Error in testCrypt: " + e.getLocalizedMessage());
+            e.printStackTrace();
+            Assert.fail(e.getLocalizedMessage());
+        }
+    }
 
-        // Create PBE parameter set
-        pbeParamSpec = new PBEParameterSpec(salt, count);
+    @Test
+    public final void testCryptV1()
+    {
+        try
+        {
+            PBEKeySpec pbeKeySpec;
+            PBEParameterSpec pbeParamSpec;
+            SecretKeyFactory keyFac;
 
-        // Prompt user for encryption password.
-        // Collect user password as char array (using the
-        // "readPassword" method from above), and convert
-        // it into a SecretKey object, using a PBE key
-        // factory.
-        System.out.print("Enter encryption password:  ");
-        System.out.flush();
+            // Salt
+            byte[] salt = { //@f:off
+                (byte)0xc7, (byte)0x73, (byte)0x21, (byte)0x8c,
+                (byte)0x7e, (byte)0xc8, (byte)0xee, (byte)0x99
+            }; //@f:on
 
-        //        pbeKeySpec = new PBEKeySpec(readPassword(System.in));
-        pbeKeySpec = new PBEKeySpec("String to crypt".toCharArray());
-        keyFac = SecretKeyFactory.getInstance(AlgorithmsEnum.PBEWithMD5AndDES.name());
-        SecretKey pbeKey = keyFac.generateSecret(pbeKeySpec);
+            // Iteration count
+            int count = 20;
 
-        // Create PBE Cipher
-        Cipher pbeCipher = Cipher.getInstance(AlgorithmsEnum.PBEWithMD5AndDES.name());
+            // Create PBE parameter set
+            pbeParamSpec = new PBEParameterSpec(salt, count);
 
-        // Initialize PBE Cipher with key and parameters
-        pbeCipher.init(Cipher.ENCRYPT_MODE, pbeKey, pbeParamSpec);
+            // Prompt user for encryption password.
+            // Collect user password as char array (using the
+            // "readPassword" method from above), and convert
+            // it into a SecretKey object, using a PBE key
+            // factory.
+            System.out.print("Enter encryption password:  ");
+            System.out.flush();
 
-        // Our cleartext
-        byte[] cleartext = "This is another example".getBytes();
+            //        pbeKeySpec = new PBEKeySpec(readPassword(System.in));
+            pbeKeySpec = new PBEKeySpec(PASSWORD.toCharArray());
+            keyFac = SecretKeyFactory.getInstance(SecretKeyFactoryAlgorithms.PBEWithMD5AndDES);
+            SecretKey pbeKey = keyFac.generateSecret(pbeKeySpec);
 
-        // Encrypt the cleartext
-        byte[] ciphertext = pbeCipher.doFinal(cleartext);
-        System.out.println("ciphertext: " + ciphertext);
+            // Create PBE Cipher
+            Cipher pbeCipher = Cipher.getInstance(SecretKeyFactoryAlgorithms.PBEWithMD5AndDES);
+
+            // Initialize PBE Cipher with key and parameters
+            pbeCipher.init(Cipher.ENCRYPT_MODE, pbeKey, pbeParamSpec);
+
+            // Our cleartext
+            byte[] cleartext = "This is another example".getBytes();
+
+            // Encrypt the cleartext
+            byte[] ciphertext = pbeCipher.doFinal(cleartext);
+            System.out.println("ciphertext: " + ConvertUtils.toHexString(ciphertext));
+        }
+        catch (Exception e)
+        {
+            System.err.println("Error in testCryptV1: " + e.getLocalizedMessage());
+            e.printStackTrace();
+            Assert.fail(e.getLocalizedMessage());
+        }
     }
 }

@@ -22,7 +22,7 @@ public class MD5ChecksumTest
 
         try
         {
-            String checksumMD5 = MD5Checksum.getMD5Checksum("resources\\apache-tomcat-9.0.0.M3.zip");
+            String checksumMD5 = MD5Checksum.getMD5Checksum("resources/tests/apache-tomcat-9.0.0.M3.zip");
             System.out.println(checksumMD5);
 
             Assert.assertEquals("857093659f35c3ee76de54cacc3a7e7e", checksumMD5);
@@ -45,8 +45,8 @@ public class MD5ChecksumTest
 
         try
         {
-            byte[] createCheck = MD5Checksum.createChecksum("resources/apache-tomcat-9.0.0.M3.zip");
-            String getMd5 = MD5Checksum.getMD5Checksum("resources/apache-tomcat-9.0.0.M3.zip");
+            byte[] createCheck = MD5Checksum.createChecksum("resources/tests/apache-tomcat-9.0.0.M3.zip");
+            String getMd5 = MD5Checksum.getMD5Checksum("resources/tests/apache-tomcat-9.0.0.M3.zip");
 
             System.out.println("createMD5 - byte: " + createCheck);
             System.out.println("createMD5 - string: " + createCheck.toString());

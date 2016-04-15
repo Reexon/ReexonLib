@@ -59,7 +59,7 @@ public class GenerateSecureStringSHA
             MessageDigest md = MessageDigest.getInstance("SHA-1");
             md.update(salt);
             byte[] bytes = md.digest(passwordToHash.getBytes());
-            generatedPassword = ConvertUtils.byteArrayToHexString(bytes);
+            generatedPassword = ConvertUtils.toHexString(bytes);
         }
         catch (NoSuchAlgorithmException e)
         {
@@ -143,7 +143,7 @@ public class GenerateSecureStringSHA
         MessageDigest md = MessageDigest.getInstance(algorithm);
         md.update(salt);
         byte[] bytes = md.digest(passwordToHash.getBytes());
-        generatedPassword = ConvertUtils.byteArrayToHexString(bytes);
+        generatedPassword = ConvertUtils.toHexString(bytes);
 
         return generatedPassword;
 

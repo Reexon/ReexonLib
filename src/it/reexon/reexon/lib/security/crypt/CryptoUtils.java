@@ -32,6 +32,7 @@ import it.reexon.reexon.lib.security.crypt.exceptions.CryptoException;
  */
 public class CryptoUtils
 {
+    private static final String PBKDF2_WITH_HMAC_SHA256 = "PBKDF2WithHmacSHA256";
     private static final String ALGORITHM = "AES";
     private static final String TRANSFORMATION = "AES";
 
@@ -69,8 +70,7 @@ public class CryptoUtils
         {
             throw new RuntimeException("Wrong key");
         }
-        catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException
-                | IOException ex)
+        catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException | IOException ex)
         {
             throw new CryptoException("Error encrypting/decrypting file", ex);
         }
@@ -84,40 +84,38 @@ public class CryptoUtils
      */
     public static SecretKey getSecretKey() throws NoSuchAlgorithmException, InvalidKeySpecException
     {
-        char[] password = "PBKDF2WithHmacSHA256".toCharArray();
-        byte[] salt = { //@f:off
+        final char[] password = "lZQPxt8E5ZaG{x9tm:2o:3JZwucTl".toCharArray();
+        final byte[] salt = { //@f:off
                 (byte)0xc7, (byte)0x73, (byte)0x21, (byte)0x8c,
                 (byte)0x7e, (byte)0xc8, (byte)0xee, (byte)0x99
             }; //@f:on
 
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-        KeySpec spec = new PBEKeySpec(password, salt, 65536, 256);
-        SecretKey tmp = factory.generateSecret(spec);
-        SecretKey secret = new SecretKeySpec(tmp.getEncoded(), ALGORITHM);
+        final SecretKeyFactory factory = SecretKeyFactory.getInstance(PBKDF2_WITH_HMAC_SHA256);
+        final KeySpec spec = new PBEKeySpec(password, salt, 65536, 256);
+        final SecretKey tmp = factory.generateSecret(spec);
+        final SecretKey secret = new SecretKeySpec(tmp.getEncoded(), ALGORITHM);
 
         return secret;
     }
 
-    //    public static SecretKey getSecretKey(String salt) throws NoSuchAlgorithmException, InvalidKeySpecException
-    //    {
-    //        char[] password = "PBKDF2WithHmacSHA256".toCharArray();
-    //        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-    //        KeySpec spec = new PBEKeySpec(password, salt.getBytes(), 65536, 256);
-    //        SecretKey tmp = factory.generateSecret(spec);
-    //        SecretKey secret = new SecretKeySpec(tmp.getEncoded(), ALGORITHM);
-    //
-    //        return secret;
-    //    }
-
-    public static SecretKey getSecretKey(String password) throws NoSuchAlgorithmException, InvalidKeySpecException
+    public static SecretKey getSecretKey(String password)
     {
-        byte[] salt = GenerateSecureSalt.getSalt();
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 256);
-        SecretKey tmp = factory.generateSecret(spec);
-        SecretKey secret = new SecretKeySpec(tmp.getEncoded(), ALGORITHM);
+        try
+        {
+            byte[] salt = GenerateSecureSalt.getSalt();
+            SecretKeyFactory factory = SecretKeyFactory.getInstance(PBKDF2_WITH_HMAC_SHA256);
+            KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 256);
+            SecretKey tmp = factory.generateSecret(spec);
+            SecretKey secret = new SecretKeySpec(tmp.getEncoded(), ALGORITHM);
 
-        return secret;
+            return secret;
+        }
+        catch (NoSuchAlgorithmException | InvalidKeySpecException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     /**
@@ -125,15 +123,41 @@ public class CryptoUtils
      * @param password
      * @param salt
      * @return
+     */
+    public static SecretKey getSecretKey(char[] password, byte[] salt)
+    {
+        try
+        {
+            SecretKeyFactory factory = SecretKeyFactory.getInstance(PBKDF2_WITH_HMAC_SHA256);
+            KeySpec spec = new PBEKeySpec(password, salt, 65536, 256);
+            SecretKey tmp = factory.generateSecret(spec);
+            SecretKey secret = new SecretKeySpec(tmp.getEncoded(), ALGORITHM);
+
+            return secret;
+        }
+        catch (NoSuchAlgorithmException | InvalidKeySpecException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 
+     * @param password
+     * @param salt
+     * @param secretKeyAlgorithm - the name of the secret-key algorithm to be associated with the given key material. See Appendix A in the  Java Cryptography Architecture Reference Guide for information about standard algorithm names.
+     * @return
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
      */
-    public static SecretKey getSecretKey(char[] password, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException
+    public static SecretKey getSecretKey(char[] password, byte[] salt, String secretKeyAlgorithm)
+            throws NoSuchAlgorithmException, InvalidKeySpecException
     {
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+        SecretKeyFactory factory = SecretKeyFactory.getInstance(PBKDF2_WITH_HMAC_SHA256);
         KeySpec spec = new PBEKeySpec(password, salt, 65536, 256);
         SecretKey tmp = factory.generateSecret(spec);
-        SecretKey secret = new SecretKeySpec(tmp.getEncoded(), ALGORITHM);
+        SecretKey secret = new SecretKeySpec(tmp.getEncoded(), secretKeyAlgorithm);
 
         return secret;
     }

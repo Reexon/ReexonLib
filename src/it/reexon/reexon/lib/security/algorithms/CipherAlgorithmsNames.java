@@ -1,11 +1,21 @@
 package it.reexon.reexon.lib.security.algorithms;
 
-public class CipherAlgorithms
+/**
+ * The following names can be specified as the algorithm component in a transformation when requesting an instance of Cipher.
+ * @author Marco Velluto
+ * @since Java 1.8
+ */
+public class CipherAlgorithmsNames
 {
-    private CipherAlgorithms()
+    private CipherAlgorithmsNames()
     {
         // cannot be instantiated.
     }
+
+    /**
+     *  Advanced Encryption Standard as specified by NIST in FIPS 197.
+     */
+    public static final String AES = "AES";
 
     /**
      *  Advanced Encryption Standard 128 bit as specified by NIST in FIPS 197.

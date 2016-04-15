@@ -19,7 +19,7 @@ import it.reexon.reexon.lib.gpx.demo.xml.Employee;
  */
 public class GpxImporter
 {
-    public static final String MAPPING_FILE_NAME = "C:\\Users\\Marco.Velluto\\git\\ReexonLib\\src\\it\\reexon\\reexon\\lib\\gpx\\demo\\xml\\mapping.xml";
+    public static final String MAPPING_FILE_NAME = "resources/mapping.xml";
     public static final String STREAM_NAME = "employeeFile";
 
     public GpxImporter(File fileToRead)
@@ -44,12 +44,17 @@ public class GpxImporter
                 list.add(employee);
                 // process the employee...
             }
-            list.forEach(p -> System.out.println(p));
         }
         finally
         {
             if (in != null)
                 in.close();
         }
+    }
+
+    public static final void main(String args[])
+    {
+        GpxImporter g = new GpxImporter(new File("C:\\Users\\Marco.Velluto\\Downloads\\runtastic_20160131_1108_Corsa.gpx"));
+        g.hashCode();
     }
 }

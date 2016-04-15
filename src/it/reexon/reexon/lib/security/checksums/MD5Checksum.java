@@ -59,7 +59,7 @@ public class MD5Checksum
     public static String getMD5Checksum(String filename) throws NoSuchAlgorithmException, IOException
     {
         byte[] checksum = createChecksum(filename);
-        return ConvertUtils.byteArrayToHexString(checksum);
+        return ConvertUtils.toHexString(checksum);
     }
 
 }

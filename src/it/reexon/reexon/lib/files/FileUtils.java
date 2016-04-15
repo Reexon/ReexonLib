@@ -1,5 +1,5 @@
 /**
- * 
+ * Copyright (c) 2016 Marco Velluto
  */
 package it.reexon.reexon.lib.files;
 
@@ -11,11 +11,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-
-import it.reexon.reexon.lib.exceptions.FileMoveException;
 
 
 /**
@@ -54,7 +51,6 @@ public class FileUtils
      * @param secondFile    file to check
      * @return - true if files are equals
      *         - null if there was an error         
-     * {@linkplain}{@it.reexon.reexon.lib.files.CheckFile.checkEqualsFiles(File, File)} 
      * 
      * @throws FileNotFoundException
      * @throws IOException
@@ -65,45 +61,6 @@ public class FileUtils
     }
 
     /**
-     * @deprecated user IOUtils
-     * Move file in a new directory     
-     * 
-     * @param file to move
-     * @param newDirectory
-     * @throws IOException
-     */
-    public static void moveFile(File file, String newDirectory) throws IOException
-    {
-        if (file.renameTo(new File(newDirectory + "\\" + file.getName())))
-        {
-            System.out.println("File is moved successful!");
-        }
-        else
-        {
-            throw new FileMoveException("Il file chiamato " + file.getName() + " non è stato spostato nella directory " + newDirectory);
-        }
-    }
-
-    /**
-     * @deprecated user IOUtils
-     * 
-     * Write lines on selected file
-     * 
-     * @param file file to write
-     * @param lines to be write
-     * 
-     * @throws IOException
-     */
-    public static void writeLines(File file, List<String> lines) throws IOException
-    {
-        try (FileOutputStream fout = new FileOutputStream(file);)
-        {
-            IOUtils.writeLines(lines, null, fout);
-        }
-    }
-
-    /**
-     *  @deprecated user IOUtils
      * Copy inputstream on file
      * 
      * @param file file you want to copy

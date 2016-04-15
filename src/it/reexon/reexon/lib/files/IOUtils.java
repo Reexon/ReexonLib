@@ -1,10 +1,11 @@
+/**
+ * Copyright (c) 2016 Marco Velluto
+ */
 package it.reexon.reexon.lib.files;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -76,23 +77,6 @@ public class IOUtils
         try (FileOutputStream fout = new FileOutputStream(file);)
         {
             org.apache.commons.io.IOUtils.writeLines(lines, null, fout);
-        }
-    }
-
-    /**
-     * Copy inputstream on file
-     * 
-     * @param file file you want to copy
-     * @param inputStream  that you want to copy
-     * 
-     * @throws IOException
-     */
-    public static void copyInputStreamOnFile(File file, InputStream inputStream) throws IOException
-    {
-        try (OutputStream outputStream = new FileOutputStream(file);)
-        {
-            org.apache.commons.io.IOUtils.copy(inputStream, outputStream);
-            outputStream.close();
         }
     }
 }

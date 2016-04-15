@@ -1,3 +1,6 @@
+/**
+ * Copyright (c) 2016 Marco Velluto
+ */
 package it.reexon.reexon.lib.files;
 
 import java.io.File;
@@ -117,13 +120,13 @@ public class ZipUtils
      */
     public static void createZipFileOfDirectory(File sourceDir, File zipOutput) throws IOException
     {
-        if (!sourceDir.exists() || !sourceDir.isDirectory())
+        if (!sourceDir.exists())
         {
-            throw new IllegalArgumentException(sourceDir.getAbsolutePath() + " is not a directory!");
+            throw new IllegalArgumentException(sourceDir.getAbsolutePath() + " is not exists!");
         }
-        if (zipOutput.exists() && !zipOutput.isFile())
+        if (!zipOutput.exists())
         {
-            throw new IllegalArgumentException(zipOutput.getAbsolutePath() + " exists but is not a file!");
+            throw new IllegalArgumentException(zipOutput.getAbsolutePath() + " is not exists!");
         }
 
         String baseName = sourceDir.getAbsolutePath() + File.pathSeparator;

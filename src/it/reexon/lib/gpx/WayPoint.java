@@ -8,7 +8,7 @@ import java.util.Date;
 import it.reexon.lib.gpx.abstracts.Point;
 
 /**
- * @author marco.velluto
+ * @author Marco Velluto
  *
  */
 public class WayPoint extends Point

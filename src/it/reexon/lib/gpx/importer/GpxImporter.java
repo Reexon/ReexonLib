@@ -54,7 +54,7 @@ public class GpxImporter
 
     public static final void main(String args[])
     {
-        GpxImporter g = new GpxImporter(new File("C:\\Users\\Marco.Velluto\\Downloads\\runtastic_20160131_1108_Corsa.gpx"));
+        GpxImporter g = new GpxImporter(new File("resources/tests/gpx/runtastic_20160131_1108_Corsa.gpx"));
         g.hashCode();
     }
 }

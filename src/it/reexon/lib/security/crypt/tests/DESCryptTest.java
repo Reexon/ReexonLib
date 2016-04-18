@@ -1,5 +1,6 @@
 package it.reexon.lib.security.crypt.tests;
 
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -36,17 +37,18 @@ public class DESCryptTest
             final String textToCrypt = "HelloWorld!";
             SecretKey key = new SecretKeySpec(PASSWORD.getBytes(), "DESede");
 
-            final IvParameterSpec iv = new IvParameterSpec(new byte[4]);   
-            final Cipher cipher = Cipher.getInstance("DESede/CBC/PKCS5Padding"); 
+            final IvParameterSpec iv = new IvParameterSpec(new byte[4]);
+            final Cipher cipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, key, iv);
-            
+
             byte[] buffer = new byte[1024];
             byte[] result = cipher.doFinal(buffer);
             String abc = new sun.misc.BASE64Encoder().encode(result);
 
             System.out.print(abc);
         }
-        catch (Exception e)
+        catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidAlgorithmParameterException
+                | IllegalBlockSizeException | BadPaddingException e)
         {
             System.err.println("Error in testCrypt: " + e.getLocalizedMessage());
             e.printStackTrace();

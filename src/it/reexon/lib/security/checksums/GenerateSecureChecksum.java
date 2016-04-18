@@ -14,11 +14,13 @@ import it.reexon.lib.security.algorithms.MessageDigestAlgorithms;
 public class GenerateSecureChecksum
 {
 
+    private static final byte[] buffer = new byte[1024];
+
     /**
      * Create a byte[] checksum from file name
      * 
      * @param file  file to generate checksum
-     * @param algorithm use org.apache.commons.codec.digest.MessageDigestAlgorithms.MD5
+     * @param algorithm use org.apache.commons.codec.digest.MessageDigestAlgorithms
      * @return byte[] checksum
      * @throws NoSuchAlgorithmException
      * @throws IOException
@@ -28,7 +30,6 @@ public class GenerateSecureChecksum
         try (InputStream fis = new FileInputStream(file);)
         {
             MessageDigest complete = MessageDigest.getInstance(algorithm);
-            byte[] buffer = new byte[1024];
 
             int numRead;
 
@@ -75,7 +76,7 @@ public class GenerateSecureChecksum
         byte[] checksum = null;
         try
         {
-            checksum = createChecksum(file, MessageDigestAlgorithms.SHA_1);
+            checksum = createChecksum(file, MessageDigestAlgorithms.SHA_256);
         }
         catch (@SuppressWarnings("unused") NoSuchAlgorithmException e)
         {}

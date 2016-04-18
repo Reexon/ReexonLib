@@ -12,11 +12,11 @@ import it.reexon.lib.security.algorithms.MessageDigestAlgorithms;
 
 /**
  * @author MarcoVelluto
- * @see http://stackoverflow.com/questions/304268/getting-a-files-md5-checksum-in-java
  * @since Java 1.8
  */
 public class MD5Checksum
 {
+    private static final byte[] buffer = new byte[1024];
 
     /**
      * Create a checksum in MD5 from file name
@@ -31,7 +31,6 @@ public class MD5Checksum
         try (InputStream fis = new FileInputStream(filename);)
         {
             MessageDigest complete = MessageDigest.getInstance(MessageDigestAlgorithms.MD5);
-            byte[] buffer = new byte[1024];
 
             int numRead;
 

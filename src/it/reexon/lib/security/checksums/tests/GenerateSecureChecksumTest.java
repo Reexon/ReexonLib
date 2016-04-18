@@ -46,13 +46,13 @@ public class GenerateSecureChecksumTest
         {
             System.out.println("Errore in getChecksumWithAlgoritmsTest: " + e.getMessage());
             e.printStackTrace();
-            Assert.fail();
+            Assert.fail(e.getMessage());
         }
         catch (IOException e)
         {
             System.out.println("Errore in getChecksumWithAlgoritmsTest: " + e.getMessage());
             e.printStackTrace();
-            Assert.fail();
+            Assert.fail(e.getMessage());
         }
     }
 

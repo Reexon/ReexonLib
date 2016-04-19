@@ -3,6 +3,9 @@
  */
 package it.reexon.lib.gpx.runtastic.types;
 
+import java.math.BigDecimal;
+
+
 /**
  * @author Marco Velluto
  * @version GPX 1.1
@@ -10,22 +13,24 @@ package it.reexon.lib.gpx.runtastic.types;
  */
 public class LatitudeType
 {
-    private Float latitude;
+    private BigDecimal latitude;
 
-    public LatitudeType(Float latitude)
+    public LatitudeType(BigDecimal latitude)
     {
         super();
         setLatitude(latitude);
     }
 
-    public Float getLatitude()
+    public BigDecimal getLatitude()
     {
         return latitude;
     }
 
-    public void setLatitude(Float latitude)
+    public void setLatitude(BigDecimal latitude)
     {
-        if (latitude > 90.0 || latitude < -90.0)
+        if (latitude == null)
+            return;
+        if (latitude.floatValue() > 90.0 || latitude.floatValue() < -90.0)
             throw new IllegalArgumentException("the latitude must be between -90.0 and 90.0");
         this.latitude = latitude;
     }

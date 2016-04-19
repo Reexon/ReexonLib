@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.bouncycastle.crypto.tls.ExtensionType;
 
-import it.reexon.lib.gpx.TrackSegment;
 import it.reexon.lib.types.NonNegativeInteger;
 
 
@@ -25,7 +24,7 @@ public class TrkType
     private NonNegativeInteger number; //[0..1]
     private String type;
     private ExtensionType extensions; //[0..1]
-    private List<TrackSegment> trkseg; //[0..1]
+    private List<TrkSegType> trkseg; //[0..1]
 
     public String getName()
     {
@@ -107,12 +106,12 @@ public class TrkType
         this.extensions = extensions;
     }
 
-    public List<TrackSegment> getTrkseg()
+    public List<TrkSegType> getTrkseg()
     {
         return trkseg;
     }
 
-    public void setTrkseg(List<TrackSegment> trkseg)
+    public void setTrkseg(List<TrkSegType> trkseg)
     {
         this.trkseg = trkseg;
     }

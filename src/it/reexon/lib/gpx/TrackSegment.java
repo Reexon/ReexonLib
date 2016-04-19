@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * 
- * @author marco.velluto
+ * @author Marco Velluto
  * 
  * A Track Segment holds a list of Track Points which are logically connected in order. 
  * To represent a single GPS track where GPS reception was lost, or the GPS receiver was turned off, 

@@ -3,9 +3,8 @@
  */
 package it.reexon.lib.gpx.runtastic.types;
 
+import java.math.BigDecimal;
 import java.util.Date;
-
-import com.ibm.icu.math.BigDecimal;
 
 
 /**

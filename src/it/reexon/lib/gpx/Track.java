@@ -1,8 +1,15 @@
 package it.reexon.lib.gpx;
 
+import java.util.List;
+
+import it.reexon.lib.gpx.types.LinkType;
+import it.reexon.lib.types.NonNegativeInteger;
+
+
 /**
  * 
- * @author marco.velluto
+ * @author Marco Velluto
+ * @since Java 1.8
  *
  */
 public class Track
@@ -12,11 +19,15 @@ public class Track
     private String cmt; //GPS track comment
     private String desc; //Description of the track
     private String src; //Source of the track data
-    private String url; //URL associated with the track
+    private LinkType url; //URL associated with the track
     private String urlName; //Text to display on the <url> hyperlink
-    private Long number; //GPS track number
+    private NonNegativeInteger number; //GPS track number
+    private String type;
 
-    private TrackSegment trackSegment; // List of Track Segments
+    private List<TrackSegment> trackSegment; // List of Track Segments
+
+    public Track()
+    {}
 
     /**
      * @param name      GPS track name
@@ -28,7 +39,8 @@ public class Track
      * @param number    GPS track number
      * @param trackSegment      List of Track Segments
      */
-    public Track(String name, String cmt, String desc, String src, String url, String urlName, Long number, TrackSegment trackSegment)
+    public Track(String name, String cmt, String desc, String src, LinkType url, String urlName, NonNegativeInteger number, String type,
+                 List<TrackSegment> trackSegment)
     {
         this.name = name;
         this.cmt = cmt;
@@ -37,6 +49,7 @@ public class Track
         this.url = url;
         this.urlName = urlName;
         this.number = number;
+        this.type = type;
         this.trackSegment = trackSegment;
     }
 
@@ -107,7 +120,7 @@ public class Track
     /**
      * @return Source of the track data
      */
-    public String getUrl()
+    public LinkType getUrl()
     {
         return url;
     }
@@ -115,7 +128,7 @@ public class Track
     /**
      * @param Source of the track data
      */
-    public void setUrl(String url)
+    public void setUrl(LinkType url)
     {
         this.url = url;
     }
@@ -139,7 +152,7 @@ public class Track
     /**
      * @return GPS track number
      */
-    public Long getNumber()
+    public NonNegativeInteger getNumber()
     {
         return number;
     }
@@ -147,7 +160,7 @@ public class Track
     /**
      * @param GPS track number
      */
-    public void setNumber(Long number)
+    public void setNumber(NonNegativeInteger number)
     {
         this.number = number;
     }
@@ -155,7 +168,7 @@ public class Track
     /**
      * @return List of Track Segments
      */
-    public TrackSegment getTrackSegment()
+    public List<TrackSegment> getTrackSegment()
     {
         return trackSegment;
     }
@@ -163,7 +176,7 @@ public class Track
     /**
      * @param List of Track Segments
      */
-    public void setTrackSegment(TrackSegment trackSegment)
+    public void setTrackSegment(List<TrackSegment> trackSegment)
     {
         this.trackSegment = trackSegment;
     }

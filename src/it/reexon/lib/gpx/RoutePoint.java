@@ -1,8 +1,11 @@
 package it.reexon.lib.gpx;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import it.reexon.lib.gpx.abstracts.Point;
+import it.reexon.lib.gpx.types.LatitudeType;
+import it.reexon.lib.gpx.types.LongitudeType;
 
 
 /**
@@ -15,7 +18,7 @@ public class RoutePoint extends Point
      * @param lat       latitude is required
      * @param lon       Longitude is required
      */
-    public RoutePoint(Long lat, Long lon)
+    public RoutePoint(LatitudeType lat, LongitudeType lon)
     {
         super(lat, lon);
     }
@@ -36,8 +39,8 @@ public class RoutePoint extends Point
      * @param ageofdgpsdata   Time since last DGPS fix
      * @param dgpsid   DGPS station ID
      */
-    public RoutePoint(Long lat, Long lon, Long ele, Date time, String magvar, Long geoidheight, String fix, int sat, Long hdop, Long vdop, Long pdop,
-                      Long ageofdgpsdata, Long dgpsid)
+    public RoutePoint(LatitudeType lat, LongitudeType lon, BigDecimal ele, Date time, String magvar, Long geoidheight, String fix, int sat, Long hdop,
+                      Long vdop, Long pdop, Long ageofdgpsdata, Long dgpsid)
     {
         super(lat, lon, ele, time, magvar, geoidheight, fix, sat, hdop, vdop, pdop, ageofdgpsdata, dgpsid);
     }

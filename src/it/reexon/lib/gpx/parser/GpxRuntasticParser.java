@@ -26,28 +26,27 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import it.reexon.lib.gpx.Gpx;
-import it.reexon.lib.gpx.Track;
-import it.reexon.lib.gpx.TrackPoint;
-import it.reexon.lib.gpx.TrackSegment;
-import it.reexon.lib.gpx.types.CopyrightType;
-import it.reexon.lib.gpx.types.LatitudeType;
-import it.reexon.lib.gpx.types.LinkType;
-import it.reexon.lib.gpx.types.LongitudeType;
-import it.reexon.lib.gpx.types.MetadataType;
+import it.reexon.lib.gpx.runtastic.Gpx;
+import it.reexon.lib.gpx.runtastic.types.CopyrightType;
+import it.reexon.lib.gpx.runtastic.types.LatitudeType;
+import it.reexon.lib.gpx.runtastic.types.LinkType;
+import it.reexon.lib.gpx.runtastic.types.LongitudeType;
+import it.reexon.lib.gpx.runtastic.types.MetadataType;
+import it.reexon.lib.gpx.runtastic.types.PtType;
+import it.reexon.lib.gpx.runtastic.types.TrkSegType;
+import it.reexon.lib.gpx.runtastic.types.TrkType;
 
 
 /**
  * @author Marco Velluto
  * @since Java 1.8
- * @version GPX Version 1.1
  */
-public class GpxParser
+public class GpxRuntasticParser
 {
     private final File gpxFile;
     private Gpx gpx;
 
-    public GpxParser(File gpxFile) throws ParserConfigurationException, SAXException, IOException, DOMException, URISyntaxException
+    public GpxRuntasticParser(File gpxFile) throws ParserConfigurationException, SAXException, IOException, DOMException, URISyntaxException
     {
         this.gpxFile = gpxFile;
 
@@ -88,7 +87,7 @@ public class GpxParser
 
     private void analyzesTrkNode(Node node) throws URISyntaxException
     {
-        Track trkType = new Track();
+        TrkType trkType = new TrkType();
         if (node.getNodeType() == Node.ELEMENT_NODE)
         {
             Element trkElement = (Element) node;
@@ -112,10 +111,10 @@ public class GpxParser
             }
 
             // ---------------------------- Trkseg ----------------------------
-            TrackSegment trkSegType = new TrackSegment();
-            List<TrackSegment> trkSegTypeList = new LinkedList<>();
+            TrkSegType trkSegType = new TrkSegType();
+            List<TrkSegType> trkSegTypeList = new LinkedList<>();
             NodeList trkseg = trkElement.getElementsByTagName("trkseg");
-            List<TrackPoint> trkptList = new LinkedList<>();
+            List<PtType> trkptList = new LinkedList<>();
             Node trkNode = trkseg.item(0);
             if (trkNode instanceof Element)
             {
@@ -129,20 +128,17 @@ public class GpxParser
                     {
                         Element trkPtElement = (Element) trkPtNode;
 
-                        TrackPoint wptType;
-                        LatitudeType latitude = new LatitudeType(new BigDecimal(trkPtElement.getAttribute("lat")));
-                        LongitudeType longitude = new LongitudeType(new BigDecimal(trkPtElement.getAttribute("lon")));
-                        wptType = new TrackPoint(latitude, longitude);
-
+                        PtType wptType = new PtType();
+                        wptType.setLat(new LatitudeType(new BigDecimal(trkPtElement.getAttribute("lat"))));
+                        wptType.setLon(new LongitudeType(new BigDecimal(trkPtElement.getAttribute("lon"))));
                         wptType.setEle(new BigDecimal(trkPtElement.getElementsByTagName("ele").item(0).getTextContent()));
                         wptType.setTime(new DateTime(trkPtElement.getElementsByTagName("time").item(0).getTextContent()).toDate());
-
                         trkptList.add(wptType);
                     }
                 }
             }
-            trkSegType.setTrackPoints(trkptList);
-            trkType.setTrackSegment(trkSegTypeList);
+            trkSegType.setTrkpt(trkptList);
+            trkType.setTrkseg(trkSegTypeList);
         }
     }
 
@@ -202,6 +198,6 @@ public class GpxParser
 
     public static void main(String args[]) throws Exception
     {
-        new GpxParser(new File("C://Users//Marco.Velluto//git//ReexonLib//src//it//reexon//lib//gpx//parser//runtastic.xml"));
+        new GpxRuntasticParser(new File("C://Users//Marco.Velluto//git//ReexonLib//src//it//reexon//lib//gpx//parser//runtastic.xml"));
     }
 }

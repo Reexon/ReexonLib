@@ -1,6 +1,8 @@
 package it.reexon.lib.gpx;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * 
@@ -13,14 +15,12 @@ import java.util.ArrayList;
 public class TrackSegment
 {
     /**Optional Information   */
-    private ArrayList<TrackPoint> trackPoints; //List of Track Points
+    private List<TrackPoint> trackPoints; //List of Track Points
 
-    
     public TrackSegment()
     {
         super();
     }
-
 
     /**
      * @param trackPoints   List of Track Points
@@ -31,20 +31,18 @@ public class TrackSegment
         this.trackPoints = trackPoints;
     }
 
-
     /**
      * @return the trackPoints   List of Track Points
      */
-    public ArrayList<TrackPoint> getTrackPoints()
+    public List<TrackPoint> getTrackPoints()
     {
         return trackPoints;
     }
 
-
     /**
      * @param trackPoints   List of Track Points
      */
-    public void setTrackPoints(ArrayList<TrackPoint> trackPoints)
+    public void setTrackPoints(List<TrackPoint> trackPoints)
     {
         this.trackPoints = trackPoints;
     }

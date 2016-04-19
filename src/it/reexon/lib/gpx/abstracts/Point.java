@@ -3,7 +3,11 @@
  */
 package it.reexon.lib.gpx.abstracts;
 
+import java.math.BigDecimal;
 import java.util.Date;
+
+import it.reexon.lib.gpx.types.LatitudeType;
+import it.reexon.lib.gpx.types.LongitudeType;
 
 
 /**
@@ -13,11 +17,11 @@ import java.util.Date;
 public abstract class Point
 {
     /**Required Information: */
-    private Long lat; //Latitude of the waypoint.
-    private Long lon; //Longitude of the waypoint.
+    private LatitudeType lat; //Latitude of the waypoint.
+    private LongitudeType lon; //Longitude of the waypoint.
 
     /**Optional Position Information: */
-    private Long ele; //Elevation of the waypoint.
+    private BigDecimal ele; //Elevation of the waypoint.
     private Date time; //Creation date/time of the waypoint
     private String magvar; //Magnetic variation of the waypoint
     private Long geoidheight; //Geoid height of the waypoint
@@ -35,7 +39,7 @@ public abstract class Point
      * @param lat latitude is required
      * @param lon Longitude is required
      */
-    public Point(Long lat, Long lon)
+    public Point(LatitudeType lat, LongitudeType lon)
     {
         super();
         this.lat = lat;
@@ -58,8 +62,8 @@ public abstract class Point
      * @param ageofdgpsdata     Time since last DGPS fix
      * @param dgpsid    DGPS station ID
      */
-    public Point(Long lat, Long lon, Long ele, Date time, String magvar, Long geoidheight, String fix, int sat, Long hdop, Long vdop, Long pdop,
-                 Long ageofdgpsdata, Long dgpsid)
+    public Point(LatitudeType lat, LongitudeType lon, BigDecimal ele, Date time, String magvar, Long geoidheight, String fix, int sat, Long hdop,
+                 Long vdop, Long pdop, Long ageofdgpsdata, Long dgpsid)
     {
         super();
         this.lat = lat;
@@ -80,7 +84,7 @@ public abstract class Point
     /**
      * @return the lat Longitude of the waypoint.
      */
-    public Long getLat()
+    public LatitudeType getLat()
     {
         return lat;
     }
@@ -88,7 +92,7 @@ public abstract class Point
     /**
      * @param lat Longitude of the waypoint.
      */
-    public void setLat(Long lat)
+    public void setLat(LatitudeType lat)
     {
         this.lat = lat;
     }
@@ -96,7 +100,7 @@ public abstract class Point
     /**
      * @return lon Longitude of the waypoint.
      */
-    public Long getLon()
+    public LongitudeType getLon()
     {
         return lon;
     }
@@ -104,7 +108,7 @@ public abstract class Point
     /**
      * @param lon Longitude of the waypoint.
      */
-    public void setLon(Long lon)
+    public void setLon(LongitudeType lon)
     {
         this.lon = lon;
     }
@@ -112,7 +116,7 @@ public abstract class Point
     /**
      * @return the ele Elevation of the waypoint.
      */
-    public Long getEle()
+    public BigDecimal getEle()
     {
         return ele;
     }
@@ -120,7 +124,7 @@ public abstract class Point
     /**
      * @param ele Elevation of the waypoint.
      */
-    public void setEle(Long ele)
+    public void setEle(BigDecimal ele)
     {
         this.ele = ele;
     }

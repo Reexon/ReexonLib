@@ -3,15 +3,14 @@
  */
 package it.reexon.lib.gpx;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import it.reexon.lib.gpx.types.MetadataType;
 
 
 /**
- * @author marco.velluto
- *
+ * @author Marco Velluto
+ * @since Java 1.8
  */
 public class Gpx
 {
@@ -20,15 +19,7 @@ public class Gpx
     private String creator; //Program used to create file
 
     /**Optional file informations */
-    private String name; //Descriptive name of the GPX file
-    private String desc; //Description of the GPX file
-    private String author; //Name of the file's creator
-    private String email; //Email address of the file's creator
-    private URL url; //URL associated with the file
-    private String urlName; //Text to display on the <url> hyperlink
-    private Date time; //Creation date/time of the GPX file
-    private ArrayList<String> keywords; //Keywords for categorizing the GPX file in a database or search engine
-    private String bounds; //Bounding rectangle for the data in the file.
+    private MetadataType metadata; //Metada Information
 
     /**Optional file informations */
     private List<WayPoint> wayPoints; //List of Waypoints
@@ -47,36 +38,20 @@ public class Gpx
     }
 
     /**
+     * 
      * @param version   GPX schema version used in file
-     * @param creator   Program used to create file
-     * @param name      Descriptive name of the GPX file
-     * @param desc      Description of the GPX file
-     * @param author    Name of the file's creator
-     * @param email     Email address of the file's creator
-     * @param url       URL associated with the file
-     * @param urlName   Text to display on the <url> hyperlink
-     * @param time      Creation date/time of the GPX file
-     * @param keywords  Keywords for categorizing the GPX file in a database or search engine
-     * @param bounds    Bounding rectangle for the data in the file.
+     * @param creator   Program used to create file. Is mandatory
+     * @param metadata  Metada Information
      * @param wayPoints List of Waypoints
      * @param routes    List of Routes
      * @param tracks    List of Tracks
      */
-    public Gpx(String version, String creator, String name, String desc, String author, String email, URL url, String urlName, Date time,
-               ArrayList<String> keywords, String bounds, List<WayPoint> wayPoints, List<Route> routes, List<Track> tracks)
+    public Gpx(String version, String creator, MetadataType metadata, List<WayPoint> wayPoints, List<Route> routes, List<Track> tracks)
     {
         super();
         this.version = version;
         this.creator = creator;
-        this.name = name;
-        this.desc = desc;
-        this.author = author;
-        this.email = email;
-        this.url = url;
-        this.urlName = urlName;
-        this.time = time;
-        this.keywords = keywords;
-        this.bounds = bounds;
+        this.metadata = metadata;
         this.wayPoints = wayPoints;
         this.routes = routes;
         this.tracks = tracks;
@@ -112,150 +87,6 @@ public class Gpx
     public void setCreator(String creator)
     {
         this.creator = creator;
-    }
-
-    /**
-     * @return the name   Descriptive name of the GPX file
-     */
-    public String getName()
-    {
-        return name;
-    }
-
-    /**
-     * @param name   Descriptive name of the GPX file
-     */
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    /**
-     * @return the desc   Description of the GPX file
-     */
-    public String getDesc()
-    {
-        return desc;
-    }
-
-    /**
-     * @param desc   Description of the GPX file
-     */
-    public void setDesc(String desc)
-    {
-        this.desc = desc;
-    }
-
-    /**
-     * @return the author   Name of the file's creator
-     */
-    public String getAuthor()
-    {
-        return author;
-    }
-
-    /**
-     * @param author   Name of the file's creator
-     */
-    public void setAuthor(String author)
-    {
-        this.author = author;
-    }
-
-    /**
-     * @return the email   Email address of the file's creator
-     */
-    public String getEmail()
-    {
-        return email;
-    }
-
-    /**
-     * @param email   Email address of the file's creator
-     */
-    public void setEmail(String email)
-    {
-        this.email = email;
-    }
-
-    /**
-     * @return the url   URL associated with the file
-     */
-    public URL getUrl()
-    {
-        return url;
-    }
-
-    /**
-     * @param url   URL associated with the file
-     */
-    public void setUrl(URL url)
-    {
-        this.url = url;
-    }
-
-    /**
-     * @return the urlName   Text to display on the <url> hyperlink
-     */
-    public String getUrlName()
-    {
-        return urlName;
-    }
-
-    /**
-     * @param urlName   Text to display on the <url> hyperlink
-     */
-    public void setUrlName(String urlName)
-    {
-        this.urlName = urlName;
-    }
-
-    /**
-     * @return the time   Creation date/time of the GPX file
-     */
-    public Date getTime()
-    {
-        return time;
-    }
-
-    /**
-     * @param time   Creation date/time of the GPX file
-     */
-    public void setTime(Date time)
-    {
-        this.time = time;
-    }
-
-    /**
-     * @return the keywords   Keywords for categorizing the GPX file in a database or search engine
-     */
-    public ArrayList<String> getKeywords()
-    {
-        return keywords;
-    }
-
-    /**
-     * @param keywords   Keywords for categorizing the GPX file in a database or search engine
-     */
-    public void setKeywords(ArrayList<String> keywords)
-    {
-        this.keywords = keywords;
-    }
-
-    /**
-     * @return the bounds   Bounding rectangle for the data in the file.
-     */
-    public String getBounds()
-    {
-        return bounds;
-    }
-
-    /**
-     * @param bounds   Bounding rectangle for the data in the file.
-     */
-    public void setBounds(String bounds)
-    {
-        this.bounds = bounds;
     }
 
     /**
@@ -306,10 +137,19 @@ public class Gpx
         this.tracks = tracks;
     }
 
-    @Override
-    public String toString()
+    /**
+     * @return the metadata
+     */
+    public MetadataType getMetadata()
     {
-        return String.format("Gpx [version=%s, creator=%s, name=%s, desc=%s, author=%s, email=%s, url=%s, urlName=%s, time=%s, keywords=%s, bounds=%s, wayPoints=%s, routes=%s, tracks=%s]",
-                             version, creator, name, desc, author, email, url, urlName, time, keywords, bounds, wayPoints, routes, tracks);
+        return metadata;
+    }
+
+    /**
+     * @param metadata the metadata to set
+     */
+    public void setMetadata(MetadataType metadata)
+    {
+        this.metadata = metadata;
     }
 }

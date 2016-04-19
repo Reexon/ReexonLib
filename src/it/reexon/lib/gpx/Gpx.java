@@ -305,4 +305,11 @@ public class Gpx
     {
         this.tracks = tracks;
     }
+
+    @Override
+    public String toString()
+    {
+        return String.format("Gpx [version=%s, creator=%s, name=%s, desc=%s, author=%s, email=%s, url=%s, urlName=%s, time=%s, keywords=%s, bounds=%s, wayPoints=%s, routes=%s, tracks=%s]",
+                             version, creator, name, desc, author, email, url, urlName, time, keywords, bounds, wayPoints, routes, tracks);
+    }
 }

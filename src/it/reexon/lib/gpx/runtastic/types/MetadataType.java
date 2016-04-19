@@ -18,7 +18,7 @@ public class MetadataType
     private PersonType author; //[0..1]
     private CopyrightType copyright;//[0..1]
     private LinkType link; //[0..*]
-    private Date dateTime; //[0..1]
+    private Date time; //[0..1]
     private String keywords; //[0..1]
     //    private ExtensionType extensionType; //[0..*]
 
@@ -72,16 +72,6 @@ public class MetadataType
         this.link = link;
     }
 
-    public Date getDateTime()
-    {
-        return dateTime;
-    }
-
-    public void setDateTime(Date dateTime)
-    {
-        this.dateTime = dateTime;
-    }
-
     public String getKeywords()
     {
         return keywords;
@@ -92,4 +82,20 @@ public class MetadataType
         this.keywords = keywords;
     }
 
+    public Date getTime()
+    {
+        return time;
+    }
+
+    public void setTime(Date time)
+    {
+        this.time = time;
+    }
+
+    @Override
+    public String toString()
+    {
+        return String.format("MetadataType [name=%s, desc=%s, author=%s, copyright=%s, link=%s, time=%s, keywords=%s]", name, desc, author, copyright,
+                             link, time, keywords);
+    }
 }

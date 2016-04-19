@@ -27,6 +27,13 @@ public class Gpx
     private List<TrkType> trk; //[0..*]
     private ExtensionType extensions;//[0..*]
 
+    public Gpx(String version, String creator)
+    {
+        super();
+        this.version = version;
+        this.creator = creator;
+    }
+
     public String getVersion()
     {
         return version;

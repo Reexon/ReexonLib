@@ -5,11 +5,17 @@ package it.reexon.lib.gpx.parser;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.time.Year;
+import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.joda.time.DateTime;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -17,8 +23,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import it.reexon.lib.gpx.Gpx;
+import it.reexon.lib.gpx.runtastic.Gpx;
 import it.reexon.lib.gpx.runtastic.types.CopyrightType;
+import it.reexon.lib.gpx.runtastic.types.LinkType;
 import it.reexon.lib.gpx.runtastic.types.MetadataType;
 
 
@@ -31,7 +38,7 @@ public class GpxParser
     private final File gpxFile;
     private Gpx gpx;
 
-    public GpxParser(File gpxFile) throws ParserConfigurationException, SAXException, IOException
+    public GpxParser(File gpxFile) throws ParserConfigurationException, SAXException, IOException, DOMException, URISyntaxException
     {
         this.gpxFile = gpxFile;
 
@@ -40,52 +47,88 @@ public class GpxParser
         Document doc = dBuilder.parse(gpxFile);
         doc.getDocumentElement().normalize();
 
-        System.out.println("Xml Version :" + doc.getXmlVersion());
-        System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-
-        System.out.println("----------------------------");
-
         String version = doc.getDocumentElement().getAttributeNode("version").getValue();
         String creator = doc.getDocumentElement().getAttributeNode("creator").getValue();
-        System.out.println("Version : " + version);
-        System.out.println("Creator : " + creator);
-
         this.gpx = new Gpx(version, creator);
 
-        System.out.println("----------------------------");
-
         NodeList nList = doc.getElementsByTagName("gpx");
-        System.out.println("----------------------------");
-        for (int temp = 0; temp < nList.getLength(); temp++)
+        Node nNode = nList.item(0);
+
+        NodeList lista = nNode.getChildNodes();
+
+        for (int j = 0; j < lista.getLength(); j++)
         {
+            Node node = lista.item(j);
+            analyzesNode(node);
 
-            Node nNode = nList.item(temp);
-
-            System.out.println("\nCurrent Element :" + nNode.getNodeName());
-
-            if (nNode.getNodeType() == Node.ELEMENT_NODE)
+            System.out.println("index: " + j);
+            if (lista.item(j).getNodeType() == Node.ELEMENT_NODE)
             {
-                Element metadataNode = (Element) nNode;
-
-                NodeList copyright = metadataNode.getElementsByTagName("copyright");
-                if (copyright.getLength() == 1)
-                {
-                    CopyrightType copyrightType = new CopyrightType();
-                    Node e = copyright.item(0);
-                    copyrightType.setAuthor(e.getAttributes().getNamedItem("author").getNodeValue());
-                    NodeList children = e.getChildNodes();
-                    Node c = children.item(0);
-                }
-                //
-                //                System.out.println("First Name : " + eElement.getElementsByTagName("metadata").item(0).getTextContent());
-                //                System.out.println("Last Name : " + eElement.getElementsByTagName("lastname").item(0).getTextContent());
-                //                System.out.println("Nick Name : " + eElement.getElementsByTagName("nickname").item(0).getTextContent());
-                //                System.out.println("Salary : " + eElement.getElementsByTagName("salary").item(0).getTextContent());
+                Element e = (Element) lista.item(j);
+                NamedNodeMap attributes = e.getAttributes();
+                System.out.println("Attributes: " + attributes.toString());
             }
+            else if (lista.item(j).getNodeType() == Node.TEXT_NODE)
+            {
+                System.out.println("Text: " + lista.item(j).getTextContent());
+            }
+
+            System.out.println("NodeName: " + lista.item(j).getNodeName());
+            System.out.println("NodeType: " + lista.item(j).getNodeType());
+            System.out.println("NodeValue: " + lista.item(j).getNodeValue());
+            System.out.println("TextContent: " + lista.item(j).getTextContent());
+        }
+
+        System.out.println("\nCurrent Element :" + nNode.getNodeName());
+
+        System.out.println("----------------------------");
+        MetadataType metadataType = new MetadataType();
+        if (nNode.getNodeType() == Node.ELEMENT_NODE)
+        {
+            Element metadataElement = (Element) nNode;
+
+            // ---------------------------- Copyright ----------------------------
+            NodeList copyright = metadataElement.getElementsByTagName("copyright");
+            CopyrightType copyrightType = new CopyrightType();
+            if (copyright.getLength() == 1)
+            {
+                Node e = copyright.item(0);
+                copyrightType.setAuthor(e.getAttributes().getNamedItem("author").getNodeValue());
+            }
+            Year year = Year.of(new Integer(metadataElement.getElementsByTagName("year").item(0).getTextContent()).intValue());
+            URI licence = new URI(metadataElement.getElementsByTagName("license").item(0).getTextContent());
+
+            System.out.println("Year: " + year.toString());
+            System.out.println("License: " + licence.toString());
+
+            // ---------------------------- Link ----------------------------
+            NodeList link = metadataElement.getElementsByTagName("link");
+            LinkType linkType = new LinkType();
+            if (link.getLength() == 1)
+            {
+                Node node = link.item(0);
+                linkType.setAnyURI(new URI(node.getAttributes().getNamedItem("href").getNodeValue()));
+            }
+            String text = metadataElement.getElementsByTagName("text").item(0).getTextContent();
+            linkType.setText(text);
+            System.out.println("Text: " + text);
+            Date time = new DateTime(metadataElement.getElementsByTagName("time").item(0).getTextContent()).toDate();
+            System.out.println("Time: " + time.toString());
+
+            copyrightType.setYear(year);
+            copyrightType.setLicence(licence);
+            metadataType.setCopyright(copyrightType);
+            metadataType.setTime(time);
         }
     }
 
-    private MetadataType metadata(NodeList nList)
+    private void analyzesNode(Node node)
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    private MetadataType printNodes(NodeList nList)
     {
 
         System.out.println("----------- METADATA ----------");
@@ -99,11 +142,7 @@ public class GpxParser
 
                 Element eElement = (Element) nNode;
 
-                System.out.println("First Name : " + eElement.getElementsByTagName("firstname").item(0).getTextContent());
-                System.out.println("Last Name : " + eElement.getElementsByTagName("lastname").item(0).getTextContent());
-                System.out.println("Nick Name : " + eElement.getElementsByTagName("nickname").item(0).getTextContent());
-                System.out.println("Salary : " + eElement.getElementsByTagName("salary").item(0).getTextContent());
-
+                System.out.println("First Name : " + eElement.getElementsByTagName("year").item(0));
             }
         }
         return null;
@@ -152,10 +191,15 @@ public class GpxParser
         return gpxFile;
     }
 
-    public static void main(String args[]) throws ParserConfigurationException, SAXException, IOException
+    public static void main(String args[]) throws Exception
     {
         //        GpxParser g = new GpxParser(new File("C://Users//Marco.Velluto//git//ReexonLib//src//it//reexon//lib//gpx//parser//test.xml"));
         GpxParser r = new GpxParser(new File("C://Users//Marco.Velluto//git//ReexonLib//src//it//reexon//lib//gpx//parser//runtastic.xml"));
+    }
+
+    public Gpx getGpx()
+    {
+        return gpx;
     }
 }
 

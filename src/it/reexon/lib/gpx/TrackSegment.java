@@ -31,6 +31,12 @@ public class TrackSegment
         this.trackPoints = trackPoints;
     }
 
+    public TrackSegment(List<TrackPoint> trackPoints)
+    {
+        super();
+        this.trackPoints = trackPoints;
+    }
+
     /**
      * @return the trackPoints   List of Track Points
      */

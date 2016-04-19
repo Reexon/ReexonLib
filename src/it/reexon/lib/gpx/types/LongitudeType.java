@@ -1,0 +1,37 @@
+/**
+ * Copyright (c) 2016 Marco Velluto
+ */
+package it.reexon.lib.gpx.types;
+
+import java.math.BigDecimal;
+
+
+/**
+ * @author Marco Velluto
+ * @version GPX 1.1
+ * @since Java 1.8
+ */
+public class LongitudeType
+{
+    private BigDecimal latitude;
+
+    public LongitudeType(BigDecimal latitude)
+    {
+        super();
+        setLatitude(latitude);
+    }
+
+    public BigDecimal getLatitude()
+    {
+        return latitude;
+    }
+
+    public void setLatitude(BigDecimal latitude)
+    {
+        if (latitude == null)
+            return;
+        if (latitude.floatValue() > 90.0 || latitude.floatValue() < -90.0)
+            throw new IllegalArgumentException("The longitude must be between -90.0 and 90.0");
+        this.latitude = latitude;
+    }
+}

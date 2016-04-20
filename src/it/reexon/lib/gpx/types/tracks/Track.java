@@ -1,4 +1,4 @@
-package it.reexon.lib.gpx;
+package it.reexon.lib.gpx.types.tracks;
 
 import java.util.List;
 
@@ -7,23 +7,15 @@ import it.reexon.lib.types.NonNegativeInteger;
 
 
 /**
- * 
  * @author Marco Velluto
  * @since Java 1.8
- *
  */
-public class Track
+public class Track extends AbstractTrack
 {
     /** Optional Information */
-    private String name; //GPS track name
-    private String cmt; //GPS track comment
-    private String desc; //Description of the track
-    private String src; //Source of the track data
     private LinkType link; //URL associated with the track
     private String linkName; //Text to display on the <url> hyperlink
-    private NonNegativeInteger number; //GPS track number
     private String type;
-
     private List<TrackSegment> trackSegment; // List of Track Segments
 
     public Track()
@@ -179,6 +171,26 @@ public class Track
     public void setTrackSegment(List<TrackSegment> trackSegment)
     {
         this.trackSegment = trackSegment;
+    }
+
+    public String getLinkName()
+    {
+        return linkName;
+    }
+
+    public void setLinkName(String linkName)
+    {
+        this.linkName = linkName;
+    }
+
+    public String getType()
+    {
+        return type;
+    }
+
+    public void setType(String type)
+    {
+        this.type = type;
     }
 
 }

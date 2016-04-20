@@ -1,9 +1,8 @@
-package it.reexon.lib.gpx;
+package it.reexon.lib.gpx.types.points;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-import it.reexon.lib.gpx.abstracts.Point;
 import it.reexon.lib.gpx.types.LatitudeType;
 import it.reexon.lib.gpx.types.LongitudeType;
 
@@ -11,7 +10,7 @@ import it.reexon.lib.gpx.types.LongitudeType;
 /**
  * @author marco.velluto
  */
-public class RoutePoint extends Point
+public class RoutePoint extends AbstractPoint
 {
 
     /**

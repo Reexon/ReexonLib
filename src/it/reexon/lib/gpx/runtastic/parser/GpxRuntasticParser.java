@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2016 Marco Velluto
  */
-package it.reexon.lib.gpx.parser;
+package it.reexon.lib.gpx.runtastic.parser;
 
 import java.io.File;
 import java.io.IOException;

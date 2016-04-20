@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.reexon.lib.gpx.abstracts;
+package it.reexon.lib.gpx.types.points;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -14,7 +14,7 @@ import it.reexon.lib.gpx.types.LongitudeType;
  * @author marco.velluto
  *
  */
-public abstract class Point
+public abstract class AbstractPoint
 {
     /**Required Information: */
     private LatitudeType lat; //Latitude of the waypoint.
@@ -39,7 +39,7 @@ public abstract class Point
      * @param lat latitude is required
      * @param lon Longitude is required
      */
-    public Point(LatitudeType lat, LongitudeType lon)
+    public AbstractPoint(LatitudeType lat, LongitudeType lon)
     {
         super();
         this.lat = lat;
@@ -62,7 +62,7 @@ public abstract class Point
      * @param ageofdgpsdata     Time since last DGPS fix
      * @param dgpsid    DGPS station ID
      */
-    public Point(LatitudeType lat, LongitudeType lon, BigDecimal ele, Date time, String magvar, Long geoidheight, String fix, int sat, Long hdop,
+    public AbstractPoint(LatitudeType lat, LongitudeType lon, BigDecimal ele, Date time, String magvar, Long geoidheight, String fix, int sat, Long hdop,
                  Long vdop, Long pdop, Long ageofdgpsdata, Long dgpsid)
     {
         super();

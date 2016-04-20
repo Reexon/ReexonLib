@@ -1,7 +1,9 @@
-package it.reexon.lib.gpx;
+package it.reexon.lib.gpx.types.tracks;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import it.reexon.lib.gpx.types.points.TrackPoint;
 
 
 /**

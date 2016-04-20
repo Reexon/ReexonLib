@@ -1,10 +1,9 @@
-package it.reexon.lib.gpx;
+package it.reexon.lib.gpx.types.points;
 
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Date;
 
-import it.reexon.lib.gpx.abstracts.Point;
 import it.reexon.lib.gpx.types.LatitudeType;
 import it.reexon.lib.gpx.types.LongitudeType;
 
@@ -14,7 +13,7 @@ import it.reexon.lib.gpx.types.LongitudeType;
  * @author marco.velluto
  *
  */
-public class TrackPoint extends Point
+public class TrackPoint extends AbstractPoint
 {
 
     /**Optional Description Information   */
@@ -24,6 +23,7 @@ public class TrackPoint extends Point
     private String src; //Source of the trackpoint data
     private URL url; //URL associated with the trackpoint
     private String urlname; //Text to display on the <url> hyperlink
+    
     private String sym; //trackpoint symbol
     private String type; //Type (category) of trackpoint
 

@@ -5,7 +5,12 @@ package it.reexon.lib.gpx;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import it.reexon.lib.gpx.types.MetadataType;
+import it.reexon.lib.gpx.types.points.WayPoint;
+import it.reexon.lib.gpx.types.tracks.Route;
+import it.reexon.lib.gpx.types.tracks.Track;
 
 
 /**
@@ -29,10 +34,16 @@ public class Gpx
     /**
      * @param version   GPX schema version used in file. Is mandatory
      * @param creator   Program used to create file. Is mandatory
+     *
+     * @throws IllegalArgumentException if version or creator are blank or null
      */
-    public Gpx(String version, String creator)
+    public Gpx(String version, String creator) throws IllegalArgumentException
     {
-        super();
+        if (StringUtils.isBlank(version))
+            throw new IllegalArgumentException("Version is required");
+        if (StringUtils.isBlank(creator))
+            throw new IllegalArgumentException("Creator is required");
+
         this.version = version;
         this.creator = creator;
     }
@@ -45,10 +56,16 @@ public class Gpx
      * @param wayPoints List of Waypoints
      * @param routes    List of Routes
      * @param tracks    List of Tracks
+     * 
+     * @throws IllegalArgumentException if version or creator are blank or null
      */
     public Gpx(String version, String creator, MetadataType metadata, List<WayPoint> wayPoints, List<Route> routes, List<Track> tracks)
     {
-        super();
+        if (StringUtils.isBlank(version))
+            throw new IllegalArgumentException("Version is required");
+        if (StringUtils.isBlank(creator))
+            throw new IllegalArgumentException("Creator is required");
+
         this.version = version;
         this.creator = creator;
         this.metadata = metadata;

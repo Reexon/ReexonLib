@@ -1,25 +1,24 @@
-package it.reexon.lib.gpx;
+package it.reexon.lib.gpx.types.tracks;
 
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
+
+import it.reexon.lib.gpx.types.points.RoutePoint;
+import it.reexon.lib.types.NonNegativeInteger;
+
 
 /**
  * 
  * @author marco.velluto
  *
  */
-public class Route
+public class Route extends AbstractTrack
 {
 
     /**Optional Information   */
-    private String name; //GPS route name
-    private String cmt; //GPS route comment
-    private String desc; //Description of the route
-    private String src; //Source of the route data
     private URL url; //URL associated with the route
     private String urlname; //Text to display on the <url> hyperlink
-    private int number; //GPS route number
-    private ArrayList<RoutePoint> routepoints; //List of Routepoint
+    private List<RoutePoint> routepoints; //List of Routepoint
 
     /**
      * @param name   GPS route name
@@ -31,7 +30,7 @@ public class Route
      * @param number   GPS route number
      * @param routepoints   List of Routepoint
      */
-    public Route(String name, String cmt, String desc, String src, URL url, String urlname, int number, ArrayList<RoutePoint> routepoints)
+    public Route(String name, String cmt, String desc, String src, URL url, String urlname, NonNegativeInteger number, List<RoutePoint> routepoints)
     {
         super();
         this.name = name;
@@ -141,25 +140,9 @@ public class Route
     }
 
     /**
-     * @return the number   GPS route number
-     */
-    public int getNumber()
-    {
-        return number;
-    }
-
-    /**
-     * @param number   GPS route number
-     */
-    public void setNumber(int number)
-    {
-        this.number = number;
-    }
-
-    /**
      * @return the routepoints   List of Routepoint
      */
-    public ArrayList<RoutePoint> getRoutepoints()
+    public List<RoutePoint> getRoutepoints()
     {
         return routepoints;
     }
@@ -167,7 +150,7 @@ public class Route
     /**
      * @param routepoints   List of Routepoint
      */
-    public void setRoutepoints(ArrayList<RoutePoint> routepoints)
+    public void setRoutepoints(List<RoutePoint> routepoints)
     {
         this.routepoints = routepoints;
     }

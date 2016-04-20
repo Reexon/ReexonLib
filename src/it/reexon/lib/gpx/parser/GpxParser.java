@@ -28,14 +28,14 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import it.reexon.lib.gpx.Gpx;
-import it.reexon.lib.gpx.Track;
-import it.reexon.lib.gpx.TrackPoint;
-import it.reexon.lib.gpx.TrackSegment;
 import it.reexon.lib.gpx.types.CopyrightType;
 import it.reexon.lib.gpx.types.LatitudeType;
 import it.reexon.lib.gpx.types.LinkType;
 import it.reexon.lib.gpx.types.LongitudeType;
 import it.reexon.lib.gpx.types.MetadataType;
+import it.reexon.lib.gpx.types.points.TrackPoint;
+import it.reexon.lib.gpx.types.tracks.Track;
+import it.reexon.lib.gpx.types.tracks.TrackSegment;
 
 
 /**
@@ -100,8 +100,7 @@ public class GpxParser
             LinkType link = createLinkType(trkElement);
 
             // ---------------------------- Trkseg ----------------------------
-            NodeList trkseg = trkElement.getElementsByTagName("trkseg");
-            List<TrackSegment> trackSegments = createTrackSegmentList(trkseg);
+            List<TrackSegment> trackSegments = createTrackSegmentList(trkElement);
 
             track.setLink(link);
             track.setTrackSegment(trackSegments);
@@ -110,8 +109,9 @@ public class GpxParser
         }
     }
 
-    private List<TrackSegment> createTrackSegmentList(NodeList nodeList)
+    private List<TrackSegment> createTrackSegmentList(Element trkElement)
     {
+        NodeList nodeList = trkElement.getElementsByTagName("trkseg");
         List<TrackSegment> trackSegments = new LinkedList<>();
         for (int j = 0; j < nodeList.getLength(); j++)
         {

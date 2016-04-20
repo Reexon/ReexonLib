@@ -97,14 +97,13 @@ public class GpxParser
             Element trkElement = (Element) node;
 
             // ---------------------------- Link ----------------------------
-            NodeList link = trkElement.getElementsByTagName("link");
-            List<LinkType> linkList = createLinkList(link);
+            LinkType link = createLinkType(trkElement);
 
             // ---------------------------- Trkseg ----------------------------
-            TrackSegment trkSegType = new TrackSegment();
             NodeList trkseg = trkElement.getElementsByTagName("trkseg");
-
             List<TrackSegment> trackSegments = createTrackSegmentList(trkseg);
+
+            track.setLink(link);
             track.setTrackSegment(trackSegments);
             tracks.add(track);
             gpx.setTracks(tracks);
@@ -152,27 +151,6 @@ public class GpxParser
         return trackPoints;
     }
 
-    private List<LinkType> createLinkList(NodeList nodeList) throws URISyntaxException
-    {
-        List<LinkType> linkList = new LinkedList<>();
-        for (int i = 0; i < nodeList.getLength(); i++)
-        {
-            Node linkNode = nodeList.item(i);
-            if (linkNode instanceof Element)
-            {
-                LinkType linkType = new LinkType();
-                Element linkElement = (Element) linkNode;
-                URI uri = new URI(linkElement.getAttribute("href"));
-                String text = linkElement.getElementsByTagName("text").item(0).getTextContent();
-
-                linkType.setAnyURI(uri);
-                linkType.setText(text);
-                linkList.add(linkType);
-            }
-        }
-        return linkList;
-    }
-
     private void analyzesMetadataNode(Node node) throws DOMException, URISyntaxException
     {
         MetadataType metadata = new MetadataType();
@@ -215,19 +193,34 @@ public class GpxParser
         return copyrightType;
     }
 
-    //TODO: Should me return a List<LinkType>
     private LinkType createLinkType(Element metadataElement) throws DOMException, URISyntaxException
     {
-        NodeList link = metadataElement.getElementsByTagName("link");
-        LinkType linkType = new LinkType();
-        if (link.getLength() == 1)
+        List<LinkType> linkList = createLinkList(metadataElement);
+        if (linkList.isEmpty())
+            return null;
+        return linkList.get(0);
+    }
+
+    private List<LinkType> createLinkList(Element metadataElement) throws URISyntaxException
+    {
+        NodeList nodeList = metadataElement.getElementsByTagName("link");
+        List<LinkType> linkList = new LinkedList<>();
+        for (int i = 0; i < nodeList.getLength(); i++)
         {
-            Node linkNode = link.item(0);
-            linkType.setAnyURI(new URI(linkNode.getAttributes().getNamedItem("href").getNodeValue()));
+            Node linkNode = nodeList.item(i);
+            if (linkNode instanceof Element)
+            {
+                LinkType linkType = new LinkType();
+                Element linkElement = (Element) linkNode;
+                URI uri = new URI(linkElement.getAttribute("href"));
+                String text = linkElement.getElementsByTagName("text").item(0).getTextContent();
+
+                linkType.setAnyURI(uri);
+                linkType.setText(text);
+                linkList.add(linkType);
+            }
         }
-        String text = metadataElement.getElementsByTagName("text").item(0).getTextContent();
-        linkType.setText(text);
-        return linkType;
+        return linkList;
     }
 
     public File getGpxFile()

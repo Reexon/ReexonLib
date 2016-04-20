@@ -19,8 +19,8 @@ public class Track
     private String cmt; //GPS track comment
     private String desc; //Description of the track
     private String src; //Source of the track data
-    private LinkType url; //URL associated with the track
-    private String urlName; //Text to display on the <url> hyperlink
+    private LinkType link; //URL associated with the track
+    private String linkName; //Text to display on the <url> hyperlink
     private NonNegativeInteger number; //GPS track number
     private String type;
 
@@ -46,8 +46,8 @@ public class Track
         this.cmt = cmt;
         this.desc = desc;
         this.src = src;
-        this.url = url;
-        this.urlName = urlName;
+        this.link = url;
+        this.linkName = urlName;
         this.number = number;
         this.type = type;
         this.trackSegment = trackSegment;
@@ -120,17 +120,17 @@ public class Track
     /**
      * @return Source of the track data
      */
-    public LinkType getUrl()
+    public LinkType getLink()
     {
-        return url;
+        return link;
     }
 
     /**
      * @param Source of the track data
      */
-    public void setUrl(LinkType url)
+    public void setLink(LinkType link)
     {
-        this.url = url;
+        this.link = link;
     }
 
     /**
@@ -138,7 +138,7 @@ public class Track
      */
     public String getUrlName()
     {
-        return urlName;
+        return linkName;
     }
 
     /**
@@ -146,7 +146,7 @@ public class Track
      */
     public void setUrlName(String urlName)
     {
-        this.urlName = urlName;
+        this.linkName = urlName;
     }
 
     /**

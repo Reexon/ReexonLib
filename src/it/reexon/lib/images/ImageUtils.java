@@ -1,3 +1,6 @@
+/**
+ * Copyright (c) 2016 Marco Velluto
+ */
 package it.reexon.lib.images;
 
 import com.aspose.imaging.FontStyle;
@@ -6,6 +9,10 @@ import com.aspose.imaging.fileformats.metafile.EmfMetafileImage;
 import com.aspose.imaging.imageoptions.PngOptions;
 
 
+/**
+ * @author Marco Velluto
+ * @since Java 1.8
+ */
 public class ImageUtils
 {
     public static void addWatermark(String sourceFilePath, String destinationFilePath)

@@ -16,6 +16,10 @@ import java.util.List;
 import it.reexon.lib.system.commands.ping.enums.SystemEnum;
 
 
+/**
+ * @author Marco Velluto
+ * @since Java 1.8
+ */
 public class JPingy
 {
 

@@ -1,3 +1,6 @@
+/**
+ * Copyright (c) 2016 Marco Velluto
+ */
 package it.reexon.lib.pdf;
 
 import java.awt.image.BufferedImage;
@@ -15,7 +18,6 @@ import it.reexon.lib.list.ListUtil;
 
 
 /**
- * 
  * @author Marco Velluto
  * @since Java 1.8
  */

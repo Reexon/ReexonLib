@@ -13,6 +13,10 @@ import java.util.List;
 import it.reexon.lib.exceptions.FileMoveException;
 
 
+/**
+ * @author Marco Velluto
+ * @since Java 1.8
+ */
 public class IOUtils
 {
     /**

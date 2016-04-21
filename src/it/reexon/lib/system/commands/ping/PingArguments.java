@@ -9,7 +9,8 @@ import it.reexon.lib.system.commands.ping.enums.SystemEnum;
 
 
 /**
- * @author marco.velluto
+ * @author Marco Velluto
+ * @since Java 1.8
  */
 public class PingArguments
 {

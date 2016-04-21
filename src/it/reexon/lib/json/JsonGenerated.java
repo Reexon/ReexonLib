@@ -1,3 +1,6 @@
+/**
+ * Copyright (c) 2016 Marco Velluto
+ */
 package it.reexon.lib.json;
 
 import java.io.FileWriter;
@@ -8,6 +11,10 @@ import com.google.gson.Gson;
 import it.reexon.lib.json.dtos.MapRequestDTO;
 
 
+/**
+ * @author Marco Velluto
+ * @since Java 1.8
+ */
 public class JsonGenerated
 {
     public static void main(String[] args)

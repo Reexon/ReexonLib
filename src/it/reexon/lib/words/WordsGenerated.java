@@ -1,3 +1,6 @@
+/**
+ * Copyright (c) 2016 Marco Velluto
+ */
 package it.reexon.lib.words;
 
 import java.io.FileWriter;
@@ -8,8 +11,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  * 
- * @author marco.velluto
- *
+ * @author Marco Velluto
+ * @since Java 1.8
  */
 public class WordsGenerated
 {

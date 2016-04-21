@@ -8,6 +8,7 @@ import java.util.Date;
 
 import it.reexon.lib.gpx.types.LatitudeType;
 import it.reexon.lib.gpx.types.LongitudeType;
+import it.reexon.lib.types.Coordinates;
 
 
 /**
@@ -19,6 +20,8 @@ public abstract class AbstractPoint
     /**Required Information: */
     private LatitudeType lat; //Latitude of the waypoint.
     private LongitudeType lon; //Longitude of the waypoint.
+
+    private final Coordinates coordinate = null;
 
     /**Optional Position Information: */
     private BigDecimal ele; //Elevation of the waypoint.
@@ -62,8 +65,8 @@ public abstract class AbstractPoint
      * @param ageofdgpsdata     Time since last DGPS fix
      * @param dgpsid    DGPS station ID
      */
-    public AbstractPoint(LatitudeType lat, LongitudeType lon, BigDecimal ele, Date time, String magvar, Long geoidheight, String fix, int sat, Long hdop,
-                 Long vdop, Long pdop, Long ageofdgpsdata, Long dgpsid)
+    public AbstractPoint(LatitudeType lat, LongitudeType lon, BigDecimal ele, Date time, String magvar, Long geoidheight, String fix, int sat,
+                         Long hdop, Long vdop, Long pdop, Long ageofdgpsdata, Long dgpsid)
     {
         super();
         this.lat = lat;
@@ -287,6 +290,11 @@ public abstract class AbstractPoint
     public void setDgpsid(Long dgpsid)
     {
         this.dgpsid = dgpsid;
+    }
+
+    public Coordinates getCoordinate()
+    {
+        return new Coordinates(lat.getLatitude(), lon.getLatitude());
     }
 
 }

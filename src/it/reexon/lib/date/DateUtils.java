@@ -1,5 +1,5 @@
 /**
- *  Copyright (c) 2016 Marco Velluto
+ù*  Copyright (c) 2016 Marco Velluto
  */
 package it.reexon.lib.date;
 
@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 /**
@@ -26,9 +27,10 @@ public class DateUtils
      */
     public static Date addDays(final Date date, int numberDays)
     {
-        Calendar c = Calendar.getInstance();
+        final Calendar c = Calendar.getInstance();
         c.setTime(date);
         c.add(Calendar.DATE, numberDays);
+
         return c.getTime();
     }
 
@@ -51,9 +53,9 @@ public class DateUtils
      * @param endDate end date
      * 
      * @return true - if the date is within the range provided
-     * @throws if dateToCheck, startDate, endDate are null.
+     * @throws NullPointerException if dateToCheck, startDate, endDate are null.
      */
-    public static boolean between(Date dateToCheck, Date startDate, Date endDate) throws NullPointerException
+    public static boolean between(final Date dateToCheck, final Date startDate, final Date endDate)
     {
         if (dateToCheck == null)
             throw new NullPointerException("date to check can not be null");
@@ -72,8 +74,9 @@ public class DateUtils
      */
     public static Calendar getCalendarFromNow()
     {
-        Calendar calendar = GregorianCalendar.getInstance();
+        final Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTime(new Date());
+
         return calendar;
     }
 
@@ -90,6 +93,7 @@ public class DateUtils
      *  @param date2 = 2016/03/31
      *  
      *  @return Set{2016/03/01, 2016/03/02, ... , 2016/03/31} 
+     *  @throws IllegalArgumentException if date2 > date1
      */
     public static List<Date> getDatesBetween(final Date date1, final Date date2)
     {
@@ -97,10 +101,10 @@ public class DateUtils
             throw new IllegalArgumentException("Date2 have to max date1");
 
         List<Date> dates = new LinkedList<>();
-        Calendar calendarDate1 = Calendar.getInstance();
+        final Calendar calendarDate1 = Calendar.getInstance();
         calendarDate1.setTimeInMillis(date1.getTime());
 
-        Calendar calendarDate2 = Calendar.getInstance();
+        final Calendar calendarDate2 = Calendar.getInstance();
         calendarDate2.setTimeInMillis(date2.getTime());
 
         Long diffDay = (calendarDate2.getTimeInMillis() - calendarDate1.getTimeInMillis()) / (1000 * 60 * 60 * 24);
@@ -118,21 +122,21 @@ public class DateUtils
      * Set Time To Beginning Of Day
      * 
      * The Calendar sets with the following parameters of the day at 0 :
-     * * HOUR_OF_DAY
-     * * MINUTE
-     * * SECOND
-     * * MILLISECOND
+     * <br>* HOUR_OF_DAY
+     * <br>* MINUTE
+     * <br>* SECOND
+     * <br>* MILLISECOND
      * @param calendar calendar to be set
      * @return date - date set as the beginning of the day
      * 
-     * @throws if calendar is null
+     * @throws NullPointerException if calendar is null
      */
-    public static Calendar setTimeToBeginningOfDay(final Calendar calendar) throws NullPointerException
+    public static Calendar setTimeToBeginningOfDay(final Calendar calendar)
     {
         if (calendar == null)
             throw new NullPointerException("Calendar can not be null");
 
-        Calendar c = (Calendar) calendar.clone();
+        final Calendar c = (Calendar) calendar.clone();
 
         c.set(Calendar.HOUR_OF_DAY, 0);
         c.set(Calendar.MINUTE, 0);
@@ -156,12 +160,12 @@ public class DateUtils
      * 
      * @throws NullPointerException if date is null
      */
-    public static Date setTimeToBeginningOfDay(final Date date) throws NullPointerException
+    public static Date setTimeToBeginningOfDay(final Date date)
     {
         if (date == null)
             throw new NullPointerException("date can not be null");
 
-        Calendar calendarInizio = Calendar.getInstance();
+        final Calendar calendarInizio = Calendar.getInstance();
         calendarInizio.setTime(date);
         calendarInizio.set(Calendar.HOUR_OF_DAY, 0);
         calendarInizio.set(Calendar.MINUTE, 0);
@@ -184,12 +188,12 @@ public class DateUtils
      * @return caledar - calendar set as the ending of the day
      * @throws NullPointerException if calendar is null
      */
-    public static Calendar setTimeToEndofDay(final Calendar calendar) throws NullPointerException
+    public static Calendar setTimeToEndofDay(final Calendar calendar)
     {
         if (calendar == null)
             throw new NullPointerException("Calendar can not be null");
 
-        Calendar c = (Calendar) calendar.clone();
+        final Calendar c = (Calendar) calendar.clone();
 
         c.set(Calendar.HOUR_OF_DAY, 23);
         c.set(Calendar.MINUTE, 59);
@@ -213,12 +217,12 @@ public class DateUtils
      * 
      * @throws NullPointerException if date is null
      */
-    public static Date setTimeToEndofDay(Date date) throws NullPointerException
+    public static Date setTimeToEndofDay(final Date date)
     {
         if (date == null)
             throw new NullPointerException("Date can not be null");
 
-        Calendar calendarEnd = Calendar.getInstance();
+        final Calendar calendarEnd = Calendar.getInstance();
         calendarEnd.setTime(date);
         calendarEnd.set(Calendar.HOUR_OF_DAY, 23);
         calendarEnd.set(Calendar.MINUTE, 59);
@@ -232,19 +236,18 @@ public class DateUtils
      * 
      * @param date date to get beginning month
      * @return data - date of beginning month 
+     * @throws NullPointerException if date is null
      */
     public static Date getDateBeginningMonth(final Date date)
     {
         if (date == null)
-            return null;
+            throw new NullPointerException("Date is null");
 
-        Calendar calendarBegin = Calendar.getInstance();
+        final Calendar calendarBegin = Calendar.getInstance();
         calendarBegin.setTime(date);
         calendarBegin.set(Calendar.DAY_OF_MONTH, calendarBegin.getActualMinimum(Calendar.DAY_OF_MONTH));
 
-        calendarBegin = setTimeToBeginningOfDay(calendarBegin);
-
-        return calendarBegin.getTime();
+        return setTimeToBeginningOfDay(calendarBegin).getTime();
 
     }
 
@@ -252,20 +255,19 @@ public class DateUtils
      * Returns the date with the ending of the month
      * 
      * @param date date to get ending month
-     * @return data - date of ending month 
+     * @return data - date of ending month
+     * @throws NullPointerException if date is null 
      */
     public static Date getDateEndMonth(final Date date)
     {
         if (date == null)
-            return null;
+            throw new NullPointerException("Date is null");
 
-        Calendar calendarEnd = Calendar.getInstance();
+        final Calendar calendarEnd = Calendar.getInstance();
         calendarEnd.setTime(date);
         calendarEnd.set(Calendar.DAY_OF_MONTH, calendarEnd.getActualMaximum(Calendar.DAY_OF_MONTH));
 
-        calendarEnd = setTimeToEndofDay(calendarEnd);
-
-        return calendarEnd.getTime();
+        return setTimeToEndofDay(calendarEnd).getTime();
     }
 
     /**
@@ -273,11 +275,12 @@ public class DateUtils
      * 
      * @param date date to fetch range of dates
      * @return dateRange - date range of dates that between the beginning and the end of the month
+     * @throws NullPointerException if date is null
      */
-    public static DateRange getDateRangeBeginEndMonth(Date date)
+    public static DateRange getDateRangeBeginEndMonth(final Date date)
     {
         if (date == null)
-            return null;
+            throw new NullPointerException("Date is null");
 
         return new DateRange(getDateBeginningMonth(date), getDateBeginningMonth(date));
     }
@@ -291,26 +294,80 @@ public class DateUtils
      *  field is Calendar.DAY
      *  value is 1
      *  return: DateRange with 2016-01-02 and 2016-01-04
-     *  
+     * </p>
      * @param date      date to between range date.
      * @param field     the calendar field.
      * @param value     the value of date or time to be added to the field.
      * @return
      * @throws NullPointerException if date is null.
      */
-    public static DateRange createDateRange(Date date, int field, int value) throws NullPointerException
+    public static DateRange createDateRange(final Date date, int field, int value)
     {
         if (date == null)
             throw new NullPointerException("Date is null");
 
-        Calendar c1 = new Calendar.Builder().setInstant(date).build();
+        final Calendar c1 = new Calendar.Builder().setInstant(date).build();
         c1.add(field, value);
 
-        Calendar c2 = new Calendar.Builder().setInstant(date).build();
+        final Calendar c2 = new Calendar.Builder().setInstant(date).build();
         c2.add(field, -value);
 
-        DateRange dr = new DateRange(c1.getTime(), c2.getTime());
+        return new DateRange(c1.getTime(), c2.getTime());
+    }
 
-        return dr;
+    /**
+     * Calculates the average of the proposed dates
+     * 
+     * @param dateRange dates by which to calculate the average
+     * @return - average date
+     * @throws NullPointerException if date is null
+     * @throws NoSuchElementException if all the dates in the date range are null
+     */
+    public static Date average(DateRange dateRange)
+    {
+        if (dateRange == null)
+            throw new NullPointerException("DateRange is null");
+
+        List<Date> dateList = new LinkedList<>();
+        dateList.add(dateRange.getDateFrom());
+        dateList.add(dateRange.getDateTo());
+        return average(dateList);
+    }
+
+    /**
+     * Calculates the average of the proposed dates
+     * 
+     * @param dates dates by which to calculate the average
+     * @return average date
+     * @throws NullPointerException if date is null
+     * @throws NoSuchElementException if all the dates in the date range are null
+     */
+    public static Date average(List<Date> dates)
+    {
+        if (dates == null)
+            throw new NullPointerException("Dates is null");
+
+        if (dates.isEmpty() || dates.stream().filter(p -> p != null).count() < 1)
+            throw new NoSuchElementException("No element found in dates");
+
+        Long millisecond = (long) dates.stream().filter(p -> p != null).mapToLong(Date::getTime).average().getAsDouble();
+
+        return new Date(millisecond);
+    }
+
+    /**
+     * Creates a date by parameters
+     * @param year - year
+     * @param month - month
+     * @param day - day
+     * @return a date by parameters
+     * @throws NullPointerException - if calendar is null
+     */
+    public static Date getDate(int year, int month, int day)
+    {
+        final Calendar c = Calendar.getInstance();
+        c.set(year, month, day);
+
+        return DateUtils.setTimeToBeginningOfDay(c).getTime();
     }
 }

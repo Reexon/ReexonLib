@@ -8,7 +8,7 @@ package it.reexon.lib.exceptions;
  * @author Marco Velluto
  * @since Java 1.7
  */
-public class NotFoundException extends Exception
+public class NotFoundException extends RuntimeException
 {
     private static final long serialVersionUID = 1L;
 

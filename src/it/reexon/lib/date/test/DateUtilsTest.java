@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import it.reexon.lib.date.DateRange;
 import it.reexon.lib.date.DateUtils;
 
 
@@ -78,6 +79,28 @@ public class DateUtilsTest
         }
     }
 
+    @Test
+    public void createDateRange()
+    {
+        try
+        {
+            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2016-01-03 14:51:26");
+            DateRange dateReturn = DateUtils.createDateRange(date, Calendar.DAY_OF_YEAR, 1);
+            Assert.assertEquals("Mon Jan 04 14:51:26 CET 2016", dateReturn.getDateFrom().toString());
+            Assert.assertEquals("Sat Jan 02 14:51:26 CET 2016", dateReturn.getDateTo().toString());
+
+            date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2016-01-01 00:00:00");
+            dateReturn = DateUtils.createDateRange(date, Calendar.DAY_OF_YEAR, 5);
+            Assert.assertEquals("Wed Jan 06 00:00:00 CET 2016", dateReturn.getDateFrom().toString());
+            Assert.assertEquals("Sun Dec 27 00:00:00 CET 2015", dateReturn.getDateTo().toString());
+        }
+        catch (ParseException e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
     private Date getDate(int year, int month, int day)
     {
         Calendar c = Calendar.getInstance();
@@ -85,4 +108,5 @@ public class DateUtilsTest
         c = DateUtils.setTimeToBeginningOfDay(c);
         return c.getTime();
     }
+
 }

@@ -27,7 +27,7 @@ public class CheckFileTest
         {
             System.err.println("Errore in testCheckFiles " + e.getMessage());
             e.printStackTrace();
-            fail();
+            fail(e.getLocalizedMessage());
         }
 
     }

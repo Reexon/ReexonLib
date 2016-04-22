@@ -281,4 +281,36 @@ public class DateUtils
 
         return new DateRange(getDateBeginningMonth(date), getDateBeginningMonth(date));
     }
+
+    /**
+     * Create a Date Range from fild e value
+     * 
+     * <p>
+     * Example:
+     *  date is 2016-01-03
+     *  field is Calendar.DAY
+     *  value is 1
+     *  return: DateRange with 2016-01-02 and 2016-01-04
+     *  
+     * @param date      date to between range date.
+     * @param field     the calendar field.
+     * @param value     the value of date or time to be added to the field.
+     * @return
+     * @throws NullPointerException if date is null.
+     */
+    public static DateRange createDateRange(Date date, int field, int value) throws NullPointerException
+    {
+        if (date == null)
+            throw new NullPointerException("Date is null");
+
+        Calendar c1 = new Calendar.Builder().setInstant(date).build();
+        c1.add(field, value);
+
+        Calendar c2 = new Calendar.Builder().setInstant(date).build();
+        c2.add(field, -value);
+
+        DateRange dr = new DateRange(c1.getTime(), c2.getTime());
+
+        return dr;
+    }
 }

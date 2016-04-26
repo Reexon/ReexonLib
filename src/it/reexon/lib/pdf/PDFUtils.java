@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 
-import it.reexon.lib.list.ListUtil;
+import it.reexon.lib.list.ListUtils;
 
 
 /**
@@ -45,7 +45,7 @@ public class PDFUtils
                 System.out.println("Images copied to Folder: " + destinationFolder.getName());
 
                 List<?> list = document.getDocumentCatalog().getAllPages();
-                List<PDPage> listPage = ListUtil.castList(PDPage.class, list);
+                List<PDPage> listPage = ListUtils.castList(PDPage.class, list);
 
                 System.out.println("Total files to be converted -> " + list.size());
 

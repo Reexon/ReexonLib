@@ -7,10 +7,13 @@ import java.io.File;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.joda.time.DateTime;
 
+import it.reexon.lib.date.DateRange;
 import it.reexon.lib.gpx.parser.GpxParser;
 import it.reexon.lib.gpx.types.points.TrackPoint;
 import it.reexon.lib.gpx.types.tracks.Track;
@@ -30,32 +33,30 @@ public class GpxUtils
                       new DateTime("2016-01-31T10:09:06.000Z").toDate());
     }
 
+    public static Coordinates getCoordate(File gpxFile, DateRange dateRange)
+    {
+        List<TrackPoint> trackPoints = getTrackPoint(gpxFile);
+
+        Map<Date, Coordinates> map = trackPoints.stream()
+                                                .filter(p -> p.getTime().equals(dateRange.getDateFrom()) || p.getTime().equals(dateRange.getDateTo())
+                                                        || (p.getTime().before(dateRange.getDateTo()) && p.getTime().after(dateRange.getDateFrom())))
+                                                .collect(Collectors.toMap(TrackPoint::getTime, TrackPoint::getCoordinate));
+
+        return null;
+    }
+
     public static Coordinates getCoordinate(File gpxFile, Date date) throws NullPointerException
     {
         if (date == null)
             throw new NullPointerException("DateRange is null");
 
-        try
-        {
-            List<TrackPoint> trackPoints = getTrackPoint(gpxFile);
-            
-            //Per il futuro metodo
-            //            Map<Date, Coordinates> map = trackPoints.stream()
-            //                                                    .filter(p -> p.getTime().equals(date) || (p.getTime().before(date) && p.getTime().after(date)))
-            //                                                    .collect(Collectors.toMap(TrackPoint::getTime, TrackPoint::getCoordinate));
-
-            Optional<Coordinates> coordinates = trackPoints.stream()
-                                                           .filter(p -> p.getTime().equals(date)
-                                                                   || (p.getTime().before(date) && p.getTime().after(date)))
-                                                           .map(p -> p.getCoordinate()).distinct().findAny();
-            if (coordinates.isPresent())
-                return coordinates.get();
-            return null;
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException();
-        }
+        List<TrackPoint> trackPoints = getTrackPoint(gpxFile);
+        Optional<Coordinates> coordinates = trackPoints.stream()
+                                                       .filter(p -> p.getTime().equals(date) || (p.getTime().before(date) && p.getTime().after(date)))
+                                                       .map(p -> p.getCoordinate()).distinct().findAny();
+        if (coordinates.isPresent())
+            return coordinates.get();
+        return null;
     }
 
     public static final List<TrackPoint> getTrackPoint(File gpxFile)

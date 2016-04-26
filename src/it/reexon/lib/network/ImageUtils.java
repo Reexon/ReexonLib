@@ -3,7 +3,7 @@
  */
 package it.reexon.lib.network;
 
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
@@ -24,11 +24,9 @@ public class ImageUtils
      * @throws IOException - if no protocol is specified, or an unknown protocol is found, or spec is null.
      *                     - if an error occurs during reading.
      */
-    public static Image imageFormURL(String urlStr) throws IOException
+    public static BufferedImage imageFormURL(String urlStr) throws IOException
     {
-        Image image = null;
         URL url = new URL(urlStr);
-        image = ImageIO.read(url);
-        return image;
+        return ImageIO.read(url);
     }
 }

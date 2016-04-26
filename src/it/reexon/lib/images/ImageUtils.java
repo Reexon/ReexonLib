@@ -1,19 +1,37 @@
 /**
- * Copyright (c) 2016 Marco Velluto
+ * Copyright (c) 2016 Marco Velluto. All rights reserved.
  */
 package it.reexon.lib.images;
 
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Path;
+import java.util.Iterator;
 
+import javax.imageio.IIOException;
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageTypeSpecifier;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.spi.ImageWriterSpi;
+import javax.imageio.stream.FileImageOutputStream;
+import javax.imageio.stream.ImageInputStream;
 
 import com.aspose.imaging.FontStyle;
 import com.aspose.imaging.Image;
 import com.aspose.imaging.fileformats.metafile.EmfMetafileImage;
 import com.aspose.imaging.imageoptions.PngOptions;
+import com.sun.imageio.plugins.common.I18N;
+
+import it.reexon.lib.Constants;
+import it.reexon.lib.files.FileUtils;
 
 
 /**
@@ -22,14 +40,21 @@ import com.aspose.imaging.imageoptions.PngOptions;
  */
 public class ImageUtils
 {
+    private static final int BYTE = 262144;
+    private static final int MAXWIDTH = 2000;
 
     /**
      * Converts an image to another format
      *
      * @param inputImagePath Path of the source image
      * @param outputImagePath Path of the destination image
-     * @param formatName the format to be converted to, one of: jpeg, png,
-     * bmp, wbmp, and gif
+     * @param formatName the format to be converted to, one of: 
+     * <ul>jpeg, 
+     * <ul>png,
+     * <ul>bmp, 
+     * <ul>wbmp,
+     * <ul>gif.
+     * 
      * @return true if successful, false otherwise
      * @throws IOException if errors occur during writing
      */
@@ -49,6 +74,108 @@ public class ImageUtils
         inputStream.close();
 
         return result;
+    }
+
+    /**
+     * Utility method to write BufferedImage object to disk
+     * 
+     * @param image - BufferedImage object to save.
+     * @param data - relative path to the image
+     * @param format - file prefix of the image
+     * @return BufferedImage representation of the image
+     * @author A. Weinberger 
+     */
+    public static void imageToBitmap(BufferedImage image, String data, String format) throws IOException
+    {
+        final OutputStream inb = new FileOutputStream(data);
+        final ImageWriter wrt = ImageIO.getImageWritersByFormatName(format).next();
+        final ImageInputStream imageInput = ImageIO.createImageOutputStream(inb);
+        wrt.setOutput(imageInput);
+        wrt.write(image);
+        inb.close();
+    }
+
+    /**
+     * Scales image to 256kb
+     *
+     * @param img Imagepath
+     * @throws IOException - if an error occurs during reading.
+     * @author A. Weinberger 
+     */
+    public static void scaleImageTo256kb(Path img) throws IOException
+    {
+        File imgFile = img.toFile();
+        if (imgFile.length() <= BYTE)
+        {
+            return;
+        }
+
+        File newFile = Constants.PROGRAM_TMP_PATH.resolve(img.getFileName()).toFile();
+
+        BufferedImage i = ImageIO.read(imgFile);
+        if (i.getWidth() > MAXWIDTH)
+        {
+            BufferedImage j = new BufferedImage(MAXWIDTH, (int) (i.getHeight() * ((float) MAXWIDTH / i.getWidth())), i.getType());
+            Graphics2D g2 = (Graphics2D) j.getGraphics();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2.drawImage(i, 0, 0, j.getWidth(), j.getHeight(), null);
+            ImageIO.write(j, "jpg", imgFile);
+        }
+
+        float quality = 1f;
+        float eps = 0.2f;
+        int c = 0;
+
+        Iterator<ImageWriter> iter = ImageIO.getImageWritersByFormatName("jpeg");
+        ImageWriter writer = iter.next();
+        ImageWriteParam iwp = writer.getDefaultWriteParam();
+        iwp.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+        FileImageOutputStream output;
+        IIOImage image;
+
+        do
+        {
+            c++;
+            FileUtils.deleteFile(newFile.toPath());
+            iwp.setCompressionQuality(quality);
+            output = new FileImageOutputStream(newFile);
+            writer.setOutput(output);
+            image = new IIOImage(ImageIO.read(imgFile), null, null);
+            writer.write(null, image, iwp);
+            writer.reset();
+            output.flush();
+            output.close();
+            quality -= eps / c;
+
+        }
+        while ((newFile.length() > BYTE) && (quality > 0.1));
+
+        FileUtils.deleteFile(img);
+        FileUtils.moveFile(newFile.toPath(), img);
+    }
+
+    /** Checks that the provided <code>ImageWriter</code> can encode
+     * the provided <code>ImageTypeSpecifier</code> or not.  If not, an
+     * <code>IIOException</code> will be thrown.
+     * @param writer The provided <code>ImageWriter</code>.
+     * @param type The image to be tested.
+     * @throws IIOException If the writer cannot encoded the provided image.
+     * @author A. Weinberger 
+     */
+    public static final void canEncodeImage(ImageWriter writer, ImageTypeSpecifier type) throws IIOException
+    {
+        ImageWriterSpi spi = writer.getOriginatingProvider();
+
+        if (type != null && spi != null && !spi.canEncodeImage(type))
+        {
+            throw new IIOException(I18N.getString("ImageUtil2") + " " + writer.getClass().getName());
+        }
+    }
+
+    public static void addWatermark(String sourceFilePath)
+    {
+        addWatermark(sourceFilePath, sourceFilePath);
     }
 
     public static void addWatermark(String sourceFilePath, String destinationFilePath)
@@ -82,11 +209,6 @@ public class ImageUtils
 
             //Save the result in raster image format
             image.save(destinationFilePath, new PngOptions());
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            throw e;
         }
         finally
         {

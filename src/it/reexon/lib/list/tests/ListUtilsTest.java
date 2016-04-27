@@ -192,4 +192,122 @@ public class ListUtilsTest
         }
     }
 
+    /**
+     * Test method for {@link it.reexon.lib.list.ListUtils#orderByElementLong(List, Long)}.
+     */
+    @Test
+    public final void orderByElementLongTest()
+    {
+        try
+        {
+            List<Long> listSort3 = ListUtils.orderByElementLong(listLong3, 3L);
+            List<Long> listSort3Expected = ListUtils.createList(3L, 2L, 1L);
+            Assert.assertArrayEquals(listSort3Expected.toArray(), listSort3.toArray());
+
+            listSort3 = ListUtils.orderByElementLong(listLong3, 4L);
+            listSort3Expected = ListUtils.createList(3L, 2L, 1L);
+            Assert.assertArrayEquals(listSort3Expected.toArray(), listSort3.toArray());
+
+            List<Long> listSort6 = ListUtils.orderByElementLong(listLong6, 3L); //1-2-3-4-5-6
+            List<Long> listSort6Expected = ListUtils.createList(3L, 2L, 4L, 1L, 5L, 6L);
+            Assert.assertArrayEquals(listSort6Expected.toArray(), listSort6.toArray());
+
+            List<Long> listSort7 = ListUtils.orderByElementLong(listLong7, 4L); //1-2-3-4-5-6-7          
+            List<Long> listSort7Expected = ListUtils.createList(4L, 3L, 5L, 2L, 6L, 1L, 7L);
+            Assert.assertArrayEquals(listSort7Expected.toArray(), listSort7.toArray());
+
+            try
+            {
+                ListUtils.orderByElementLong(null, null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(e.getClass(), NullPointerException.class);
+            }
+            try
+            {
+                ListUtils.orderByElementLong(Collections.emptyList(), null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(e.getClass(), NullPointerException.class);
+            }
+            Assert.assertNull(ListUtils.orderByElementLong(Collections.emptyList(), 1L));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            fail(e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * Test method for {@link it.reexon.lib.list.ListUtils#nearestElement(List, Long)}.
+     */
+    @Test
+    public final void nearestElementTest()
+    {
+        try
+        {
+            Long longValueFor1 = ListUtils.nearestElement(listLong7, -3L);
+            Assert.assertEquals(1, longValueFor1.longValue());
+
+            Long longValueFor0 = ListUtils.nearestElement(listLong7, 0L);
+            Assert.assertEquals(1, longValueFor0.longValue());
+
+            Long longValueFor3 = ListUtils.nearestElement(listLong7, 3L);
+            Assert.assertEquals(3, longValueFor3.longValue());
+
+            Long longValueFor9 = ListUtils.nearestElement(listLong7, 9L);
+            Assert.assertEquals(7, longValueFor9.longValue());
+
+            try
+            {
+                ListUtils.nearestElement(null, null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(e.getClass(), NullPointerException.class);
+            }
+            try
+            {
+                ListUtils.nearestElement(Collections.emptyList(), null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(e.getClass(), NullPointerException.class);
+            }
+            Assert.assertNull(ListUtils.nearestElement(Collections.emptyList(), 1L));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            fail(e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * Test method for {@link it.reexon.lib.list.ListUtils#createList(Long...)}.
+     */
+    @Test
+    public final void createListTest()
+    {
+        try
+        {
+            List<Long> longList = ListUtils.createList(1L, 2L, 3L);
+            Assert.assertArrayEquals(listLong3.toArray(), longList.toArray());
+
+            List<Long> nullList = ListUtils.createList(null, null);
+            Assert.assertEquals(nullList.toString(), "[null, null]");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            fail(e.getLocalizedMessage());
+        }
+    }
 }

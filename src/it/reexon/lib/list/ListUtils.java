@@ -145,9 +145,10 @@ public class ListUtils
      * Create a List form elements
      * 
      * @param element array element to add
-     * @return list with elements
+     * @return - list with elements
      */
-    public static List<Long> createList(Long... element)
+    @SafeVarargs
+    public static <T> List<T> createList(T... element)
     {
         return new LinkedList<>(Arrays.asList(element));
     }

@@ -303,6 +303,9 @@ public class ListUtilsTest
 
             List<Long> nullList = ListUtils.createList(null, null);
             Assert.assertEquals(nullList.toString(), "[null, null]");
+            
+            List<String> strList = ListUtils.createList("s1", "s2", "s3");
+            Assert.assertEquals(strList.toString(), "[s1, s2, s3]");
         }
         catch (Exception e)
         {

@@ -3,7 +3,7 @@ package it.reexon.lib.security.passwords;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import it.reexon.lib.convertions.ConvertUtils;
+import it.reexon.lib.strings.StringUtils;
 
 
 /**
@@ -59,7 +59,7 @@ public class GenerateSecureStringSHA
             MessageDigest md = MessageDigest.getInstance("SHA-1");
             md.update(salt);
             byte[] bytes = md.digest(passwordToHash.getBytes());
-            generatedPassword = ConvertUtils.toHexString(bytes);
+            generatedPassword = StringUtils.toHexString(bytes);
         }
         catch (NoSuchAlgorithmException e)
         {
@@ -143,7 +143,7 @@ public class GenerateSecureStringSHA
         MessageDigest md = MessageDigest.getInstance(algorithm);
         md.update(salt);
         byte[] bytes = md.digest(passwordToHash.getBytes());
-        generatedPassword = ConvertUtils.toHexString(bytes);
+        generatedPassword = StringUtils.toHexString(bytes);
 
         return generatedPassword;
 

@@ -1,8 +1,5 @@
 package it.reexon.lib.strings;
 
-import it.reexon.lib.convertions.ConvertUtils;
-
-
 public class StringUtils
 {
     /** 
@@ -14,7 +11,12 @@ public class StringUtils
      */
     public static String toHexString(byte[] byteArray)
     {
-        return ConvertUtils.toHexString(byteArray);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < byteArray.length; i++)
+        {
+            sb.append(Integer.toString((byteArray[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        return sb.toString();
     }
 
     /**
@@ -25,6 +27,11 @@ public class StringUtils
      */
     public static byte[] toHex(String str)
     {
-        return ConvertUtils.toHex(str);
+        byte[] bytes = new byte[str.length() / 2];
+        for (int i = 0; i < bytes.length; i++)
+        {
+            bytes[i] = (byte) Integer.parseInt(str.substring(2 * i, 2 * i + 2), 16);
+        }
+        return bytes;
     }
 }

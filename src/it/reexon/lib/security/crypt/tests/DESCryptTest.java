@@ -19,8 +19,8 @@ import org.junit.Test;
 
 import com.ibm.icu.impl.Assert;
 
-import it.reexon.lib.convertions.ConvertUtils;
 import it.reexon.lib.security.crypt.enums.SecretKeyFactoryAlgorithms;
+import it.reexon.lib.strings.StringUtils;
 
 
 //http://stackoverflow.com/questions/3451670/java-aes-and-using-my-own-key
@@ -101,7 +101,7 @@ public class DESCryptTest
 
             // Encrypt the cleartext
             byte[] ciphertext = pbeCipher.doFinal(cleartext);
-            System.out.println("ciphertext: " + ConvertUtils.toHexString(ciphertext));
+            System.out.println("ciphertext: " + StringUtils.toHexString(ciphertext));
         }
         catch (Exception e)
         {

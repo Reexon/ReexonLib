@@ -3,7 +3,7 @@ package it.reexon.lib.security.passwords;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import it.reexon.lib.convertions.ConvertUtils;
+import it.reexon.lib.strings.StringUtils;
 
 
 /**
@@ -59,7 +59,7 @@ public class GenerateSecureStringMD5
             //This bytes[] has byte in decimal format
             //Convert it to hexadecimal format
             //Get complete hashed password in hex format
-            generatedPassword = ConvertUtils.toHexString(bytes);
+            generatedPassword = StringUtils.toHexString(bytes);
         }
         catch (NoSuchAlgorithmException e)
         {
@@ -106,7 +106,7 @@ public class GenerateSecureStringMD5
             //This bytes[] has bytes in decimal format;
             //Convert it to hexadecimal format
             //Get complete hashed password in hex format
-            generatedPassword = ConvertUtils.toHexString(bytes);
+            generatedPassword = StringUtils.toHexString(bytes);
         }
         catch (NoSuchAlgorithmException e)
         {

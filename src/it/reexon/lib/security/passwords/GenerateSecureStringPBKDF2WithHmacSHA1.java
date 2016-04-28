@@ -6,8 +6,8 @@ import java.security.spec.InvalidKeySpecException;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-import it.reexon.lib.convertions.ConvertUtils;
 import it.reexon.lib.security.GenerateSecureSalt;
+import it.reexon.lib.strings.StringUtils;
 
 
 /**
@@ -52,7 +52,7 @@ public class GenerateSecureStringPBKDF2WithHmacSHA1
         PBEKeySpec spec = new PBEKeySpec(chars, salt, iterations, 64 * 8);
         SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         byte[] hash = skf.generateSecret(spec).getEncoded();
-        return iterations + ":" + ConvertUtils.toHexString(salt) + ":" + ConvertUtils.toHexString(hash);
+        return iterations + ":" + StringUtils.toHexString(salt) + ":" + StringUtils.toHexString(hash);
     }
 
     /**
@@ -70,8 +70,8 @@ public class GenerateSecureStringPBKDF2WithHmacSHA1
         int iterations = Integer.parseInt(parts[0]);
         try
         {
-            byte[] salt = ConvertUtils.toHex(parts[1]);
-            byte[] hash = ConvertUtils.toHex(parts[2]);
+            byte[] salt = StringUtils.toHex(parts[1]);
+            byte[] hash = StringUtils.toHex(parts[2]);
             PBEKeySpec spec = new PBEKeySpec(originalPassword.toCharArray(), salt, iterations, hash.length * 8);
             SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
             byte[] testHash = skf.generateSecret(spec).getEncoded();

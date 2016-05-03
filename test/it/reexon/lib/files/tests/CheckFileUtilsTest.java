@@ -6,6 +6,7 @@ package it.reexon.lib.files.tests;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,8 +16,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import com.aspose.imaging.internal.Exceptions.IO.FileNotFoundException;
 
 import it.reexon.lib.files.CheckFilesUtils;
 import it.reexon.lib.files.FileUtils;

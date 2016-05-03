@@ -2,12 +2,11 @@ package it.reexon.lib.security.checksums;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import com.aspose.imaging.internal.Exceptions.IO.FileNotFoundException;
 
 import it.reexon.lib.security.algorithms.MessageDigestAlgorithms;
 import it.reexon.lib.strings.StringUtils;

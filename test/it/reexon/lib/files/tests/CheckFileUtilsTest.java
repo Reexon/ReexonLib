@@ -16,6 +16,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.aspose.imaging.internal.Exceptions.IO.FileNotFoundException;
+
 import it.reexon.lib.files.CheckFilesUtils;
 import it.reexon.lib.files.FileUtils;
 import it.reexon.lib.files.IOUtils;
@@ -112,8 +114,8 @@ public class CheckFileUtilsTest
 
             try
             {
-                isEquals = CheckFilesUtils.checkEqualsFiles(null, null, algorithm);
-                Assert.assertTrue(isEquals);
+                CheckFilesUtils.checkEqualsFiles(null, null, algorithm);
+                Assert.fail("Should have thrown an exception");
             }
             catch (Exception e)
             {
@@ -128,12 +130,21 @@ public class CheckFileUtilsTest
 
             try
             {
-                isEquals = CheckFilesUtils.checkEqualsFiles(file2, file1, null);
-                Assert.assertFalse(isEquals);
+                CheckFilesUtils.checkEqualsFiles(file2, file1, null);
+                Assert.fail("Should have thrown an exception");
             }
             catch (Exception e)
             {
                 Assert.assertEquals(e.getClass(), IllegalArgumentException.class);
+            }
+            try
+            {
+                CheckFilesUtils.checkEqualsFiles(new File(""), file1, algorithm);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(e.getClass(), FileNotFoundException.class);
             }
 
         }

@@ -28,7 +28,7 @@ import javax.imageio.ImageReader;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageInputStream;
 
-import org.apache.commons.io.IOUtils;
+import com.aspose.imaging.internal.Exceptions.NotSupportedException;
 
 import it.reexon.lib.security.algorithms.MessageDigestAlgorithms;
 
@@ -58,7 +58,7 @@ public class FileUtils
     {
         try (ByteArrayOutputStream ous = new ByteArrayOutputStream(); InputStream ios = new FileInputStream(file);)
         {
-            byte[] buffer = new byte[4096];
+            byte[] buffer = new byte[BUFFER_SIZE];
 
             int read = 0;
             while ((read = ios.read(buffer)) != -1)
@@ -77,7 +77,9 @@ public class FileUtils
      * @return - true if files are equals
      *         - null if there was an error         
      * 
-     * @throws IOException
+     * @throws IOException              If the first byte cannot be read for any reason other than the end of the file, if the input stream has been closed, or if some other I/O error occurs. 
+     * @throws IllegalArgumentException If either params is null  
+     * @throws FileNotFoundException    If file not exists
      */
     public static Boolean checkEqualFiles(File firstFile, File secondFile) throws IOException
     {
@@ -85,20 +87,20 @@ public class FileUtils
     }
 
     /**
-     * Copy inputstream on file
+     * Check the checksum files with algorithm SHA-256
      * 
-     * @param file file you want to copy
-     * @param inputStream  that you want to copy
+     * @param firstFile     file orginal
+     * @param secondFile    file to check
+     * @return - true if files are equals
+     *         - null if there was an error         
      * 
-     * @throws IOException
+     * @throws IOException              If the first byte cannot be read for any reason other than the end of the file, if the input stream has been closed, or if some other I/O error occurs. 
+     * @throws IllegalArgumentException If either params is null  
+     * @throws FileNotFoundException    If file not exists
      */
-    public static void copyInputStreamOnFile(File file, InputStream inputStream) throws IOException
+    public static Boolean checkEqualDirecoty(File firstFile, File secondFile) throws IOException
     {
-        try (OutputStream outputStream = new FileOutputStream(file);)
-        {
-            IOUtils.copy(inputStream, outputStream);
-            outputStream.close();
-        }
+        throw new NotSupportedException("Not implement!!!");
     }
 
     /**
@@ -107,12 +109,12 @@ public class FileUtils
      * @param file the path to the file 
      * @return boolean 
      * @throws IOException if an I/O error occurs
-     * @throws IllegalArgumentException if file is null or not exists
+     * @throws IllegalArgumentException if file is null
      */
     public static boolean deleteFile(Path file) throws IOException
     {
-        if ((file == null) || Files.exists(file, LinkOption.NOFOLLOW_LINKS))
-            throw new IllegalArgumentException("file is null or not exists");
+        if ((file == null))
+            throw new IllegalArgumentException("file cannot be null");
         try
         {
             if (file.toFile().canWrite())
@@ -135,15 +137,16 @@ public class FileUtils
      * @param destFile - destination file 
      * @author A. Weinberger
      * 
-     * @throws IOException If the first byte cannot be read for any reason other than the end of the file, if the input stream has been closed, or if some other I/O error occurs.
+     * @throws IOException              If the first byte cannot be read for any reason other than the end of the file, if the input stream has been closed, or if some other I/O error occurs.
+     * @throws IllegalArgumentException If file are null
+     * @throws FileNotFoundException    If srcFile doens't exist
      */
     public static void copyFile(File srcFile, File destFile) throws IOException
     {
-        //TODO REMOVE
-        //        if (!srcFile.getPath().toLowerCase().endsWith(JPG) && !srcFile.getPath().toLowerCase().endsWith(JPEG))
-        //        {
-        //            return;
-        //        }
+        if (srcFile == null || destFile == null)
+            throw new IllegalArgumentException("Files cannot be null");
+        if (!srcFile.exists())
+            throw new FileNotFoundException("Start file must be exists");
 
         try (final InputStream in = new FileInputStream(srcFile); final OutputStream out = new FileOutputStream(destFile);)
         {
@@ -193,14 +196,6 @@ public class FileUtils
             throw new IllegalArgumentException("SrcDir is null");
         if (!srcDir.exists())
             throw new IllegalArgumentException("SrcDir is not exists");
-        if (!srcDir.isDirectory())
-            throw new IllegalArgumentException("SrcDir is not a direcory");
-
-        //TODO VERIFICARE
-        if (".svn".equals(srcDir.getName()))
-        {
-            return;
-        }
 
         if (srcDir.isDirectory())
         {

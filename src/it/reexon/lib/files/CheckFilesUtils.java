@@ -8,6 +8,8 @@ import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.aspose.imaging.internal.Exceptions.IO.FileNotFoundException;
+
 import it.reexon.lib.security.algorithms.MessageDigestAlgorithms;
 import it.reexon.lib.security.checksums.GenerateSecureChecksum;
 
@@ -30,7 +32,8 @@ public class CheckFilesUtils
      * 
      * @return true                     If files are equals 
      * @throws IOException              If the first byte cannot be read for any reason other than the end of the file, if the input stream has been closed, or if some other I/O error occurs. 
-     * @throws IllegalArgumentException     If either params is null  
+     * @throws IllegalArgumentException If either params is null  
+     * @throws FileNotFoundException    If file not exists
      */
     public static Boolean checkEqualsFiles(File firstFile, File secondFile, MessageDigestAlgorithms algorithm) throws IOException
     {

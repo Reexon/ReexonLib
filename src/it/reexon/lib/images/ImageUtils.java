@@ -49,11 +49,11 @@ public class ImageUtils
      * @param inputImagePath Path of the source image
      * @param outputImagePath Path of the destination image
      * @param formatName the format to be converted to, one of: 
-     * <ul>jpeg, 
-     * <ul>png,
-     * <ul>bmp, 
-     * <ul>wbmp,
-     * <ul>gif.
+     * <br>jpeg, 
+     * <br>png,
+     * <br>bmp, 
+     * <br>wbmp,
+     * <br>gif.
      * 
      * @return true if successful, false otherwise
      * @throws IOException if errors occur during writing

@@ -1,5 +1,7 @@
 /**
  * Copyright (c) 2016 Marco Velluto
+ * The code contains extracts of apace library. 
+ * So this code is released under Apace Licence V2 License.
  */
 package it.reexon.lib.files;
 
@@ -27,6 +29,8 @@ import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageInputStream;
 
 import org.apache.commons.io.IOUtils;
+
+import it.reexon.lib.security.algorithms.MessageDigestAlgorithms;
 
 
 /**
@@ -73,12 +77,11 @@ public class FileUtils
      * @return - true if files are equals
      *         - null if there was an error         
      * 
-     * @throws FileNotFoundException
      * @throws IOException
      */
-    public static Boolean checkEqualFiles(File firstFile, File secondFile) throws FileNotFoundException, IOException
+    public static Boolean checkEqualFiles(File firstFile, File secondFile) throws IOException
     {
-        return CheckFile.checkEqualsFiles(firstFile, secondFile);
+        return CheckFilesUtils.checkEqualsFiles(firstFile, secondFile, MessageDigestAlgorithms.SHA_256);
     }
 
     /**
@@ -415,4 +418,53 @@ public class FileUtils
 
         Files.move(file, destination, StandardCopyOption.REPLACE_EXISTING);
     }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Deletes a file. If file is a directory, delete it and all sub-directories.
+     * <p>
+     * The difference between File.delete() and this method are:
+     * <ul>
+     * <li>A directory to be deleted does not have to be empty.</li>
+     * <li>You get exceptions when a file or directory cannot be deleted.
+     *      (java.io.File methods returns a boolean)</li>
+     * </ul>
+     *
+     * @param file  file or directory to delete, must not be {@code null}
+     * @throws NullPointerException if the directory is {@code null}
+     * @throws FileNotFoundException if the file was not found
+     * @throws IOException in case deletion is unsuccessful
+     */
+    public static void forceDelete(File file) throws IOException
+    {
+        if (file.isDirectory())
+        {
+            deleteDirectory(file);
+        }
+        else
+        {
+            boolean filePresent = file.exists();
+            if (!file.delete())
+            {
+                if (!filePresent)
+                {
+                    throw new FileNotFoundException("File does not exist: " + file);
+                }
+                String message = "Unable to delete file: " + file;
+                throw new IOException(message);
+            }
+        }
+    }
+
+    /**
+     * Deletes a directory recursively. 
+     *
+     * @param directory  directory to delete
+     * @throws IOException in case deletion is unsuccessful
+     */
+    public static void deleteDirectory(File directory) throws IOException
+    {
+        org.apache.commons.io.FileUtils.deleteDirectory(directory);
+    }
+
 }

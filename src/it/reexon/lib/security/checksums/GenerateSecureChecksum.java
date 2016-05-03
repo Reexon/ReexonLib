@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.aspose.imaging.internal.Exceptions.IO.FileNotFoundException;
+
 import it.reexon.lib.security.algorithms.MessageDigestAlgorithms;
 import it.reexon.lib.strings.StringUtils;
 
@@ -20,16 +22,25 @@ public class GenerateSecureChecksum
      * Create a byte[] checksum from file name
      * 
      * @param file  file to generate checksum
-     * @param algorithm use org.apache.commons.codec.digest.MessageDigestAlgorithms
+     * @param algorithm use  to use
      * @return byte[] checksum
-     * @throws NoSuchAlgorithmException
-     * @throws IOException
+     *
+     * @throws IOException              If the first byte cannot be read for any reason other than the end of the file, if the input stream has been closed, or if some other I/O error occurs.
+     * @throws NullPointerException     If file is null  
+     * @throws FileNotFoundException    If file not exists
+     * @throws IllegalArgumentException If algorithm is not valid
      */
-    public static byte[] createChecksum(File file, String algorithm) throws NoSuchAlgorithmException, IOException
+    public static byte[] createChecksum(File file, MessageDigestAlgorithms algorithm) throws IOException
     {
+        if (file == null)
+            throw new NullPointerException("File is null!");
+
+        if (!file.exists())
+            throw new FileNotFoundException("File not found!");
+
         try (InputStream fis = new FileInputStream(file);)
         {
-            MessageDigest complete = MessageDigest.getInstance(algorithm);
+            MessageDigest complete = MessageDigest.getInstance(algorithm.getName());
 
             int numRead;
 
@@ -44,19 +55,23 @@ public class GenerateSecureChecksum
             while (numRead != -1);
             return complete.digest();
         }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     /**
      * Generate a String checksum
      * 
      * @param file  file to generate checksum
-     * @param algorithm MessageDigestAlgorithms
+     * @param algorithm 
      * 
      * @return String checksum
-     * @throws NoSuchAlgorithmException
-     * @throws IOException
+     * @throws IOException              If the first byte cannot be read for any reason other than the end of the file, if the input stream has been closed, or if some other I/O error occurs.
      */
-    public static String getChecksum(File file, String algorithm) throws NoSuchAlgorithmException, IOException
+    public static String getChecksum(File file, MessageDigestAlgorithms algorithm) throws IOException
     {
         byte[] checksum = createChecksum(file, algorithm);
         return StringUtils.toHexString(checksum);
@@ -68,18 +83,12 @@ public class GenerateSecureChecksum
      * @param file  filename to generate checksum
      * 
      * @return String checksum
-     * @throws NoSuchAlgorithmException
      * @throws IOException
      */
     public static String getChecksum(File file) throws IOException
     {
         byte[] checksum = null;
-        try
-        {
-            checksum = createChecksum(file, MessageDigestAlgorithms.SHA_256);
-        }
-        catch (@SuppressWarnings("unused") NoSuchAlgorithmException e)
-        {}
+        checksum = createChecksum(file, MessageDigestAlgorithms.SHA_256);
         return StringUtils.toHexString(checksum);
     }
 

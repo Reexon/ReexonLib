@@ -21,7 +21,7 @@ public class SHACrypt
     public static byte[] cripta(String x) throws Exception
     {
         MessageDigest mess = null;
-        mess = MessageDigest.getInstance(MessageDigestAlgorithms.SHA_1);
+        mess = MessageDigest.getInstance(MessageDigestAlgorithms.SHA_1.getName());
         mess.reset();
         mess.update(x.getBytes());
         return mess.digest();

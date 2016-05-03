@@ -23,14 +23,13 @@ public class MD5Checksum
      * 
      * @param filename
      * @return
-     * @throws NoSuchAlgorithmException
      * @throws IOException
      */
-    public static byte[] createChecksum(String filename) throws NoSuchAlgorithmException, IOException
+    public static byte[] createChecksum(String filename) throws IOException
     {
         try (InputStream fis = new FileInputStream(filename);)
         {
-            MessageDigest complete = MessageDigest.getInstance(MessageDigestAlgorithms.MD5);
+            MessageDigest complete = MessageDigest.getInstance(MessageDigestAlgorithms.MD5.getName());
 
             int numRead;
 
@@ -44,6 +43,11 @@ public class MD5Checksum
             }
             while (numRead != -1);
             return complete.digest();
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

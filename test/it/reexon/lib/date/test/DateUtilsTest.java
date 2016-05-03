@@ -94,7 +94,7 @@ public class DateUtilsTest
             }
             catch (Exception e)
             {
-                Assert.assertEquals(e.getClass(), NullPointerException.class);
+                Assert.assertEquals(e.getClass(), IllegalArgumentException.class);
             }
         }
         catch (Exception e)
@@ -121,7 +121,7 @@ public class DateUtilsTest
             }
             catch (Exception e)
             {
-                Assert.assertEquals(e.getClass(), NullPointerException.class);
+                Assert.assertEquals(e.getClass(), IllegalArgumentException.class);
             }
         }
         catch (Exception e)
@@ -152,7 +152,7 @@ public class DateUtilsTest
             }
             catch (Exception e)
             {
-                Assert.assertEquals(e.getClass(), NullPointerException.class);
+                Assert.assertEquals(e.getClass(), IllegalArgumentException.class);
             }
             try
             {
@@ -161,7 +161,7 @@ public class DateUtilsTest
             }
             catch (Exception e)
             {
-                Assert.assertEquals(e.getClass(), NullPointerException.class);
+                Assert.assertEquals(e.getClass(), IllegalArgumentException.class);
             }
         }
         catch (Exception e)
@@ -212,7 +212,7 @@ public class DateUtilsTest
             }
             catch (Exception e)
             {
-                Assert.assertEquals(e.getClass(), NullPointerException.class);
+                Assert.assertEquals(e.getClass(), IllegalArgumentException.class);
             }
             try
             {
@@ -221,7 +221,7 @@ public class DateUtilsTest
             }
             catch (Exception e)
             {
-                Assert.assertEquals(e.getClass(), NullPointerException.class);
+                Assert.assertEquals(e.getClass(), IllegalArgumentException.class);
             }
 
             try
@@ -350,7 +350,7 @@ public class DateUtilsTest
             }
             catch (Exception e)
             {
-                Assert.assertEquals(e.getClass(), NullPointerException.class);
+                Assert.assertEquals(e.getClass(), IllegalArgumentException.class);
             }
         }
         catch (Exception e)
@@ -381,7 +381,7 @@ public class DateUtilsTest
             }
             catch (Exception e)
             {
-                Assert.assertEquals(e.getClass(), NullPointerException.class);
+                Assert.assertEquals(e.getClass(), IllegalArgumentException.class);
             }
         }
         catch (Exception e)
@@ -489,7 +489,7 @@ public class DateUtilsTest
             }
             catch (Exception e)
             {
-                Assert.assertEquals(e.getClass(), NullPointerException.class);
+                Assert.assertEquals(e.getClass(), IllegalArgumentException.class);
             }
             try
             {
@@ -498,7 +498,7 @@ public class DateUtilsTest
             }
             catch (Exception e)
             {
-                Assert.assertEquals(e.getClass(), NullPointerException.class);
+                Assert.assertEquals(e.getClass(), IllegalArgumentException.class);
             }
             try
             {
@@ -507,7 +507,7 @@ public class DateUtilsTest
             }
             catch (Exception e)
             {
-                Assert.assertEquals(e.getClass(), NullPointerException.class);
+                Assert.assertEquals(e.getClass(), IllegalArgumentException.class);
             }
             try
             {

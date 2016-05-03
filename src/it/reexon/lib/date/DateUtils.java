@@ -28,12 +28,13 @@ public class DateUtils
      * @param numberDays number of days
      * @return date - Date on which you have added days 
      * 
-     * @throws NullPointerException if date is null
+     * @throws IllegalArgumentException if date is null
      */
     public static Date addDays(final Date date, int numberDays)
     {
         if (date == null)
-            throw new NullPointerException("Date is null");
+            throw new IllegalArgumentException("date cannot be null");
+
         final Calendar c = Calendar.getInstance();
         c.setTime(date);
         c.add(Calendar.DATE, numberDays);
@@ -47,7 +48,7 @@ public class DateUtils
      * @param dateFrom Date on which to add one day
      * @return date - Date on which you have added one day
      * 
-     *  @throws NullPointerException if date is null
+     *  @throws IllegalArgumentException if date is null
      */
     public static Date addOneDay(final Date date)
     {
@@ -62,16 +63,16 @@ public class DateUtils
      * @param endDate end date
      * 
      * @return true - if the date is within the range provided
-     * @throws NullPointerException if dateToCheck, startDate, endDate are null.
+     * @throws IllegalArgumentException if dateToCheck, startDate, endDate are null.
      */
     public static boolean between(final Date dateToCheck, final Date startDate, final Date endDate)
     {
         if (dateToCheck == null)
-            throw new NullPointerException("date to check can not be null");
+            throw new IllegalArgumentException("date to check cannot be null");
         if (startDate == null)
-            throw new NullPointerException("start date can not be null");
+            throw new IllegalArgumentException("start date cannot be null");
         if (endDate == null)
-            throw new NullPointerException("end date can not be null");
+            throw new IllegalArgumentException("end date cannot be null");
 
         if (startDate.getTime() > endDate.getTime())
             throw new IllegalArgumentException("endDate must be max startDate");
@@ -104,13 +105,12 @@ public class DateUtils
      *  @param date2 = 2016/03/31
      *  
      *  @return Set{2016/03/01, 2016/03/02, ... , 2016/03/31} 
-     *  @throws NullPointerException if dates are null
      *  @throws IllegalArgumentException if date2 > date1
      */
     public static List<Date> getDatesBetween(final Date date1, final Date date2)
     {
         if (date1 == null || date2 == null)
-            throw new NullPointerException("Date is null");
+            throw new IllegalArgumentException("Date is null");
 
         if (date2.getTime() < date1.getTime())
             throw new IllegalArgumentException("Date2 have to max date1");
@@ -144,12 +144,12 @@ public class DateUtils
      * @param calendar calendar to be set
      * @return date - date set as the beginning of the day
      * 
-     * @throws NullPointerException if calendar is null
+     * @throws IllegalArgumentException if calendar is null
      */
     public static Calendar setTimeToBeginningOfDay(final Calendar calendar)
     {
         if (calendar == null)
-            throw new NullPointerException("Calendar can not be null");
+            throw new IllegalArgumentException("Calendar cannot be null");
 
         final Calendar c = (Calendar) calendar.clone();
 
@@ -173,12 +173,12 @@ public class DateUtils
      * @param date date to be set
      * @return date - Date set as the beginning of the day
      * 
-     * @throws NullPointerException if date is null
+     * @throws IllegalArgumentException if date is null
      */
     public static Date setTimeToBeginningOfDay(final Date date)
     {
         if (date == null)
-            throw new NullPointerException("date can not be null");
+            throw new IllegalArgumentException("date cannot be null");
 
         final Calendar calendarInizio = Calendar.getInstance();
         calendarInizio.setTime(date);
@@ -201,12 +201,12 @@ public class DateUtils
      * 
      * @param calendar calendar to be set
      * @return caledar - calendar set as the ending of the day
-     * @throws NullPointerException if calendar is null
+     * @throws IllegalArgumentException if calendar is null
      */
     public static Calendar setTimeToEndofDay(final Calendar calendar)
     {
         if (calendar == null)
-            throw new NullPointerException("Calendar can not be null");
+            throw new IllegalArgumentException("Calendar cannot be null");
 
         final Calendar c = (Calendar) calendar.clone();
 
@@ -230,12 +230,12 @@ public class DateUtils
      * @param date date to be set
      * @return date - date set as the ending of the day
      * 
-     * @throws NullPointerException if date is null
+     * @throws IllegalArgumentException if date is null
      */
     public static Date setTimeToEndofDay(final Date date)
     {
         if (date == null)
-            throw new NullPointerException("Date can not be null");
+            throw new IllegalArgumentException("Date cannot be null");
 
         final Calendar calendarEnd = Calendar.getInstance();
         calendarEnd.setTime(date);
@@ -251,12 +251,12 @@ public class DateUtils
      * 
      * @param date date to get beginning month
      * @return data - date of beginning month 
-     * @throws NullPointerException if date is null
+     * @throws IllegalArgumentException if date is null
      */
     public static Date getDateBeginningMonth(final Date date)
     {
         if (date == null)
-            throw new NullPointerException("Date is null");
+            throw new IllegalArgumentException("Date cannot be null");
 
         final Calendar calendarBegin = Calendar.getInstance();
         calendarBegin.setTime(date);
@@ -271,12 +271,12 @@ public class DateUtils
      * 
      * @param date date to get ending month
      * @return data - date of ending month
-     * @throws NullPointerException if date is null 
+     * @throws IllegalArgumentException if date is null 
      */
     public static Date getDateEndMonth(final Date date)
     {
         if (date == null)
-            throw new NullPointerException("Date is null");
+            throw new IllegalArgumentException("Date is null");
 
         final Calendar calendarEnd = Calendar.getInstance();
         calendarEnd.setTime(date);
@@ -336,15 +336,14 @@ public class DateUtils
      * @param date  date to looking for
      *       
      * @return date that is closest to that past.
-     * @throws NullPointerException if list of date or date is null
      * @throws IllegalArgumentException if dates is empty
      */
     public static Date untilDate(List<Date> dates, Date date)
     {
         if (dates == null || date == null)
-            throw new NullPointerException("Dates or date are null");
+            throw new IllegalArgumentException("Dates cannot be null");
         if (dates.isEmpty())
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("List of date cannot be empty");
 
         List<Long> datesLong = new ArrayList<>(dates.stream().map(p -> p.getTime()).collect(Collectors.toList()));
         Long dateLong = ListUtils.nearestElement(datesLong, date.getTime());

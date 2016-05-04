@@ -213,47 +213,6 @@ public class FileUtils
     }
 
     /**
-     * Utility method for delete directory 
-     *  
-     * @param dir - directory to delete 
-     * @param isInitialDelete - determine if the deleting process running at startup or on destroy of application 
-     * @return true if directory succesfully deleted 
-     *   
-     * @throws IllegalArgumentException if srcDir is null or is not exists or srcDir is not a directory
-     */
-    public static boolean deleteDirectory(File dir, boolean isInitialDelete)
-    {
-        if (dir == null)
-            throw new IllegalArgumentException("dir is null");
-        if (!dir.exists())
-            throw new IllegalArgumentException("dir is not exists");
-        if (!dir.isDirectory())
-            throw new IllegalArgumentException("dir is not a direcory");
-
-        for (File child : dir.listFiles())
-        {
-            try
-            {
-                deleteDirectory(child, isInitialDelete);
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-                if (isInitialDelete)
-                {
-                    continue;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-        dir.delete();
-        return true;
-    }
-
-    /**
      * Utility method for concatenation names of collection of files 
      *  
      * @param files - array of strings to concatenate 
@@ -376,21 +335,6 @@ public class FileUtils
         while (w != targetWidth || h != targetHeight);
 
         return ret;
-    }
-
-    /**
-     * Utility method for creation of directory 
-     *  
-     * @param directory - directory to create 
-     *  
-     */
-    public static void addDirectory(File directory)
-    {
-        if (directory.exists())
-        {
-            deleteDirectory(directory, false);
-        }
-        directory.mkdirs();
     }
 
     /**

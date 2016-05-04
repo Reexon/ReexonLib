@@ -28,8 +28,6 @@ import javax.imageio.ImageReader;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageInputStream;
 
-import com.aspose.imaging.internal.Exceptions.NotSupportedException;
-
 import it.reexon.lib.security.algorithms.MessageDigestAlgorithms;
 
 
@@ -96,11 +94,10 @@ public class FileUtils
      * 
      * @throws IOException              If the first byte cannot be read for any reason other than the end of the file, if the input stream has been closed, or if some other I/O error occurs. 
      * @throws IllegalArgumentException If either params is null  
-     * @throws FileNotFoundException    If file not exists
      */
     public static Boolean checkEqualDirecoty(File firstFile, File secondFile) throws IOException
     {
-        throw new NotSupportedException("Not implement!!!");
+        return CheckFilesUtils.checkEqualsDirectories(firstFile, secondFile, MessageDigestAlgorithms.getDefault());
     }
 
     /**
@@ -187,12 +184,12 @@ public class FileUtils
      * @param srcDir - source directory 
      * @param dstDir - destination directory 
      * 
-     * @throws IllegalArgumentException if srcDir is null or is not exists or srcDir is not a directory
+     * @throws IllegalArgumentException if srcDir or dstDir are null or is not exists or srcDir is not a directory
      * @throws IOException  If the first byte cannot be read for any reason other than the end of the file, if the input stream has been closed, or if some other I/O error occurs.Author:
      */
     public static void copyDirectory(File srcDir, File dstDir) throws IOException
     {
-        if (srcDir == null)
+        if (srcDir == null || dstDir == null)
             throw new IllegalArgumentException("SrcDir is null");
         if (!srcDir.exists())
             throw new IllegalArgumentException("SrcDir is not exists");

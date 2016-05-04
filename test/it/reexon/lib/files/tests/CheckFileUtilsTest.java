@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -122,30 +123,36 @@ public class CheckFileUtilsTest
      * Test method for {@link it.reexon.lib.files.CheckFilesUtils#checkEqualsDirectories(java.io.File, java.io.File, java.lang.String)}.
      */
     @Test
-    public final void testcheckEqualsDirectories()
+    public final void testCheckEqualsDirectories()
     {
         try
         {
-            Boolean isEquals = CheckFilesUtils.checkEqualsDirectories(DIRECTORY, DIRECTORY_2, MessageDigestAlgorithms.getDefault());
-            Assert.assertTrue(isEquals.booleanValue());
-
-            isEquals = CheckFilesUtils.checkEqualsDirectories(DIRECTORY_2, DIRECTORY, MessageDigestAlgorithms.getDefault());
-            Assert.assertTrue(isEquals.booleanValue());
-
-            isEquals = CheckFilesUtils.checkEqualsDirectories(DIRECTORY, DIRECTORY_3, MessageDigestAlgorithms.getDefault());
-            Assert.assertFalse(isEquals.booleanValue());
-
-            isEquals = CheckFilesUtils.checkEqualsDirectories(DIRECTORY_3, DIRECTORY, MessageDigestAlgorithms.getDefault());
-            Assert.assertFalse(isEquals.booleanValue());
-
-            testCheckEqualsDirectoriesExceptions();
-
+            for (MessageDigestAlgorithms algorithm : MessageDigestAlgorithms.values())
+                testCheckEqualsDirectories(DIRECTORY, DIRECTORY_2, DIRECTORY_3, algorithm);
         }
         catch (Exception e)
         {
             System.err.println(e);
             fail(e.getLocalizedMessage());
         }
+    }
+
+    private void testCheckEqualsDirectories(File dir1, File dir2, File dir3, MessageDigestAlgorithms algorithm) throws IOException
+    {
+        Boolean isEquals = CheckFilesUtils.checkEqualsDirectories(dir1, dir2, algorithm);
+        Assert.assertTrue(isEquals.booleanValue());
+
+        isEquals = CheckFilesUtils.checkEqualsDirectories(dir2, dir1, algorithm);
+        Assert.assertTrue(isEquals.booleanValue());
+
+        isEquals = CheckFilesUtils.checkEqualsDirectories(dir1, dir3, algorithm);
+        Assert.assertFalse(isEquals.booleanValue());
+
+        isEquals = CheckFilesUtils.checkEqualsDirectories(dir3, dir1, algorithm);
+        Assert.assertFalse(isEquals.booleanValue());
+
+        testCheckEqualsDirectoriesExceptions();
+
     }
 
     private void testCheckEqualsDirectoriesExceptions()

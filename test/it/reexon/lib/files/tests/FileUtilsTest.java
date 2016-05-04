@@ -18,9 +18,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import it.reexon.lib.files.CheckFilesUtils;
 import it.reexon.lib.files.FileUtils;
 import it.reexon.lib.files.IOUtils;
 import it.reexon.lib.list.ListUtils;
+import it.reexon.lib.security.algorithms.MessageDigestAlgorithms;
 
 
 /**
@@ -142,6 +144,14 @@ public class FileUtilsTest
     }
 
     /**
+     * Test method for {@link it.reexon.lib.files.FileUtils#checkEqualDirecoty(java.io.File, java.io.File)}.
+     */
+    public final void testCheckEqualDirecoty()
+    {
+        //TODO
+    }
+
+    /**
      * Test method for {@link it.reexon.lib.files.FileUtils#deleteFile(java.nio.file.Path)}.
      */
     @Test
@@ -235,7 +245,36 @@ public class FileUtilsTest
         try
         {
             FileUtils.copyDirectory(DIRECTORY, newDirecoty);
-            // TODO - Check if directory is been copy successfull.
+            Boolean isEquals = CheckFilesUtils.checkEqualsDirectories(DIRECTORY, newDirecoty, MessageDigestAlgorithms.getDefault());
+            Assert.assertTrue(isEquals.booleanValue());
+
+            try
+            {
+                FileUtils.copyDirectory(null, newDirecoty);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                FileUtils.copyDirectory(DIRECTORY, null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                FileUtils.copyDirectory(new File(""), DIRECTORY);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
         }
         catch (Exception e)
         {

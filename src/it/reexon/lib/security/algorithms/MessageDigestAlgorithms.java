@@ -41,4 +41,12 @@ public enum MessageDigestAlgorithms
         return name;
     }
 
+    /**
+     * @return SHA_256
+     */
+    public static MessageDigestAlgorithms getDefault()
+    {
+        return SHA_256;
+    }
+
 }

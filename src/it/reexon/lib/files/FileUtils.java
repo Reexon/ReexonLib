@@ -20,7 +20,6 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.zip.CRC32;
 
 import javax.imageio.ImageIO;
@@ -50,10 +49,14 @@ public class FileUtils
      * @param file to be generate byte[]
      * @return byte[] file
      * 
-     * @throws IOException
+     * @throws IOException                  if for some other reason cannot be opened for reading.
+     * @throws IllegalArgumentException     if the file does not exist, is a directory rather than a regular file.
      */
     public static byte[] getByteFromFile(File file) throws IOException
     {
+        if (file == null || !file.exists())
+            throw new IllegalArgumentException("file cannot be null and must exists");
+
         try (ByteArrayOutputStream ous = new ByteArrayOutputStream(); InputStream ios = new FileInputStream(file);)
         {
             byte[] buffer = new byte[BUFFER_SIZE];
@@ -213,25 +216,6 @@ public class FileUtils
     }
 
     /**
-     * Utility method for concatenation names of collection of files 
-     *  
-     * @param files - array of strings to concatenate 
-     * @return concatenated string 
-     * 
-     * @author A. Weinberger
-     */
-    public static String joinFiles(String... files)
-    {
-        final StringBuilder res = new StringBuilder();
-        for (String file : files)
-        {
-            res.append(file).append(File.separatorChar);
-        }
-
-        return res.substring(0, res.length() - 1);
-    }
-
-    /**
      * Utility method to read image from disk and transform image to BufferedImage object 
      *  
      * @param data - relative path to the image 
@@ -337,24 +321,6 @@ public class FileUtils
         return ret;
     }
 
-    /**
-     * Moves a file to a destination. 
-     * 
-     * @param file the path to the file to move 
-     * @param destination the destination path 
-     * @throws IOException  if an I/O error occurs
-     * @throws IllegalArgumentException if file is null or not exists, destination is null
-     */
-    public static void moveFile(Path file, Path destination) throws IOException, IllegalArgumentException
-    {
-        if ((file == null) || !Files.exists(file, LinkOption.NOFOLLOW_LINKS) || (destination == null))
-        {
-            throw new IllegalArgumentException("The filepath is null or points to an invalid location! " + file);
-        }
-
-        Files.move(file, destination, StandardCopyOption.REPLACE_EXISTING);
-    }
-
     //-----------------------------------------------------------------------
     /**
      * Deletes a file. If file is a directory, delete it and all sub-directories.
@@ -367,12 +333,15 @@ public class FileUtils
      * </ul>
      *
      * @param file  file or directory to delete, must not be {@code null}
-     * @throws NullPointerException if the directory is {@code null}
+     * @throws IllegalArgumentException if the directory is {@code null}
      * @throws FileNotFoundException if the file was not found
      * @throws IOException in case deletion is unsuccessful
      */
     public static void forceDelete(File file) throws IOException
     {
+        if (file == null)
+            throw new IllegalArgumentException("File cannot be null");
+
         if (file.isDirectory())
         {
             deleteDirectory(file);
@@ -397,9 +366,16 @@ public class FileUtils
      *
      * @param directory  directory to delete
      * @throws IOException in case deletion is unsuccessful
+     * @throws IllegalArgumentException if directory is null
+     * @throws FileNotFoundException if directory not exists
      */
     public static void deleteDirectory(File directory) throws IOException
     {
+        if (directory == null)
+            throw new IllegalArgumentException("The directory cannot be null");
+        if (!directory.exists())
+            throw new FileNotFoundException("The Directory must exists");
+
         org.apache.commons.io.FileUtils.deleteDirectory(directory);
     }
 

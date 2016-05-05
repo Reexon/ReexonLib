@@ -3,14 +3,15 @@
  */
 package it.reexon.lib.files.tests;
 
-import static org.junit.Assert.fail;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -18,6 +19,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import it.reexon.lib.AllTests;
 import it.reexon.lib.files.CheckFilesUtils;
 import it.reexon.lib.files.FileUtils;
 import it.reexon.lib.files.IOUtils;
@@ -31,6 +33,8 @@ import it.reexon.lib.security.algorithms.MessageDigestAlgorithms;
  */
 public class FileUtilsTest
 {
+    private static final Logger logger = LogManager.getLogger(AllTests.class);
+
     private static final File DIRECTORY = new File("test/FileUtilsTest");
     private static final File DIRECTORY_2 = new File("test/checkFileUtils_2");
     private static final File DIRECTORY_3 = new File("test/checkFileUtils_3");
@@ -50,6 +54,7 @@ public class FileUtilsTest
     {
         if (!DIRECTORY.exists())
             DIRECTORY.mkdirs();
+
         fileA = File.createTempFile("fileA", ".txt", DIRECTORY);
         List<String> linesA = new LinkedList<>(ListUtils.createList("CiaoA, Ciao1"));
         IOUtils.writeLines(fileA, linesA);
@@ -155,8 +160,8 @@ public class FileUtilsTest
         }
         catch (Exception e)
         {
-            System.err.println(e);
-            fail(e.getLocalizedMessage());
+            logger.error(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -210,8 +215,8 @@ public class FileUtilsTest
         }
         catch (Exception e)
         {
-            System.err.println(e);
-            fail(e.getLocalizedMessage());
+            logger.error(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -245,8 +250,8 @@ public class FileUtilsTest
         }
         catch (Exception e)
         {
-            System.err.println(e);
-            fail(e.getLocalizedMessage());
+            logger.error(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -293,8 +298,8 @@ public class FileUtilsTest
         }
         catch (Exception e)
         {
-            System.err.println(e);
-            fail(e.getLocalizedMessage());
+            logger.error(e);
+            throw new RuntimeException(e);
         }
         finally
         {
@@ -353,22 +358,13 @@ public class FileUtilsTest
         }
         catch (Exception e)
         {
-            System.err.println(e);
-            fail(e.getLocalizedMessage());
+            logger.error(e);
+            throw new RuntimeException(e);
         }
         finally
         {
             FileUtils.forceDelete(newDirecoty);
         }
-    }
-
-    /**
-     * Test method for {@link it.reexon.lib.files.FileUtils#joinFiles(java.lang.String[])}.
-     */
-    @Test
-    public final void testJoinFiles()
-    {
-        // TODO
     }
 
     /**
@@ -399,21 +395,44 @@ public class FileUtilsTest
     }
 
     /**
-     * Test method for {@link it.reexon.lib.files.FileUtils#moveFile(java.nio.file.Path, java.nio.file.Path)}.
-     */
-    @Test
-    public final void testMoveFile()
-    {
-        // TODO
-    }
-
-    /**
      * Test method for {@link it.reexon.lib.files.FileUtils#forceDelete(java.io.File)}.
      */
     @Test
     public final void testForceDelete()
     {
-        // TODO
+        try
+        {
+            File file = new File("testForceDelete_FILE");
+            FileUtils.copyFile(fileA1, file);
+            Assert.assertTrue("File must exists", file.exists());
+
+            FileUtils.forceDelete(file);
+            Assert.assertFalse("The File should no longer exist", file.exists());
+
+            try
+            {
+                FileUtils.forceDelete(null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                FileUtils.forceDelete(new File(""));
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(FileNotFoundException.class, e.getClass());
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error(e);
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -422,7 +441,68 @@ public class FileUtilsTest
     @Test
     public final void testDeleteDirectoryFile()
     {
-        // TODO
-    }
+        File newDirectory_1 = new File(DIRECTORY.getPath() + "_testDeleteDirectoryFile_1");
+        File newDirectory_2 = new File(DIRECTORY.getPath() + "_testDeleteDirectoryFile_2");
+        try
+        {
+            Assert.assertTrue("Directory must exists", newDirectory_1.mkdirs());
 
+            //Delete empty directory
+            FileUtils.deleteDirectory(newDirectory_1);
+            Assert.assertFalse("The Directory should no longer exist", newDirectory_1.exists());
+
+            //Delete not empty directory
+            Assert.assertTrue("Directory must exists", newDirectory_2.mkdirs());
+            File fileA = File.createTempFile("fileA", ".txt", newDirectory_2);
+            List<String> linesA = new LinkedList<>(ListUtils.createList("CiaoA, Ciao1"));
+            IOUtils.writeLines(fileA, linesA);
+            File fileA1 = File.createTempFile("fileA1", ".txt", newDirectory_2);
+            IOUtils.writeLines(fileA1, linesA);
+            FileUtils.deleteDirectory(newDirectory_2);
+            Assert.assertFalse("The Directory should no longer exist", newDirectory_1.exists());
+
+            try
+            {
+                FileUtils.deleteDirectory(null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                FileUtils.deleteDirectory(new File(""));
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(FileNotFoundException.class, e.getClass());
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error(e);
+            throw new RuntimeException(e);
+        }
+        finally
+        {
+            try
+            {
+                Files.deleteIfExists(newDirectory_1.toPath());
+            }
+            catch (IOException e)
+            {
+                logger.error(e);
+            }
+            try
+            {
+                Files.deleteIfExists(newDirectory_2.toPath());
+            }
+            catch (IOException e)
+            {
+                logger.error(e);
+            }
+        }
+    }
 }

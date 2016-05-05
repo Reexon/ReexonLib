@@ -26,6 +26,7 @@
 		<dependency org="junit" name="junit" rev="4.12"/>
 		<dependency org="org.beanio" name="beanio" rev="2.1.0"/>
 		<dependency org="joda-time" name="joda-time" rev="2.9.3"/>
+		<dependency org="org.apache.logging.log4j" name="log4j-core" rev="2.5"/>
     </dependencies>
 
 </ivy-module>

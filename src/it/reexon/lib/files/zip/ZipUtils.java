@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2016 Marco Velluto
  */
-package it.reexon.lib.files;
+package it.reexon.lib.files.zip;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +17,8 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.io.IOUtils;
+
+import com.aspose.imaging.internal.Exceptions.NotSupportedException;
 
 
 /**
@@ -42,6 +44,7 @@ public class ZipUtils
     {
         if (level < 0 || level > 9)
             throw new IllegalArgumentException("The level must be between 0 and 9");
+        throw new NotSupportedException("Not implement!");
     }
 
     /**
@@ -190,8 +193,6 @@ public class ZipUtils
                         }
                     }
                 }
-
-                // size should be 0 here
 
                 f.setLastModified(time);
 

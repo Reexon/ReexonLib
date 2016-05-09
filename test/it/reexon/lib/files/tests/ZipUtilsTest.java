@@ -46,7 +46,7 @@ public class ZipUtilsTest
     {}
 
     /**
-     * Test method for {@link it.reexon.lib.files.ZipUtils#createZipOfDirectory(java.io.File, java.io.File, int)}.
+     * Test method for {@link it.reexon.lib.files.zip.ZipUtils#createZipOfDirectory(java.io.File, java.io.File, int)}.
      */
     @Test
     public final void testCreateZipOfDirectory()
@@ -55,7 +55,7 @@ public class ZipUtilsTest
     }
 
     /**
-     * Test method for {@link it.reexon.lib.files.ZipUtils#createZip(java.io.OutputStream, java.util.List)}.
+     * Test method for {@link it.reexon.lib.files.zip.ZipUtils#createZip(java.io.OutputStream, java.util.List)}.
      */
     @Test
     public final void testCreateZipOutputStreamListOfFile()
@@ -64,7 +64,7 @@ public class ZipUtilsTest
     }
 
     /**
-     * Test method for {@link it.reexon.lib.files.ZipUtils#createZip(java.io.File, java.io.OutputStream)}.
+     * Test method for {@link it.reexon.lib.files.zip.ZipUtils#createZip(java.io.File, java.io.OutputStream)}.
      */
     @Test
     public final void testCreateZipFileOutputStream()
@@ -73,7 +73,7 @@ public class ZipUtilsTest
     }
 
     /**
-     * Test method for {@link it.reexon.lib.files.ZipUtils#createZip(java.io.File, java.util.zip.ZipOutputStream)}.
+     * Test method for {@link it.reexon.lib.files.zip.ZipUtils#createZip(java.io.File, java.util.zip.ZipOutputStream)}.
      */
     @Test
     public final void testCreateZipFileZipOutputStream()
@@ -82,7 +82,7 @@ public class ZipUtilsTest
     }
 
     /**
-     * Test method for {@link it.reexon.lib.files.ZipUtils#createZipFileOfDirectory(java.io.File, java.io.File)}.
+     * Test method for {@link it.reexon.lib.files.zip.ZipUtils#createZipFileOfDirectory(java.io.File, java.io.File)}.
      */
     @Test
     public final void testCreateZipFileOfDirectory()
@@ -91,7 +91,7 @@ public class ZipUtilsTest
     }
 
     /**
-     * Test method for {@link it.reexon.lib.files.ZipUtils#unzip(java.io.InputStream, java.io.File)}.
+     * Test method for {@link it.reexon.lib.files.zip.ZipUtils#unzip(java.io.InputStream, java.io.File)}.
      */
     @Test
     public final void testUnzip()

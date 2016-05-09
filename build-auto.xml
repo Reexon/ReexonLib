@@ -229,7 +229,7 @@
             <test name="it.reexon.lib.date.test.DateUtilsTest" todir="${junit.output.dir}"/>
             <test name="it.reexon.lib.files.tests.CheckFileTest" todir="${junit.output.dir}"/>
             <test name="it.reexon.lib.files.tests.ImportFilesUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.lib.files.tests.ZipUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.files.zip.tests.ZipUtilsTest" todir="${junit.output.dir}"/>
             <test name="it.reexon.lib.gpx.tests.GPXValidaroImplTest" todir="${junit.output.dir}"/>
             <test name="it.reexon.lib.images.tests.ImageUtilsTest" todir="${junit.output.dir}"/>
             <test name="it.reexon.lib.list.tests.ListTest" todir="${junit.output.dir}"/>
@@ -427,7 +427,7 @@
             <test name="it.reexon.lib.date.test.DateUtilsTest" todir="${junit.output.dir}"/>
             <test name="it.reexon.lib.files.tests.CheckFileTest" todir="${junit.output.dir}"/>
             <test name="it.reexon.lib.files.tests.ImportFilesUtilsTest" todir="${junit.output.dir}"/>
-            <test name="it.reexon.lib.files.tests.ZipUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.files.zip.tests.ZipUtilsTest" todir="${junit.output.dir}"/>
             <test name="it.reexon.lib.gpx.tests.GPXValidaroImplTest" todir="${junit.output.dir}"/>
             <test name="it.reexon.lib.images.tests.ImageUtilsTest" todir="${junit.output.dir}"/>
             <test name="it.reexon.lib.list.tests.ListTest" todir="${junit.output.dir}"/>
@@ -470,7 +470,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="it.reexon.lib.files.tests.ZipUtilsTest" todir="${junit.output.dir}"/>
+            <test name="it.reexon.lib.files.zip.tests.ZipUtilsTest" todir="${junit.output.dir}"/>
             <classpath refid="run.ZipUtilsTest.classpath"/>
         </junit>
     </target>

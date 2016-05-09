@@ -6,7 +6,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import it.reexon.lib.date.test.DateUtilsTest;
-import it.reexon.lib.files.tests.AllFilesTests;
+import it.reexon.lib.files.AllFilesTests;
 import it.reexon.lib.pdf.test.PdfUtilsTest;
 
 

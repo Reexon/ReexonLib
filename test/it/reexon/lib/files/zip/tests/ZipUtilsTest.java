@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2016 Marco Velluto. All rights reserved.
  */
-package it.reexon.lib.files.tests;
+package it.reexon.lib.files.zip.tests;
 
 import org.junit.After;
 import org.junit.AfterClass;

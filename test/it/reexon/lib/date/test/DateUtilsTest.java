@@ -3,8 +3,6 @@
  */
 package it.reexon.lib.date.test;
 
-import static org.junit.Assert.fail;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
@@ -100,7 +98,7 @@ public class DateUtilsTest
         catch (Exception e)
         {
             e.printStackTrace();
-            fail(e.getLocalizedMessage());
+            throw e;
         }
     }
 
@@ -127,7 +125,7 @@ public class DateUtilsTest
         catch (Exception e)
         {
             e.printStackTrace();
-            fail(e.getLocalizedMessage());
+            throw e;
         }
     }
 
@@ -167,7 +165,7 @@ public class DateUtilsTest
         catch (Exception e)
         {
             e.printStackTrace();
-            fail(e.getLocalizedMessage());
+            throw e;
         }
     }
 
@@ -238,7 +236,7 @@ public class DateUtilsTest
         catch (Exception e)
         {
             e.printStackTrace();
-            Assert.fail(e.getLocalizedMessage());
+            throw e;
         }
     }
 
@@ -260,7 +258,7 @@ public class DateUtilsTest
         catch (Exception e)
         {
             e.printStackTrace();
-            fail(e.getLocalizedMessage());
+            throw e;
         }
     }
 
@@ -282,7 +280,7 @@ public class DateUtilsTest
         catch (Exception e)
         {
             e.printStackTrace();
-            fail(e.getLocalizedMessage());
+            throw e;
         }
     }
 
@@ -304,7 +302,7 @@ public class DateUtilsTest
         catch (Exception e)
         {
             e.printStackTrace();
-            fail(e.getLocalizedMessage());
+            throw e;
         }
     }
 
@@ -326,7 +324,7 @@ public class DateUtilsTest
         catch (Exception e)
         {
             e.printStackTrace();
-            fail(e.getLocalizedMessage());
+            throw e;
         }
     }
 
@@ -356,7 +354,7 @@ public class DateUtilsTest
         catch (Exception e)
         {
             e.printStackTrace();
-            fail(e.getLocalizedMessage());
+            throw e;
         }
 
     }
@@ -387,7 +385,7 @@ public class DateUtilsTest
         catch (Exception e)
         {
             e.printStackTrace();
-            fail(e.getLocalizedMessage());
+            throw e;
         }
 
     }
@@ -429,7 +427,7 @@ public class DateUtilsTest
         catch (Exception e)
         {
             e.printStackTrace();
-            fail(e.getLocalizedMessage());
+            throw e;
         }
     }
 
@@ -458,7 +456,7 @@ public class DateUtilsTest
         catch (Exception e)
         {
             e.printStackTrace();
-            fail(e.getLocalizedMessage());
+            throw e;
         }
     }
 
@@ -523,7 +521,7 @@ public class DateUtilsTest
         catch (Exception e)
         {
             e.printStackTrace();
-            fail(e.getLocalizedMessage());
+            throw e;
         }
     }
 

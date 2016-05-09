@@ -115,15 +115,16 @@ public class CheckFileUtilsTest
         catch (Exception e)
         {
             System.err.println(e);
-            fail(e.getLocalizedMessage());
+            throw e;
         }
     }
 
     /**
      * Test method for {@link it.reexon.lib.files.CheckFilesUtils#checkEqualsDirectories(java.io.File, java.io.File, java.lang.String)}.
+     * @throws Exception 
      */
     @Test
-    public final void testCheckEqualsDirectories()
+    public final void testCheckEqualsDirectories() throws Exception
     {
         try
         {
@@ -133,7 +134,7 @@ public class CheckFileUtilsTest
         catch (Exception e)
         {
             System.err.println(e);
-            fail(e.getLocalizedMessage());
+            throw e;
         }
     }
 

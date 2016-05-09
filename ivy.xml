@@ -14,19 +14,33 @@
     </configurations>
 
     <dependencies>
-		<dependency org="commons-codec" name="commons-codec" rev="1.10"/>
-		<dependency org="commons-io" name="commons-io" rev="2.4"/>
-		<dependency org="org.apache.commons" name="commons-lang3" rev="3.4"/>
-		<dependency org="com.google.code.gson" name="gson" rev="2.6.2"/>
-		<dependency org="org.apache.pdfbox" name="pdfbox" rev="1.8.11"/>
-		<dependency org="org.jsoup" name="jsoup" rev="1.8.3"/>
-		<dependency org="com.google.code.gson" name="gson" rev="2.6.2"/>
-		<dependency org="org.seleniumhq.selenium" name="selenium-java" rev="2.53.0"/>
-		<dependency org="org.seleniumhq.selenium" name="selenium-server" rev="2.53.0"/>
-		<dependency org="junit" name="junit" rev="4.12"/>
-		<dependency org="org.beanio" name="beanio" rev="2.1.0"/>
-		<dependency org="joda-time" name="joda-time" rev="2.9.3"/>
-		<dependency org="org.apache.logging.log4j" name="log4j-core" rev="2.5"/>
+		<!-- Test -->
+		<dependency org="junit" 							name="junit" 							rev="4.12" 				conf="junit->*"/>
+		
+		<!-- Other libs-->
+		<dependency org="joda-time" 						name="joda-time" 						rev="2.9.3" 			conf="runtime->*"/>
+		<dependency org="org.beanio" 						name="beanio" 							rev="2.1.0" 			conf="runtime->*"/>
+		<dependency org="org.seleniumhq.selenium" 			name="selenium-java" 					rev="2.53.0" 			conf="runtime->*"/>
+		<dependency org="org.seleniumhq.selenium" 			name="selenium-server" 					rev="2.53.0" 			conf="runtime->*"/>
+		<dependency org="org.jsoup" 						name="jsoup" 							rev="1.8.3" 			conf="runtime->*"/>
+		<dependency org="com.itextpdf" 						name="itextpdf" 						rev="5.5.9"				conf="runtime->*"/>
+		
+		
+		<!-- Google: librerie varie-->
+		<dependency org="com.google.code.gson" 				name="gson" 							rev="2.6.2" 			conf="runtime->*"/>
+		<dependency org="com.google.code.gson" 				name="gson" 							rev="2.6.2" 			conf="runtime->*"/>
+		
+		<!-- Apache: librerie varie-->
+		<dependency org="commons-codec" 					name="commons-codec" 					rev="1.10" 				conf="runtime->*"/>
+		<dependency org="commons-io" 						name="commons-io" 						rev="2.4" 				conf="runtime->*"/>
+		<dependency org="org.apache.pdfbox" 				name="pdfbox" 							rev="1.8.11" 			conf="runtime->*"/>
+	<dependency org="org.apache.commons" 					name="commons-lang3" 					rev="3.4" 				conf="runtime->*"/>
+		
+		<!-- Logging libs -->
+        <dependency org="org.apache.logging.log4j"          name="log4j-core"                       rev="2.5"        		transitive="false"          conf="runtime->*"/>
+        <dependency org="org.apache.logging.log4j" 			name="log4j-api" 						rev="2.5"        		transitive="false"          conf="runtime->*"/>
+        <dependency org="org.apache.logging.log4j"          name="log4j-slf4j-impl"                 rev="2.5"               transitive="false"          conf="runtime->*"/>
+		
     </dependencies>
 
 </ivy-module>

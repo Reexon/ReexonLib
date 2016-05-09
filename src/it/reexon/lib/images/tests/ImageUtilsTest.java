@@ -1,7 +1,6 @@
 package it.reexon.lib.images.tests;
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 
 import javax.imageio.ImageIO;

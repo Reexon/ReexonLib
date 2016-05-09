@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2016 Marco Velluto. All rights reserved.
  */
-package it.reexon.lib.pdf;
+package it.reexon.lib.pdf.test;
 
 import java.io.File;
 
@@ -14,6 +14,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import it.reexon.lib.pdf.PDFUtils;
 
 
 /**

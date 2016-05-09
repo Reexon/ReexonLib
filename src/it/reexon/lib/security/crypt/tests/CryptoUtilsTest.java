@@ -5,6 +5,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
@@ -22,7 +28,6 @@ public class CryptoUtilsTest
      * @see {@http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html}
      * Install the file in ${java.home}/jre/lib/security/
      */
-    @Test
     public final void cryptoTextTest()
     {
         File inputFile = new File("resources\\tests\\CryptoUtilsTest\\document.txt");
@@ -113,6 +118,41 @@ public class CryptoUtilsTest
             System.out.println(ex.getMessage());
             ex.printStackTrace();
             Assert.fail();
+        }
+    }
+
+    /**
+     * Test of method {@link it.reexon.lib.security.crypt.CryptoUtils#getSecretKey(String)}
+     */
+    @Test
+    public final void getSecretKeyTest()
+    {
+        try
+        {
+            String key = "PaSSw0rD!";
+            if (null == key || key.length() == 0)
+            {
+                throw new NullPointerException("key can't be null");
+            }
+            SecretKeySpec secretKeySpec = null;
+            try
+            {
+                KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+                keyGenerator.init(256, new SecureRandom(key.getBytes()));
+                SecretKey secretKey = keyGenerator.generateKey();
+                byte[] enCodeFormat = secretKey.getEncoded();
+                secretKeySpec = new SecretKeySpec(enCodeFormat, "AES");
+                System.out.println(it.reexon.lib.strings.StringUtils.toHexString(secretKey.getEncoded()));
+            }
+            catch (NoSuchAlgorithmException e)
+            {
+                throw new NoSuchAlgorithmException();
+            }
+
+        }
+        catch (Exception e)
+        {
+            // TODO: handle exception
         }
     }
 }

@@ -20,6 +20,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.zip.CRC32;
 
 import javax.imageio.ImageIO;
@@ -44,30 +45,37 @@ public class FileUtils
     public static final boolean LOGS = true;
 
     /**
-     * Generate byte[] form file
-     * 
-     * @param file to be generate byte[]
-     * @return byte[] file
-     * 
-     * @throws IOException                  if for some other reason cannot be opened for reading.
-     * @throws IllegalArgumentException     if the file does not exist, is a directory rather than a regular file.
+     * Utility method to read image from disk and transform image to BufferedImage object 
+     *  
+     * @param data - relative path to the image 
+     * @param format - file prefix of the image 
+     * @return BufferedImage representation of the image 
+     *  
      */
-    public static byte[] getByteFromFile(File file) throws IOException
+    public static BufferedImage bitmapToImage(InputStream is, String format) throws IOException
     {
-        if (file == null || !file.exists())
-            throw new IllegalArgumentException("file cannot be null and must exists");
+        final ImageReader rdr = ImageIO.getImageReadersByFormatName(format).next();
+        final ImageInputStream imageInput = ImageIO.createImageInputStream(is);
+        rdr.setInput(imageInput);
+        final BufferedImage image = rdr.read(0);
+        is.close();
+        return image;
+    }
 
-        try (ByteArrayOutputStream ous = new ByteArrayOutputStream(); InputStream ios = new FileInputStream(file);)
-        {
-            byte[] buffer = new byte[BUFFER_SIZE];
-
-            int read = 0;
-            while ((read = ios.read(buffer)) != -1)
-            {
-                ous.write(buffer, 0, read);
-            }
-            return ous.toByteArray();
-        }
+    /**
+     * Check the checksum files with algorithm SHA-256
+     * 
+     * @param firstFile     file orginal
+     * @param secondFile    file to check
+     * @return - true if files are equals
+     *         - null if there was an error         
+     * 
+     * @throws IOException              If the first byte cannot be read for any reason other than the end of the file, if the input stream has been closed, or if some other I/O error occurs. 
+     * @throws IllegalArgumentException If either params is null  
+     */
+    public static Boolean checkEqualDirecoty(File firstFile, File secondFile) throws IOException
+    {
+        return CheckFilesUtils.checkEqualsDirectories(firstFile, secondFile, MessageDigestAlgorithms.getDefault());
     }
 
     /**
@@ -88,45 +96,36 @@ public class FileUtils
     }
 
     /**
-     * Check the checksum files with algorithm SHA-256
+     * Utility method for copying directory 
+     *  
+     * @param srcDir - source directory 
+     * @param dstDir - destination directory 
      * 
-     * @param firstFile     file orginal
-     * @param secondFile    file to check
-     * @return - true if files are equals
-     *         - null if there was an error         
-     * 
-     * @throws IOException              If the first byte cannot be read for any reason other than the end of the file, if the input stream has been closed, or if some other I/O error occurs. 
-     * @throws IllegalArgumentException If either params is null  
+     * @throws IllegalArgumentException if srcDir or dstDir are null or is not exists or srcDir is not a directory
+     * @throws IOException  If the first byte cannot be read for any reason other than the end of the file, if the input stream has been closed, or if some other I/O error occurs.Author:
      */
-    public static Boolean checkEqualDirecoty(File firstFile, File secondFile) throws IOException
+    public static void copyDirectory(File srcDir, File dstDir) throws IOException
     {
-        return CheckFilesUtils.checkEqualsDirectories(firstFile, secondFile, MessageDigestAlgorithms.getDefault());
-    }
+        if (srcDir == null || dstDir == null)
+            throw new IllegalArgumentException("SrcDir is null");
+        if (!srcDir.exists())
+            throw new IllegalArgumentException("SrcDir is not exists");
 
-    /**
-     * Deletes a file. 
-     * 
-     * @param file the path to the file 
-     * @return boolean 
-     * @throws IOException if an I/O error occurs
-     * @throws IllegalArgumentException if file is null
-     */
-    public static boolean deleteFile(Path file) throws IOException
-    {
-        if ((file == null))
-            throw new IllegalArgumentException("file cannot be null");
-        try
+        if (srcDir.isDirectory())
         {
-            if (file.toFile().canWrite())
+            if (!dstDir.exists())
             {
-                Files.delete(file);
+                dstDir.mkdir();
             }
-            return !Files.exists(file, LinkOption.NOFOLLOW_LINKS);
+
+            for (String aChildren : srcDir.list())
+            {
+                copyDirectory(new File(srcDir, aChildren), new File(dstDir, aChildren));
+            }
         }
-        catch (IOException e)
+        else
         {
-            e.printStackTrace();
-            throw new IOException("An IO exception occured while deleting file '" + file + "' with error:" + e.getLocalizedMessage());
+            copyFile(srcDir, dstDir);
         }
     }
 
@@ -182,74 +181,115 @@ public class FileUtils
     }
 
     /**
-     * Utility method for copying directory 
-     *  
-     * @param srcDir - source directory 
-     * @param dstDir - destination directory 
-     * 
-     * @throws IllegalArgumentException if srcDir or dstDir are null or is not exists or srcDir is not a directory
-     * @throws IOException  If the first byte cannot be read for any reason other than the end of the file, if the input stream has been closed, or if some other I/O error occurs.Author:
+     * Deletes a directory recursively. 
+     *
+     * @param directory  directory to delete
+     * @throws IOException in case deletion is unsuccessful
+     * @throws IllegalArgumentException if directory is null
+     * @throws FileNotFoundException if directory not exists
      */
-    public static void copyDirectory(File srcDir, File dstDir) throws IOException
+    public static void deleteDirectory(File directory) throws IOException
     {
-        if (srcDir == null || dstDir == null)
-            throw new IllegalArgumentException("SrcDir is null");
-        if (!srcDir.exists())
-            throw new IllegalArgumentException("SrcDir is not exists");
+        if (directory == null)
+            throw new IllegalArgumentException("The directory cannot be null");
+        if (!directory.exists())
+            throw new FileNotFoundException("The Directory must exists");
 
-        if (srcDir.isDirectory())
+        org.apache.commons.io.FileUtils.deleteDirectory(directory);
+    }
+
+    /**
+     * Deletes a file. 
+     * 
+     * @param file the path to the file 
+     * @return boolean 
+     * @throws IOException if an I/O error occurs
+     * @throws IllegalArgumentException if file is null
+     */
+    public static boolean deleteFile(Path file) throws IOException
+    {
+        if ((file == null))
+            throw new IllegalArgumentException("file cannot be null");
+        try
         {
-            if (!dstDir.exists())
+            if (file.toFile().canWrite())
             {
-                dstDir.mkdir();
+                Files.delete(file);
             }
+            return !Files.exists(file, LinkOption.NOFOLLOW_LINKS);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            throw new IOException("An IO exception occured while deleting file '" + file + "' with error:" + e.getLocalizedMessage());
+        }
+    }
 
-            for (String aChildren : srcDir.list())
-            {
-                copyDirectory(new File(srcDir, aChildren), new File(dstDir, aChildren));
-            }
+    //-----------------------------------------------------------------------
+    /**
+     * Deletes a file. If file is a directory, delete it and all sub-directories.
+     * <p>
+     * The difference between File.delete() and this method are:
+     * <ul>
+     * <li>A directory to be deleted does not have to be empty.</li>
+     * <li>You get exceptions when a file or directory cannot be deleted.
+     *      (java.io.File methods returns a boolean)</li>
+     * </ul>
+     *
+     * @param file  file or directory to delete, must not be {@code null}
+     * @throws IllegalArgumentException if the directory is {@code null}
+     * @throws FileNotFoundException if the file was not found
+     * @throws IOException in case deletion is unsuccessful
+     */
+    public static void forceDelete(File file) throws IOException
+    {
+        if (file == null)
+            throw new IllegalArgumentException("File cannot be null");
+
+        if (file.isDirectory())
+        {
+            deleteDirectory(file);
         }
         else
         {
-            copyFile(srcDir, dstDir);
+            boolean filePresent = file.exists();
+            if (!file.delete())
+            {
+                if (!filePresent)
+                {
+                    throw new FileNotFoundException("File does not exist: " + file);
+                }
+                String message = "Unable to delete file: " + file;
+                throw new IOException(message);
+            }
         }
     }
 
     /**
-     * Utility method to read image from disk and transform image to BufferedImage object 
-     *  
-     * @param data - relative path to the image 
-     * @param format - file prefix of the image 
-     * @return BufferedImage representation of the image 
-     *  
+     * Generate byte[] form file
+     * 
+     * @param file to be generate byte[]
+     * @return byte[] file
+     * 
+     * @throws IOException                  if for some other reason cannot be opened for reading.
+     * @throws IllegalArgumentException     if the file does not exist, is a directory rather than a regular file.
      */
-    public static BufferedImage bitmapToImage(InputStream is, String format) throws IOException
+    public static byte[] getByteFromFile(File file) throws IOException
     {
-        final ImageReader rdr = ImageIO.getImageReadersByFormatName(format).next();
-        final ImageInputStream imageInput = ImageIO.createImageInputStream(is);
-        rdr.setInput(imageInput);
-        final BufferedImage image = rdr.read(0);
-        is.close();
-        return image;
-    }
+        if (file == null || !file.exists())
+            throw new IllegalArgumentException("file cannot be null and must exists");
 
-    /**
-    * Utility method to write BufferedImage object to disk 
-    *  
-    * @param image - BufferedImage object to save. 
-    * @param data - relative path to the image 
-    * @param format - file prefix of the image 
-    * @return BufferedImage representation of the image 
-    *  
-    */
-    public static void imageToBitmap(BufferedImage image, String data, String format) throws IOException
-    {
-        final OutputStream inb = new FileOutputStream(data);
-        final ImageWriter wrt = ImageIO.getImageWritersByFormatName(format).next();
-        final ImageInputStream imageInput = ImageIO.createImageOutputStream(inb);
-        wrt.setOutput(imageInput);
-        wrt.write(image);
-        inb.close();
+        try (ByteArrayOutputStream ous = new ByteArrayOutputStream(); InputStream ios = new FileInputStream(file);)
+        {
+            byte[] buffer = new byte[BUFFER_SIZE];
+
+            int read = 0;
+            while ((read = ios.read(buffer)) != -1)
+            {
+                ous.write(buffer, 0, read);
+            }
+            return ous.toByteArray();
+        }
     }
 
     /**
@@ -321,62 +361,41 @@ public class FileUtils
         return ret;
     }
 
-    //-----------------------------------------------------------------------
     /**
-     * Deletes a file. If file is a directory, delete it and all sub-directories.
-     * <p>
-     * The difference between File.delete() and this method are:
-     * <ul>
-     * <li>A directory to be deleted does not have to be empty.</li>
-     * <li>You get exceptions when a file or directory cannot be deleted.
-     *      (java.io.File methods returns a boolean)</li>
-     * </ul>
-     *
-     * @param file  file or directory to delete, must not be {@code null}
-     * @throws IllegalArgumentException if the directory is {@code null}
-     * @throws FileNotFoundException if the file was not found
-     * @throws IOException in case deletion is unsuccessful
-     */
-    public static void forceDelete(File file) throws IOException
+    * Utility method to write BufferedImage object to disk 
+    *  
+    * @param image - BufferedImage object to save. 
+    * @param data - relative path to the image 
+    * @param format - file prefix of the image 
+    * @return BufferedImage representation of the image 
+    *  
+    */
+    public static void imageToBitmap(BufferedImage image, String data, String format) throws IOException
     {
-        if (file == null)
-            throw new IllegalArgumentException("File cannot be null");
-
-        if (file.isDirectory())
-        {
-            deleteDirectory(file);
-        }
-        else
-        {
-            boolean filePresent = file.exists();
-            if (!file.delete())
-            {
-                if (!filePresent)
-                {
-                    throw new FileNotFoundException("File does not exist: " + file);
-                }
-                String message = "Unable to delete file: " + file;
-                throw new IOException(message);
-            }
-        }
+        final OutputStream inb = new FileOutputStream(data);
+        final ImageWriter wrt = ImageIO.getImageWritersByFormatName(format).next();
+        final ImageInputStream imageInput = ImageIO.createImageOutputStream(inb);
+        wrt.setOutput(imageInput);
+        wrt.write(image);
+        inb.close();
     }
 
     /**
-     * Deletes a directory recursively. 
-     *
-     * @param directory  directory to delete
-     * @throws IOException in case deletion is unsuccessful
-     * @throws IllegalArgumentException if directory is null
-     * @throws FileNotFoundException if directory not exists
+     * Moves a file to a destination. 
+     * 
+     * @param file the path to the file to move 
+     * @param destination the destination path 
+     * @throws IOException  if an I/O error occurs
+     * @throws IllegalArgumentException if file is null or not exists, destination is null
      */
-    public static void deleteDirectory(File directory) throws IOException
+    public static void moveFile(Path file, Path destination) throws IOException, IllegalArgumentException
     {
-        if (directory == null)
-            throw new IllegalArgumentException("The directory cannot be null");
-        if (!directory.exists())
-            throw new FileNotFoundException("The Directory must exists");
+        if ((file == null) || !Files.exists(file, LinkOption.NOFOLLOW_LINKS) || (destination == null))
+        {
+            throw new IllegalArgumentException("The filepath is null or points to an invalid location! " + file);
+        }
 
-        org.apache.commons.io.FileUtils.deleteDirectory(directory);
+        Files.move(file, destination, StandardCopyOption.REPLACE_EXISTING);
     }
 
 }

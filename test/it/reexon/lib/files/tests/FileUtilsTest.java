@@ -92,6 +92,14 @@ public class FileUtilsTest
     }
 
     /**
+     * Test method for {@link it.reexon.lib.files.FileUtils#moveFile(java.nio.file.Path, java.nio.file.Path)}.
+     */
+    public final void moveFileTest()
+    {
+        //TODO
+    }
+
+    /**
      * @throws java.lang.Exception
      */
     @Before
@@ -106,63 +114,12 @@ public class FileUtilsTest
     {}
 
     /**
-     * Test method for {@link it.reexon.lib.files.FileUtils#getByteFromFile(java.io.File)}.
+     * Test method for {@link it.reexon.lib.files.FileUtils#bitmapToImage(java.io.InputStream, java.lang.String)}.
      */
     @Test
-    public final void testGetByteFromFile()
+    public final void testBitmapToImage()
     {
         // TODO
-    }
-
-    /**
-     * Test method for {@link it.reexon.lib.files.FileUtils#checkEqualFiles(java.io.File, java.io.File)}.
-     */
-    @Test
-    public final void testCheckEqualFiles()
-    {
-        try
-        {
-            Boolean isEquals = FileUtils.checkEqualFiles(fileA1, fileA1);
-            Assert.assertTrue(isEquals);
-
-            isEquals = FileUtils.checkEqualFiles(fileA1, fileB1);
-            Assert.assertFalse(isEquals);
-
-            try
-            {
-                FileUtils.checkEqualFiles(null, fileB1);
-                Assert.fail("Should have thrown an exception");
-            }
-            catch (Exception e)
-            {
-                Assert.assertEquals(e.getClass(), IllegalArgumentException.class);
-            }
-
-            try
-            {
-                FileUtils.checkEqualFiles(fileB1, null);
-                Assert.fail("Should have thrown an exception");
-            }
-            catch (Exception e)
-            {
-                Assert.assertEquals(e.getClass(), IllegalArgumentException.class);
-            }
-            try
-            {
-                FileUtils.checkEqualFiles(fileB1, new File(""));
-                Assert.fail("Should have thrown an exception");
-            }
-            catch (Exception e)
-            {
-                Assert.assertEquals(e.getClass(), FileNotFoundException.class);
-            }
-
-        }
-        catch (Exception e)
-        {
-            logger.error(e);
-            throw new RuntimeException(e);
-        }
     }
 
     /**
@@ -221,37 +178,106 @@ public class FileUtilsTest
     }
 
     /**
-     * Test method for {@link it.reexon.lib.files.FileUtils#deleteFile(java.nio.file.Path)}.
+     * Test method for {@link it.reexon.lib.files.FileUtils#checkEqualFiles(java.io.File, java.io.File)}.
      */
     @Test
-    public final void testDeleteFile()
+    public final void testCheckEqualFiles()
     {
         try
         {
-            File fileToDelete = File.createTempFile("fileToDelete", ".txt", DIRECTORY);
-            Boolean isDeleted = FileUtils.deleteFile(fileToDelete.toPath());
-            Assert.assertTrue(isDeleted.booleanValue());
-            isDeleted = fileToDelete.exists();
-            Assert.assertFalse(isDeleted.booleanValue());
+            Boolean isEquals = FileUtils.checkEqualFiles(fileA1, fileA1);
+            Assert.assertTrue(isEquals);
 
-            FileUtils.deleteFile(new File("").toPath());
-            isDeleted = fileToDelete.exists();
-            Assert.assertFalse(isDeleted.booleanValue());
+            isEquals = FileUtils.checkEqualFiles(fileA1, fileB1);
+            Assert.assertFalse(isEquals);
 
             try
             {
-                FileUtils.deleteFile(null);
+                FileUtils.checkEqualFiles(null, fileB1);
                 Assert.fail("Should have thrown an exception");
             }
             catch (Exception e)
             {
                 Assert.assertEquals(e.getClass(), IllegalArgumentException.class);
             }
+
+            try
+            {
+                FileUtils.checkEqualFiles(fileB1, null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(e.getClass(), IllegalArgumentException.class);
+            }
+            try
+            {
+                FileUtils.checkEqualFiles(fileB1, new File(""));
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(e.getClass(), FileNotFoundException.class);
+            }
+
         }
         catch (Exception e)
         {
             logger.error(e);
             throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Test method for {@link it.reexon.lib.files.FileUtils#copyDirectory(java.io.File, java.io.File)}.
+     * @throws IOException 
+     */
+    @Test
+    public final void testCopyDirectory() throws IOException
+    {
+        File newDirecoty = new File(DIRECTORY.getPath() + "_new");
+        try
+        {
+            FileUtils.copyDirectory(DIRECTORY, newDirecoty);
+            Boolean isEquals = CheckFilesUtils.checkEqualsDirectories(DIRECTORY, newDirecoty, MessageDigestAlgorithms.getDefault());
+            Assert.assertTrue(isEquals.booleanValue());
+
+            try
+            {
+                FileUtils.copyDirectory(null, newDirecoty);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                FileUtils.copyDirectory(DIRECTORY, null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                FileUtils.copyDirectory(new File(""), DIRECTORY);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error(e);
+            throw new RuntimeException(e);
+        }
+        finally
+        {
+            FileUtils.forceDelete(newDirecoty);
         }
     }
 
@@ -311,127 +337,6 @@ public class FileUtilsTest
             {
                 e.printStackTrace();
             }
-        }
-    }
-
-    /**
-     * Test method for {@link it.reexon.lib.files.FileUtils#copyDirectory(java.io.File, java.io.File)}.
-     * @throws IOException 
-     */
-    @Test
-    public final void testCopyDirectory() throws IOException
-    {
-        File newDirecoty = new File(DIRECTORY.getPath() + "_new");
-        try
-        {
-            FileUtils.copyDirectory(DIRECTORY, newDirecoty);
-            Boolean isEquals = CheckFilesUtils.checkEqualsDirectories(DIRECTORY, newDirecoty, MessageDigestAlgorithms.getDefault());
-            Assert.assertTrue(isEquals.booleanValue());
-
-            try
-            {
-                FileUtils.copyDirectory(null, newDirecoty);
-                Assert.fail("Should have thrown an exception");
-            }
-            catch (Exception e)
-            {
-                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
-            }
-            try
-            {
-                FileUtils.copyDirectory(DIRECTORY, null);
-                Assert.fail("Should have thrown an exception");
-            }
-            catch (Exception e)
-            {
-                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
-            }
-            try
-            {
-                FileUtils.copyDirectory(new File(""), DIRECTORY);
-                Assert.fail("Should have thrown an exception");
-            }
-            catch (Exception e)
-            {
-                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
-            }
-        }
-        catch (Exception e)
-        {
-            logger.error(e);
-            throw new RuntimeException(e);
-        }
-        finally
-        {
-            FileUtils.forceDelete(newDirecoty);
-        }
-    }
-
-    /**
-     * Test method for {@link it.reexon.lib.files.FileUtils#bitmapToImage(java.io.InputStream, java.lang.String)}.
-     */
-    @Test
-    public final void testBitmapToImage()
-    {
-        // TODO
-    }
-
-    /**
-     * Test method for {@link it.reexon.lib.files.FileUtils#imageToBitmap(java.awt.image.BufferedImage, java.lang.String, java.lang.String)}.
-     */
-    @Test
-    public final void testImageToBitmap()
-    {
-        // TODO
-    }
-
-    /**
-     * Test method for {@link it.reexon.lib.files.FileUtils#getScaledInstance(java.awt.image.BufferedImage, int, int, java.lang.Object, boolean)}.
-     */
-    @Test
-    public final void testGetScaledInstance()
-    {
-        // TODO
-    }
-
-    /**
-     * Test method for {@link it.reexon.lib.files.FileUtils#forceDelete(java.io.File)}.
-     */
-    @Test
-    public final void testForceDelete()
-    {
-        try
-        {
-            File file = new File("testForceDelete_FILE");
-            FileUtils.copyFile(fileA1, file);
-            Assert.assertTrue("File must exists", file.exists());
-
-            FileUtils.forceDelete(file);
-            Assert.assertFalse("The File should no longer exist", file.exists());
-
-            try
-            {
-                FileUtils.forceDelete(null);
-                Assert.fail("Should have thrown an exception");
-            }
-            catch (Exception e)
-            {
-                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
-            }
-            try
-            {
-                FileUtils.forceDelete(new File(""));
-                Assert.fail("Should have thrown an exception");
-            }
-            catch (Exception e)
-            {
-                Assert.assertEquals(FileNotFoundException.class, e.getClass());
-            }
-        }
-        catch (Exception e)
-        {
-            logger.error(e);
-            throw new RuntimeException(e);
         }
     }
 
@@ -504,5 +409,108 @@ public class FileUtilsTest
                 logger.error(e);
             }
         }
+    }
+
+    /**
+     * Test method for {@link it.reexon.lib.files.FileUtils#deleteFile(java.nio.file.Path)}.
+     */
+    @Test
+    public final void testDeleteFile()
+    {
+        try
+        {
+            File fileToDelete = File.createTempFile("fileToDelete", ".txt", DIRECTORY);
+            Boolean isDeleted = FileUtils.deleteFile(fileToDelete.toPath());
+            Assert.assertTrue(isDeleted.booleanValue());
+            isDeleted = fileToDelete.exists();
+            Assert.assertFalse(isDeleted.booleanValue());
+
+            FileUtils.deleteFile(new File("").toPath());
+            isDeleted = fileToDelete.exists();
+            Assert.assertFalse(isDeleted.booleanValue());
+
+            try
+            {
+                FileUtils.deleteFile(null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(e.getClass(), IllegalArgumentException.class);
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error(e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Test method for {@link it.reexon.lib.files.FileUtils#forceDelete(java.io.File)}.
+     */
+    @Test
+    public final void testForceDelete()
+    {
+        try
+        {
+            File file = new File("testForceDelete_FILE");
+            FileUtils.copyFile(fileA1, file);
+            Assert.assertTrue("File must exists", file.exists());
+
+            FileUtils.forceDelete(file);
+            Assert.assertFalse("The File should no longer exist", file.exists());
+
+            try
+            {
+                FileUtils.forceDelete(null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                FileUtils.forceDelete(new File(""));
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(FileNotFoundException.class, e.getClass());
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error(e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Test method for {@link it.reexon.lib.files.FileUtils#getByteFromFile(java.io.File)}.
+     */
+    @Test
+    public final void testGetByteFromFile()
+    {
+        // TODO
+    }
+
+    /**
+     * Test method for {@link it.reexon.lib.files.FileUtils#getScaledInstance(java.awt.image.BufferedImage, int, int, java.lang.Object, boolean)}.
+     */
+    @Test
+    public final void testGetScaledInstance()
+    {
+        // TODO
+    }
+
+    /**
+     * Test method for {@link it.reexon.lib.files.FileUtils#imageToBitmap(java.awt.image.BufferedImage, java.lang.String, java.lang.String)}.
+     */
+    @Test
+    public final void testImageToBitmap()
+    {
+        // TODO
     }
 }

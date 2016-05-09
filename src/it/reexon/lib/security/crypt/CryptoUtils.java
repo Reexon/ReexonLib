@@ -7,19 +7,22 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import it.reexon.lib.security.GenerateSecureSalt;
+import org.apache.commons.lang3.StringUtils;
+
 import it.reexon.lib.security.crypt.exceptions.CryptoException;
 
 
@@ -98,24 +101,31 @@ public class CryptoUtils
         return secret;
     }
 
+    /**
+     * STABLE 
+     * @param password
+     * @return
+     */
     public static SecretKey getSecretKey(String password)
     {
+        if (StringUtils.isBlank(password))
+        {
+            throw new IllegalArgumentException("Password can't be null or blank");
+        }
+        SecretKeySpec secretKeySpec = null;
         try
         {
-            byte[] salt = GenerateSecureSalt.getSalt();
-            SecretKeyFactory factory = SecretKeyFactory.getInstance(PBKDF2_WITH_HMAC_SHA256);
-            KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 256);
-            SecretKey tmp = factory.generateSecret(spec);
-            SecretKey secret = new SecretKeySpec(tmp.getEncoded(), ALGORITHM);
-
-            return secret;
+            KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+            keyGenerator.init(256, new SecureRandom(password.getBytes()));
+            SecretKey secretKey = keyGenerator.generateKey();
+            byte[] enCodeFormat = secretKey.getEncoded();
+            secretKeySpec = new SecretKeySpec(enCodeFormat, "AES");
+            return secretKeySpec;
         }
-        catch (NoSuchAlgorithmException | InvalidKeySpecException e)
+        catch (NoSuchAlgorithmException e)
         {
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException(e);
         }
-
     }
 
     /**
@@ -151,15 +161,29 @@ public class CryptoUtils
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
      */
-    public static SecretKey getSecretKey(char[] password, byte[] salt, String secretKeyAlgorithm)
+    public static SecretKey getSecretKey(String password, byte[] salt, String secretKeyAlgorithm)
             throws NoSuchAlgorithmException, InvalidKeySpecException
     {
-        SecretKeyFactory factory = SecretKeyFactory.getInstance(PBKDF2_WITH_HMAC_SHA256);
-        KeySpec spec = new PBEKeySpec(password, salt, 65536, 256);
-        SecretKey tmp = factory.generateSecret(spec);
-        SecretKey secret = new SecretKeySpec(tmp.getEncoded(), secretKeyAlgorithm);
+        if (StringUtils.isBlank(password))
+            throw new IllegalArgumentException("Password can't be null or blank");
 
-        return secret;
+        if (salt == null || salt.length == 0)
+            throw new IllegalArgumentException("Salt cannot be null");
+
+        try
+        {
+            SecretKeySpec secretKeySpec = null;
+            KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+            keyGenerator.init(256, new SecureRandom(password.getBytes()));
+            SecretKey secretKey = keyGenerator.generateKey();
+            byte[] enCodeFormat = secretKey.getEncoded();
+            secretKeySpec = new SecretKeySpec(enCodeFormat, "AES");
+            return secretKeySpec;
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
 }

@@ -200,6 +200,8 @@ public class ZipUtils
         }
     }
 
+    //TODO Add method to create zip to crypt
+
     private static void addDirToZip(File dir, ZipOutputStream zip, String baseName) throws IOException
     {
         File[] files = dir.listFiles();

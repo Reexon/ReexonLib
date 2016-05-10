@@ -49,12 +49,12 @@ public class ListUtils
      *          <ul> Null if list is empty
      *          
      *          
-     * @throws NullPointerException if list param is null
+     * @throws IllegalArgumentException if list param is null
      */
     public static Integer findAverageElementInt(List<? extends Integer> list)
     {
         if (list == null)
-            throw new NullPointerException("List is null");
+            throw new IllegalArgumentException("List is null");
 
         if (list.isEmpty())
             return null;
@@ -79,12 +79,12 @@ public class ListUtils
     *          List<Long> = {1L, 2L, 3L}
     *          return 2L
     *          
-    * @throws NullPointerException if list param is null
+    * @throws IllegalArgumentException if list param is null
     */
     public static Long findAverageElementLong(List<? extends Long> list)
     {
         if (list == null)
-            throw new NullPointerException("List is null");
+            throw new IllegalArgumentException("List cannot be null");
 
         if (list.isEmpty())
             return null;
@@ -108,15 +108,15 @@ public class ListUtils
      * @return  sorted list;
      *          null if list is empty
      *          
-     * @throws NullPointerException if list is null or element is null
+     * @throws IllegalArgumentException if list is null or element is null
      */
     public static List<Long> orderByElementLong(final List<? extends Long> list, Long element)
     {
         if (list == null)
-            throw new NullPointerException("List is null");
+            throw new IllegalArgumentException("List cannot be null");
 
         if (element == null)
-            throw new NullPointerException("Element is null");
+            throw new IllegalArgumentException("Element cannot be null");
 
         if (list.isEmpty())
             return null;
@@ -131,7 +131,7 @@ public class ListUtils
      * @param element   element to look for
      * 
      * @return item that is closest to the value passed as a parameter.
-     * @throws NullPointerException - if list is null or element is null
+     * @throws IllegalArgumentException - if list is null or element is null
      */
     public static Long nearestElement(List<? extends Long> list, Long element)
     {

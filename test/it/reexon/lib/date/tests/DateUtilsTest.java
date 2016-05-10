@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2016 Marco Velluto. All rights reserved.
  */
-package it.reexon.lib.date.test;
+package it.reexon.lib.date.tests;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

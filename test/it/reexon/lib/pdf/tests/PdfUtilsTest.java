@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2016 Marco Velluto. All rights reserved.
  */
-package it.reexon.lib.pdf.test;
+package it.reexon.lib.pdf.tests;
 
 import java.io.File;
 

@@ -19,7 +19,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import it.reexon.lib.AllTests;
 import it.reexon.lib.files.CheckFilesUtils;
 import it.reexon.lib.files.FileUtils;
 import it.reexon.lib.files.IOUtils;
@@ -33,7 +32,7 @@ import it.reexon.lib.security.algorithms.MessageDigestAlgorithms;
  */
 public class FileUtilsTest
 {
-    private static final Logger logger = LogManager.getLogger(AllTests.class);
+    private static final Logger logger = LogManager.getLogger(FileUtilsTest.class);
 
     private static final File DIRECTORY = new File("test/FileUtilsTest");
     private static final File DIRECTORY_2 = new File("test/checkFileUtils_2");

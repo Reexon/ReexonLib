@@ -12,8 +12,8 @@ import org.apache.commons.lang3.StringUtils;
 import com.aspose.imaging.internal.Exceptions.IO.FileNotFoundException;
 import com.google.common.collect.Lists;
 
-import it.reexon.lib.security.algorithms.MessageDigestAlgorithms;
-import it.reexon.lib.security.checksums.GenerateSecureChecksum;
+import it.reexon.lib.securityOLD.algorithms.MessageDigestAlgorithms;
+import it.reexon.lib.securityOLD.checksums.GenerateSecureChecksum;
 
 
 /**

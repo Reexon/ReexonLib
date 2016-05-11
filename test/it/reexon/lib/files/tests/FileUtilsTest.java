@@ -23,7 +23,7 @@ import it.reexon.lib.files.CheckFilesUtils;
 import it.reexon.lib.files.FileUtils;
 import it.reexon.lib.files.IOUtils;
 import it.reexon.lib.list.ListUtils;
-import it.reexon.lib.security.algorithms.MessageDigestAlgorithms;
+import it.reexon.lib.securityOLD.algorithms.MessageDigestAlgorithms;
 
 
 /**

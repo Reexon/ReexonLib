@@ -28,7 +28,7 @@ import javax.imageio.ImageReader;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageInputStream;
 
-import it.reexon.lib.security.algorithms.MessageDigestAlgorithms;
+import it.reexon.lib.securityOLD.algorithms.MessageDigestAlgorithms;
 
 
 /**

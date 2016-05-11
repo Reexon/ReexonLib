@@ -59,7 +59,7 @@ public class SecureStringUtilsTest
     /**
      * Test method for {@link it.reexon.lib.security.SecureStringUtils#secureString()}.
      */
-    @Test
+    @Test(timeout = 10000)
     public final void testSecureString()
     {
         try
@@ -78,7 +78,7 @@ public class SecureStringUtilsTest
     /**
      * Test method for {@link it.reexon.lib.security.SecureStringUtils#secureString(int)}.
      */
-    @Test
+    @Test(timeout = 10000)
     public final void testSecureStringInt()
     {
         try
@@ -116,7 +116,7 @@ public class SecureStringUtilsTest
     /**
      * Test method for {@link it.reexon.lib.security.SecureStringUtils#secureString(int, java.lang.String)}.
      */
-    @Test
+    @Test(timeout = 10000)
     public final void testSecureStringIntString()
     {
         try
@@ -157,31 +157,63 @@ public class SecureStringUtilsTest
     }
 
     /**
-     * Test method for {@link it.reexon.lib.security.SecureStringUtils#secureStringWithindents()}.
+     * Test method for {@link it.reexon.lib.security.SecureStringUtils#secureStringWithIndents()}.
      */
-    @Test
+    @Test(timeout = 10000)
     public final void testSecureStringWithindents()
     {
         try
         {
-            String secureString = SecureStringUtils.secureStringWithindents(); //U7jM-5UjN-0OTY
-            Assert.assertTrue(StringUtils.countMatches(secureString, '-') == 2);
-            String[] strings = StringUtils.split(secureString, "-");
+            for (int j = 0; j < 100; j++)
+            {
+                String secureString = SecureStringUtils.secureStringWithIndents();
+                Assert.assertTrue(StringUtils.countMatches(secureString, '-') == 2);
+                String[] strings = StringUtils.split(secureString, "-");
+                Assert.assertEquals(3, strings.length);
+                for (int i = 0; i < strings.length; i++)
+                    Assert.assertEquals(4, strings[i].length());
+            }
         }
         catch (Exception e)
         {
-            // TODO: handle exception
+            logger.error("Errore in testSecureStringWithindents", e);
+            throw new RuntimeException(e);
         }
-        // TODO
     }
 
     /**
      * Test method for {@link it.reexon.lib.security.SecureStringUtils#secureStringWithindents(int)}.
      */
-    @Test
+    @Test(timeout = 10000)
     public final void testSecureStringWithindentsInt()
     {
-        // TODO
+        try
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                int numberWords = new Random().nextInt(999) + 1;
+                String secureString = SecureStringUtils.secureStringWithindents(numberWords);
+                Assert.assertEquals((numberWords) - 1, StringUtils.countMatches(secureString, '-'));
+                String[] strings = StringUtils.split(secureString, "-");
+                Assert.assertEquals(numberWords, strings.length);
+                for (int j = 0; j < strings.length; j++)
+                    Assert.assertEquals(4, strings[j].length());
+            }
+            try
+            {
+                SecureStringUtils.secureStringWithindents(-(new Random().nextInt(999)));
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error("Errore in testSecureStringWithindentsInt", e);
+            throw new RuntimeException(e);
+        }
     }
 
 }

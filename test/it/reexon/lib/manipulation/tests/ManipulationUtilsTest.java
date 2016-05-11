@@ -88,5 +88,4 @@ public class ManipulationUtilsTest
             throw new RuntimeException(e);
         }
     }
-
 }

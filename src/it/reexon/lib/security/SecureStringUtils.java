@@ -92,15 +92,8 @@ public class SecureStringUtils
      * </pre>
      * @return a string with a length of 3 words of 4 alphanumeric characters each
      */
-    public static String secureStringWithindents()
+    public static String secureStringWithIndents()
     {
-        StringBuilder sb = new StringBuilder();
-        sb.append(ManipulationUtils.shuffle(secureString(3) + new Random().nextInt(9)));
-        sb.append("-");
-        sb.append(ManipulationUtils.shuffle(secureString(3) + new Random().nextInt(9)));
-        sb.append("-");
-        sb.append(ManipulationUtils.shuffle(secureString(3) + new Random().nextInt(9)));
-
         return secureStringWithindents(3);
     }
 
@@ -113,15 +106,20 @@ public class SecureStringUtils
      * 
      * @param numberWords number of words that must be generated
      * @return string string composed of the number of words passed as a parameter , with 4 characters each
+     * @throws IllegalArgumentException if numberWords is less than 0
      */
     public static String secureStringWithindents(int numberWords)
     {
+        if (numberWords < 0)
+            throw new IllegalArgumentException("Number of words cannot be less than 0");
+
         StringBuilder sb = new StringBuilder();
         int count = 0;
         while (count < numberWords)
         {
             sb.append(ManipulationUtils.shuffle(secureString(3) + new Random().nextInt(9)));
             sb.append("-");
+            count++;
         }
         return StringUtils.substringBeforeLast(sb.toString(), "-");
     }

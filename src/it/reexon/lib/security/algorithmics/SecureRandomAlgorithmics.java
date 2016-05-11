@@ -17,28 +17,29 @@ public final class SecureRandomAlgorithmics
     private SecureRandomAlgorithmics()
     {}
 
-    /**
-     * Obtains random numbers from the underlying native OS.
-     * No assertions are made as to the blocking nature of generating these numbers.
-     */
-    public static final String NativePRNG = "NativePRNG";
+    //          NOT WORKING in JAVA 1.8
+    //    /**
+    //     * Obtains random numbers from the underlying native OS.
+    //     * No assertions are made as to the blocking nature of generating these numbers.
+    //     */
+    //    public static final String NativePRNG = "NativePRNG";
 
-    /**
-     * Obtains random numbers from the underlying native OS, blocking if necessary.
-     * For example, /dev/random on UNIX-like systems.
-     */
-    public static final String NativePRNGBlocking = "NativePRNGBlocking";
+    //    /**
+    //     * Obtains random numbers from the underlying native OS, blocking if necessary.
+    //     * For example, /dev/random on UNIX-like systems.
+    //     */
+    //    public static final String NativePRNGBlocking = "NativePRNGBlocking";
 
-    /**
-     * Obtains random numbers from the underlying native OS, without blocking to prevent applications from excessive stalling.
-     * For example, /dev/urandom on UNIX-like systems.
-     */
-    public static final String NativePRNGNonBlocking = "NativePRNGNonBlocking";
+    //    /**
+    //     * Obtains random numbers from the underlying native OS, without blocking to prevent applications from excessive stalling.
+    //     * For example, /dev/urandom on UNIX-like systems.
+    //     */
+    //    public static final String NativePRNGNonBlocking = "NativePRNGNonBlocking";
 
-    /**
-     * Obtains random numbers from the underlying installed and configured PKCS11 library.
-     */
-    public static final String PKCS11 = "PKCS11";
+    //    /**
+    //     * Obtains random numbers from the underlying installed and configured PKCS11 library.
+    //     */
+    //    public static final String PKCS11 = "PKCS11";
 
     /**
      * The name of the pseudo-random number generation (PRNG) algorithm supplied by the SUN provider.                                            
@@ -60,6 +61,6 @@ public final class SecureRandomAlgorithmics
      */
     public static final List<String> getAlorithms()
     {
-        return ListUtils.createList(NativePRNG, NativePRNGBlocking, NativePRNGNonBlocking, PKCS11, SHA1PRNG, Windows_PRNG);
+        return ListUtils.createList(SHA1PRNG, Windows_PRNG);
     }
 }

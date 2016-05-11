@@ -13,7 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import it.reexon.lib.manipulation.ManipulationUtils;
-import it.reexon.lib.securityOLD.crypt.algorithmics.SecureRandomAlgorithmics;
+import it.reexon.lib.security.algorithmics.SecureRandomAlgorithmics;
 import sun.misc.BASE64Encoder;
 
 
@@ -39,8 +39,9 @@ public class SecureStringUtils
      * Generate a secure string with variable length with algorithm SHA1PRNG
      * 
      * @param stringLength length of string
-     * 
      * @return string passed as a parameter length
+     * 
+     * @throws IllegalArgumentException if stringLength is less than 0
      */
     public static String secureString(int stringLength)
     {
@@ -62,12 +63,21 @@ public class SecureStringUtils
      * @param algorithmic algorithm to generate string. Please use {@link it.reexon.lib.security.algorithmics.SecureRandomAlgorithmics}
      * 
      * @return a secure string
-     * @throws NoSuchAlgorithmException  if no Provider supports a SecureRandomSpi implementation for the specified algorithm. 
+     * @throws NoSuchAlgorithmException  if no Provider supports a SecureRandomSpi implementation for the specified algorithm.
+     * @throws IllegalArgumentException if stringLength is less than 0
      */
     public static String secureString(int stringLength, String algorithmic) throws NoSuchAlgorithmException
     {
-        SecureRandom random = SecureRandom.getInstance(algorithmic);
-        return new BASE64Encoder().encode(new BigInteger(130, random).toString(new Random().nextInt()).getBytes()).substring(0, stringLength);
+        if (stringLength < 0)
+            throw new IllegalArgumentException("String length cannot be less than 0");
+
+        StringBuilder sb = new StringBuilder();
+        while (sb.length() < stringLength)
+        {
+            SecureRandom random = SecureRandom.getInstance(algorithmic);
+            sb.append(new BASE64Encoder().encode(new BigInteger(stringLength, random).toString(new Random().nextInt()).getBytes()));
+        }
+        return sb.substring(0, stringLength);
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////

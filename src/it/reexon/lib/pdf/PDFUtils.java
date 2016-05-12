@@ -17,6 +17,9 @@ import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.apache.pdfbox.exceptions.CryptographyException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
+import org.apache.pdfbox.pdmodel.encryption.BadSecurityHandlerException;
+import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
 
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfReader;
@@ -32,11 +35,8 @@ import it.reexon.lib.list.ListUtils;
  */
 public class PDFUtils
 {
-    /** User password. */
-    private static final byte[] USER = "wzQgwMt0Kd2zHD3CKObd".getBytes();;
-
     /** Owner password. */
-    private static final byte[] OWNER = "UzsPJoVh7hjzv2kdL3Vf".getBytes();;
+    private static final String OWNER = "UzsPJoVh7hjzv2kdL3Vf";
 
     /**
      * Extracts and saves the file system each PDF page as if it were an extension PNG
@@ -111,7 +111,7 @@ public class PDFUtils
         {
             reader = new PdfReader(src);
             stamper = new PdfStamper(reader, new FileOutputStream(dest));
-            stamper.setEncryption(userPassword.getBytes(), OWNER, PdfWriter.ALLOW_PRINTING,
+            stamper.setEncryption(userPassword.getBytes(), OWNER.getBytes(), PdfWriter.ALLOW_PRINTING,
                                   PdfWriter.ENCRYPTION_AES_128 | PdfWriter.DO_NOT_ENCRYPT_METADATA); //With AES 256 doesn't work decryption method
         }
         finally
@@ -135,11 +135,13 @@ public class PDFUtils
 
     /**
      * Encrypt a PDF
-     * <br> NOTE: works only:<br>
-     * <br> Acrobat 3 (40-bit RC4) -> works
-     * <br> Acrobat 5 & 6 (128-bit RC4) -> work
-     * <br> Acrobat 7 (128-bit AES) -> work
-     * <br> Acrobat 9 (256-bit AES) -> doesn't work
+     * <pre>
+     *  NOTE: works only:
+     * Acrobat 3 (40-bit RC4)      -> works
+     * Acrobat 5 & 6 (128-bit RC4) -> work
+     * Acrobat 7 (128-bit AES)     -> work
+     * Acrobat 9 (256-bit AES)     -> doesn't work
+     * </pre>
      * 
      * @param src       src pdf to crypt
      * @param dest      destination to pdf crypted
@@ -185,6 +187,35 @@ public class PDFUtils
     }
 
     /**
+     * Modify PDF permissions and only allows you to print the document.
+     * 
+     * @param srcFile           Begin file.
+     * @param destFile          Destination file.  
+     * @param password          User password. Can be null.
+     * 
+     * @throws IllegalArgumentException         If begin file or destination file are null.
+     * @throws IOException                      If there is an error saving the document.
+     * @throws BadSecurityHandlerException      If there is an error during protection.
+     * @throws COSVisitorException              If an error occurs while generating the data.
+     */
+    public static final void setAccessPermissionOnlyPrint(File srcFile, File destFile, String password)
+            throws IOException, BadSecurityHandlerException, COSVisitorException
+    {
+        if (srcFile == null)
+            throw new IllegalArgumentException("Begin File cannot be null!");
+
+        if (destFile == null)
+            throw new IllegalArgumentException("Destination File cannot be null!");
+
+        PDDocument doc = PDDocument.load(srcFile);
+        AccessPermission perms = new AccessPermission(3);
+        perms.setCanPrint(true);
+        StandardProtectionPolicy sp = new StandardProtectionPolicy(OWNER, password, perms);
+        doc.protect(sp);
+        doc.save(destFile);
+    }
+
+    /**
      * Return true if PDF document is encrypted
      * 
      * @param src                       src pdf to crypt
@@ -217,11 +248,4 @@ public class PDFUtils
         }
     }
 
-    /**
-     * @return static user password 
-     */
-    public static byte[] getStaticUserPassword()
-    {
-        return USER;
-    }
 }

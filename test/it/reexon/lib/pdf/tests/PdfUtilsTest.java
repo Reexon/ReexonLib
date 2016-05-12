@@ -50,7 +50,7 @@ public class PdfUtilsTest
     public static void tearDownAfterClass() throws Exception
     {
         FileUtils.forceDelete(new File(DST_ENCRYPT));
-        //        FileUtils.forceDelete(new File(DST_DECRYPT));
+        FileUtils.forceDelete(new File(DST_DECRYPT));
     }
 
     /**
@@ -169,6 +169,15 @@ public class PdfUtilsTest
             logger.error(e);
             throw e;
         }
+    }
+
+    /**
+     * Test method for {@link it.reexon.lib.pdf.PDFUtils#setAccessPermissionOnlyPrint(File, File, String)}.
+     * @throws Exception 
+     */
+    public final void testSetAccessPermissionOnlyPrint()
+    {
+        //TODO 
     }
 
     /**

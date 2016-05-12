@@ -11,7 +11,7 @@ import it.reexon.lib.list.tests.ListUtilsTest;
 import it.reexon.lib.manipulation.tests.ManipulationUtilsTest;
 import it.reexon.lib.network.tests.AllNetworkTests;
 import it.reexon.lib.pdf.tests.PdfUtilsTest;
-import it.reexon.lib.security.tests.AllSecuretyTests;
+import it.reexon.lib.security.AllSecuretyTests;
 
 
 @RunWith(Suite.class)

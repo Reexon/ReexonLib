@@ -52,6 +52,14 @@ public class IOUtilsTest
     {
         // TODO
     }
+    /**
+     * Test method for {@link it.reexon.lib.files.IOUtils#importFiles(java.io.File, boolean)}.
+     */
+    @Test
+    public final void testImportFilesWithFileBoolean()
+    {
+        // TODO
+    }
 
     /**
      * Test method for {@link it.reexon.lib.files.IOUtils#moveFile(java.io.File, java.lang.String)}.

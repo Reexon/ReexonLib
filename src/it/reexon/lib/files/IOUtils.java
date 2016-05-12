@@ -6,9 +6,11 @@ package it.reexon.lib.files;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import it.reexon.lib.exceptions.FileMoveException;
 
@@ -20,7 +22,8 @@ import it.reexon.lib.exceptions.FileMoveException;
 public class IOUtils
 {
     /**
-     * Generates a list of files
+     * @deprecated use {@link it.reexon.lib.files.IOUtils#importFiles(File, boolean)}
+     * Generates a list of files. Contains only file. Non contains sub-directory
      * 
      * @param folderFile folder from which to import files 
      * @return list of files
@@ -28,7 +31,8 @@ public class IOUtils
      * @throws IllegalArgumentException if the folderFile is not a folder
      * @throws NullPointerException if folderFile is null
      */
-    public static Collection<File> importFiles(File folderFile) throws IllegalArgumentException, NullPointerException
+    @Deprecated
+    public static List<File> importFiles(File folderFile) throws IllegalArgumentException, NullPointerException
     {
         if (folderFile == null)
             throw new NullPointerException("folderFile is null");
@@ -45,6 +49,36 @@ public class IOUtils
             }
         }
         return files;
+    }
+
+    /**
+     * Generates a list of files
+     * 
+     * @param folderFile folder from which to import files
+     * @param subDirecoties true if contains sub direcotory 
+     * @return list of files
+     * 
+     * @throws IllegalArgumentException if the folderFile is not a folder
+     * @throws NullPointerException if folderFile is null
+     */
+    public static List<File> importFiles(File folderFile, boolean subDirecoties) throws IllegalArgumentException, NullPointerException
+    {
+        if (folderFile == null)
+            throw new NullPointerException("folderFile is null");
+        if (!folderFile.isDirectory())
+            throw new IllegalArgumentException("ForderPath param is not a folder!! ");
+        Set<File> files = new HashSet<>();
+
+        File[] listOfFile = folderFile.listFiles();
+        for (int i = 0; i < listOfFile.length; i++)
+        {
+            if (subDirecoties)
+                files.add(listOfFile[i]);
+            
+            else if (listOfFile[i].isFile())
+                files.add(listOfFile[i]);
+        }
+        return files.stream().collect(Collectors.toList());
     }
 
     /**

@@ -8,7 +8,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Random;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,9 +20,9 @@ import sun.misc.BASE64Encoder;
  * @author Marco Velluto
  * @since Java 1.8
  */
-public class SecureStringUtils
+public class SecuretyStringUtils
 {
-    private static final Logger logger = LogManager.getLogger(SecureStringUtils.class);
+    private static final Logger logger = LogManager.getLogger(SecuretyStringUtils.class);
 
     /**
      * Generate a secure string with 32 characters.
@@ -121,6 +120,6 @@ public class SecureStringUtils
             sb.append("-");
             count++;
         }
-        return StringUtils.substringBeforeLast(sb.toString(), "-");
+        return org.apache.commons.lang3.StringUtils.substringBeforeLast(sb.toString(), "-");
     }
 }

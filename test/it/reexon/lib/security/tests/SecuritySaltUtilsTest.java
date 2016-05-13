@@ -23,9 +23,9 @@ import it.reexon.lib.security.algorithmics.SecureRandomAlgorithmics;
  * @author Marco Velluto
  * @since Java 1.8
  */
-public class SecuretySaltUtilsTest
+public class SecuritySaltUtilsTest
 {
-    private static final Logger logger = LogManager.getLogger(SecuretySaltUtilsTest.class);
+    private static final Logger logger = LogManager.getLogger(SecuritySaltUtilsTest.class);
 
     /**
      * @throws java.lang.Exception

@@ -20,9 +20,9 @@ import sun.misc.BASE64Encoder;
  * @author Marco Velluto
  * @since Java 1.8
  */
-public class SecuretyStringUtils
+public class SecurityStringUtils
 {
-    private static final Logger logger = LogManager.getLogger(SecuretyStringUtils.class);
+    private static final Logger logger = LogManager.getLogger(SecurityStringUtils.class);
 
     /**
      * Generate a secure string with 32 characters.

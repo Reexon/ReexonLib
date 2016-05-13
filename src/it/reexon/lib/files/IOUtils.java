@@ -74,12 +74,14 @@ public class IOUtils
         {
             if (subDirecoties)
                 files.add(listOfFile[i]);
-            
+
             else if (listOfFile[i].isFile())
                 files.add(listOfFile[i]);
         }
         return files.stream().collect(Collectors.toList());
     }
+
+    //TODO      public static List<File> importOnlyDirector(File folderFile, boolean subDirecoties) throws IllegalArgumentException, NullPointerException
 
     /**
      * Move file in a new directory     

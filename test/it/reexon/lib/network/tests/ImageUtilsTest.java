@@ -7,7 +7,10 @@ import static org.junit.Assert.assertNotNull;
 
 import java.awt.Image;
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
@@ -64,10 +67,61 @@ public class ImageUtilsTest
     {
         try
         {
+            Image img = ImageUtils.imageFormURL("https://i.ytimg.com/vi/p-ORlc2b4-0/maxresdefault.jpg");
+            assertNotNull(img);
+            
+            try
+            {
+                ImageUtils.imageFormURL(null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                ImageUtils.imageFormURL("");
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                ImageUtils.imageFormURL(" ");
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+        }
+        catch (IOException e)
+        {
+            logger.error("Errore in imageFormURLTest: " + e);
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    /**
+     * Test method for {@link it.reexon.lib.network.ImageUtils#formatName(java.lang.String)}.
+     */
+    @Test
+    public final void testFormatName()
+    {
+        try
+        {
             String formatName = ImageUtils.formatName("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Magnificent_CME_Erupts_on_the_Sun_-_August_31.jpg/1024px-Magnificent_CME_Erupts_on_the_Sun_-_August_31.jpg");
             Assert.assertEquals("JPEG", formatName.toUpperCase());
             formatName = ImageUtils.formatName("http://static.tumblr.com/d12666874e731500c2d4da3e0982a6b5/szn6mus/0nMo00irn/tumblr_static_cank3ajxf3sww0s44ocooocw0.png");
             Assert.assertEquals("PNG", formatName.toUpperCase());
+
+            formatName = ImageUtils.formatName("http://www.keymethods.eu:8004/Qrsid/photo.html?photo=21190");
+            Assert.assertEquals("jpeg", formatName.toLowerCase());
+
             try
             {
                 ImageUtils.formatName(null);
@@ -103,49 +157,23 @@ public class ImageUtilsTest
         }
     }
 
-    /**
-     * Test method for {@link it.reexon.lib.network.ImageUtils#formatName(java.lang.String)}.
-     */
     @Test
-    public final void testFormatName()
+    public final void testFormatName2()
     {
         try
         {
-            Image img = ImageUtils.imageFormURL("https://i.ytimg.com/vi/p-ORlc2b4-0/maxresdefault.jpg");
-            assertNotNull(img);
-            try
-            {
-                ImageUtils.imageFormURL(null);
-                Assert.fail("Should have thrown an exception");
-            }
-            catch (Exception e)
-            {
-                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
-            }
-            try
-            {
-                ImageUtils.imageFormURL("");
-                Assert.fail("Should have thrown an exception");
-            }
-            catch (Exception e)
-            {
-                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
-            }
-            try
-            {
-                ImageUtils.imageFormURL(" ");
-                Assert.fail("Should have thrown an exception");
-            }
-            catch (Exception e)
-            {
-                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
-            }
+            URL url = new URL("http://www.keymethods.eu:8004/Qrsid/photo.html?photo=21190");
+            URLConnection conn = url.openConnection();
+            String contentType = conn.getContentType();
+            String estensione = StringUtils.substringAfterLast(contentType, "/");
+            Assert.assertEquals("jpeg", estensione.toLowerCase());
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             logger.error("Errore in imageFormURLTest: " + e);
             throw new RuntimeException(e);
         }
+
     }
 
 }

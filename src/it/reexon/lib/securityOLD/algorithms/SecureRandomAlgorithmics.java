@@ -1,4 +1,4 @@
-package it.reexon.lib.securityOLD.crypt.algorithmics;
+package it.reexon.lib.securityOLD.algorithms;
 
 import java.util.List;
 

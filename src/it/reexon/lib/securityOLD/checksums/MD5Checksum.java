@@ -14,6 +14,8 @@ import it.reexon.lib.strings.StringUtils;
  * @author MarcoVelluto
  * @since Java 1.8
  */
+@Deprecated
+
 public class MD5Checksum
 {
     private static final byte[] buffer = new byte[1024];

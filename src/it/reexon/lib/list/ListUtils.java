@@ -153,6 +153,8 @@ public class ListUtils
         return new LinkedList<>(Arrays.asList(element));
     }
 
+    //TODO createSet
+
     private static final List<Long> sortListByElement(final List<? extends Long> list, Long element)
     {
         List<Long> listToSort = new ArrayList<Long>(list);

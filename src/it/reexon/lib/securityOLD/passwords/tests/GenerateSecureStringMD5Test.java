@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import it.reexon.lib.securityOLD.GenerateSecureSalt;
 
+@Deprecated
 
 public class GenerateSecureStringMD5Test
 {

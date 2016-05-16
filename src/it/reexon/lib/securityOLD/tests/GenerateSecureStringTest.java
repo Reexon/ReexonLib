@@ -6,6 +6,8 @@ import org.junit.Test;
 import it.reexon.lib.securityOLD.GenerateSecureString;
 
 
+@Deprecated
+
 public class GenerateSecureStringTest
 {
 

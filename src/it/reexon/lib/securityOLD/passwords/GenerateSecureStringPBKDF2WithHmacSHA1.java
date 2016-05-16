@@ -33,6 +33,8 @@ import it.reexon.lib.strings.StringUtils;
  * 
  *
  */
+@Deprecated
+
 public class GenerateSecureStringPBKDF2WithHmacSHA1
 {
     /**

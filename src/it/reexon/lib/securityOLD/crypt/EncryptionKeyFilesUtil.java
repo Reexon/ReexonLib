@@ -17,6 +17,8 @@ import javax.crypto.Cipher;
 
 
 /**
+ * Encrypt file from KeyFiles (private and public keys)
+ * 
  * @see https://docs.oracle.com/javase/7/docs/technotes/guides/security/StandardNames.html#KeyPairGenerator
  * @version v1.0
  */

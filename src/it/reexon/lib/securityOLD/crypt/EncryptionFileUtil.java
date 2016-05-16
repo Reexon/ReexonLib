@@ -21,12 +21,15 @@ import it.reexon.lib.securityOLD.algorithms.SecretKeySpecAlgorithms;
 
 
 /**
+ * Encrypt file form password 
+ * 
  * @author Marco Velluto
  * @since Java 1.8
  * 
- * *** ATTENTION *** 
+ * *** CAREFUL *** 
  * NOT USE THIS AGAIN 
  */
+@Deprecated
 public class EncryptionFileUtil
 {
     /**

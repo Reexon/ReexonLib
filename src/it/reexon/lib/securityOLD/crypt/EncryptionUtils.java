@@ -22,6 +22,7 @@ import org.apache.commons.codec.binary.Base64;
 import it.reexon.lib.securityOLD.crypt.exceptions.CryptoException;
 
 
+//NON PORTARE
 public class EncryptionUtils
 {
     private static final String UNICODE_FORMAT = "UTF8";
@@ -45,7 +46,6 @@ public class EncryptionUtils
         key = skf.generateSecret(ks);
     }
 
-    @Deprecated
     public EncryptionUtils() throws Exception
     {
         myEncryptionKey = "ThisIsSpartaThisIsSparta";

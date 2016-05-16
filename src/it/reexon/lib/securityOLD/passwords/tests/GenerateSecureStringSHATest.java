@@ -9,6 +9,7 @@ import org.junit.Test;
 import it.reexon.lib.securityOLD.GenerateSecureSalt;
 import it.reexon.lib.securityOLD.passwords.GenerateSecureStringSHA;
 
+@Deprecated
 
 public class GenerateSecureStringSHATest
 {

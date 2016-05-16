@@ -12,6 +12,7 @@ import it.reexon.lib.securityOLD.algorithms.MessageDigestAlgorithms;
 import it.reexon.lib.strings.StringUtils;
 
 
+@Deprecated
 public class GenerateSecureChecksum
 {
 

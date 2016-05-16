@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import it.reexon.lib.securityOLD.passwords.GenerateSecureStringPBKDF2WithHmacSHA1;
 
+@Deprecated
 
 public class GenerateSecureStringPBKDF2WithHmacSHA1Test
 {

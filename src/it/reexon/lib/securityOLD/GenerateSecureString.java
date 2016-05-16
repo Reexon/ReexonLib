@@ -4,10 +4,10 @@ import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-import it.reexon.lib.securityOLD.crypt.algorithmics.SecureRandomAlgorithmics;
+import it.reexon.lib.securityOLD.algorithms.SecureRandomAlgorithmics;
 import sun.misc.BASE64Encoder;
 
-
+@Deprecated
 public final class GenerateSecureString
 {
     /**

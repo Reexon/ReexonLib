@@ -33,11 +33,11 @@ import it.reexon.lib.securityOLD.crypt.exceptions.CryptoException;
  * 
  * @since Java 1.8
  */
+@Deprecated
 public class CryptoUtils
 {
     private static final String PBKDF2_WITH_HMAC_SHA256 = "PBKDF2WithHmacSHA256";
     private static final String ALGORITHM = "AES";
-    private static final String TRANSFORMATION = "AES";
 
     public static void encrypt(Key key, File inputFile, File outputFile) throws CryptoException
     {
@@ -53,7 +53,7 @@ public class CryptoUtils
     {
         try
         {
-            Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+            Cipher cipher = Cipher.getInstance(ALGORITHM);
             cipher.init(cipherMode, secretKey);
 
             FileInputStream inputStream = new FileInputStream(inputFile);
@@ -115,11 +115,11 @@ public class CryptoUtils
         SecretKeySpec secretKeySpec = null;
         try
         {
-            KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+            KeyGenerator keyGenerator = KeyGenerator.getInstance(ALGORITHM);
             keyGenerator.init(256, new SecureRandom(password.getBytes()));
             SecretKey secretKey = keyGenerator.generateKey();
             byte[] enCodeFormat = secretKey.getEncoded();
-            secretKeySpec = new SecretKeySpec(enCodeFormat, "AES");
+            secretKeySpec = new SecretKeySpec(enCodeFormat, ALGORITHM);
             return secretKeySpec;
         }
         catch (NoSuchAlgorithmException e)
@@ -173,11 +173,11 @@ public class CryptoUtils
         try
         {
             SecretKeySpec secretKeySpec = null;
-            KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+            KeyGenerator keyGenerator = KeyGenerator.getInstance(ALGORITHM);
             keyGenerator.init(256, new SecureRandom(password.getBytes()));
             SecretKey secretKey = keyGenerator.generateKey();
             byte[] enCodeFormat = secretKey.getEncoded();
-            secretKeySpec = new SecretKeySpec(enCodeFormat, "AES");
+            secretKeySpec = new SecretKeySpec(enCodeFormat, ALGORITHM);
             return secretKeySpec;
         }
         catch (NoSuchAlgorithmException e)

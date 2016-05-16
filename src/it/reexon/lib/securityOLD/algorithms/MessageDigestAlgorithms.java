@@ -6,6 +6,7 @@ package it.reexon.lib.securityOLD.algorithms;
  * @see http://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#MessageDigest
  * @since Java 1.8
  */
+@Deprecated
 public enum MessageDigestAlgorithms
 {
     MD2("MD2"), //The MD2 message digest algorithm as defined in RFC 1319.

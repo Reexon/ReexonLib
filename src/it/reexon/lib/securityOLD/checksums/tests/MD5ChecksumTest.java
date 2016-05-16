@@ -12,6 +12,8 @@ import it.reexon.lib.securityOLD.checksums.MD5Checksum;
 /**
  * @author marco.velluto
  */
+@Deprecated
+
 public class MD5ChecksumTest
 {
 

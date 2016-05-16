@@ -9,6 +9,7 @@ import org.junit.Test;
 import it.reexon.lib.securityOLD.algorithms.MessageDigestAlgorithms;
 import it.reexon.lib.securityOLD.checksums.GenerateSecureChecksum;
 
+@Deprecated
 
 public class GenerateSecureChecksumTest
 {

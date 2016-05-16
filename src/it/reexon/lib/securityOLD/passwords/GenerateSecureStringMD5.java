@@ -10,7 +10,7 @@ import it.reexon.lib.strings.StringUtils;
  * Simple and more secure password security using MD5 algorithm
  * @author marco.velluto
  *
- */
+ */@Deprecated
 public class GenerateSecureStringMD5
 {
 

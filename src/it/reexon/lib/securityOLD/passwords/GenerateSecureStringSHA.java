@@ -30,6 +30,8 @@ import it.reexon.lib.strings.StringUtils;
  *   MessageDigest md = MessageDigest.getInstance("SHA-256");
  * </p>
  */
+@Deprecated
+
 public class GenerateSecureStringSHA
 {
     /**

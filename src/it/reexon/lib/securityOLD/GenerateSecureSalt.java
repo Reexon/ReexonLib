@@ -3,7 +3,7 @@ package it.reexon.lib.securityOLD;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-
+@Deprecated
 public class GenerateSecureSalt
 {
     /**

@@ -12,8 +12,8 @@ import org.apache.commons.lang3.StringUtils;
 import com.aspose.imaging.internal.Exceptions.IO.FileNotFoundException;
 import com.google.common.collect.Lists;
 
-import it.reexon.lib.securityOLD.algorithms.MessageDigestAlgorithms;
-import it.reexon.lib.securityOLD.checksums.GenerateSecureChecksum;
+import it.reexon.lib.security.algorithmics.MessageDigestAlgorithms;
+import it.reexon.lib.security.checksum.ChecksumUtils;
 
 
 /**
@@ -44,8 +44,8 @@ public class CheckFilesUtils
         if (algorithm == null)
             throw new IllegalArgumentException("algorithm cannot be null");
 
-        String checksumFirst = GenerateSecureChecksum.getChecksum(firstFile, algorithm);
-        String checksumSecond = GenerateSecureChecksum.getChecksum(secondFile, algorithm);
+        String checksumFirst = ChecksumUtils.getChecksum(firstFile, algorithm);
+        String checksumSecond = ChecksumUtils.getChecksum(secondFile, algorithm);
         if (StringUtils.equals(checksumFirst, checksumSecond))
             return true;
         return false;

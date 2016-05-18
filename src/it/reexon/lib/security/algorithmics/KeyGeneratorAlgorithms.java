@@ -35,10 +35,10 @@ public class KeyGeneratorAlgorithms
      */
     public static final String Blowfish = "Blowfish";
 
-    //    /**
-    //     * Key generator for use with the DES algorithm.
-    //     */
-    //    public static final String DES = "DES";
+//    /**
+//     * Key generator for use with the DES algorithm.
+//     */
+//    public static final String DES = "DES";
 
     //    /**
     //     *  Key generator for use with the DESede (triple-DES) algorithm. 

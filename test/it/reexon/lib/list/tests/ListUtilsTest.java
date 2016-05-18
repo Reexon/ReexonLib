@@ -16,7 +16,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.reexon.lib.list.ListUtils;
-import it.reexon.lib.network.tests.ImageUtilsTest;
 
 
 /**
@@ -25,7 +24,7 @@ import it.reexon.lib.network.tests.ImageUtilsTest;
  */
 public class ListUtilsTest
 {
-    private static final Logger logger = LogManager.getLogger(ImageUtilsTest.class);
+    private static final Logger logger = LogManager.getLogger(ListUtilsTest.class);
 
     private static List<Integer> listInt3 = new ArrayList<>(3);
     private static List<Integer> listInt6 = new ArrayList<>(6);

@@ -3,11 +3,14 @@
  */
 package it.reexon.lib.files.tests;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 
 /**
  * @author Marco Velluto
@@ -15,6 +18,8 @@ import org.junit.Test;
  */
 public class IOUtilsTest
 {
+    @SuppressWarnings("unused")
+    private static final Logger logger = LogManager.getLogger(IOUtilsTest.class);
 
     /**
      * @throws java.lang.Exception
@@ -52,6 +57,7 @@ public class IOUtilsTest
     {
         // TODO
     }
+
     /**
      * Test method for {@link it.reexon.lib.files.IOUtils#importFiles(java.io.File, boolean)}.
      */
@@ -67,7 +73,7 @@ public class IOUtilsTest
     @Test
     public final void testMoveFile()
     {
-       // TODO
+        // TODO
     }
 
     /**

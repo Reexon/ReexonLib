@@ -3,6 +3,8 @@
  */
 package it.reexon.lib.files.tests;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,7 +17,8 @@ import org.junit.Test;
  */
 public class FileDeleteStrategyTest
 {
-
+    @SuppressWarnings("unused")
+    private static final Logger logger = LogManager.getLogger(FileDeleteStrategyTest.class);
     /**
      * @throws java.lang.Exception
      */

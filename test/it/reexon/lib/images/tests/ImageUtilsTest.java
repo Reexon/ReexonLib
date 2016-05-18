@@ -3,6 +3,8 @@
  */
 package it.reexon.lib.images.tests;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,6 +18,8 @@ import org.junit.Test;
  */
 public class ImageUtilsTest
 {
+    @SuppressWarnings("unused")
+    private static final Logger logger = LogManager.getLogger(ImageUtilsTest.class);
 
     /**
      * @throws java.lang.Exception

@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -28,6 +30,8 @@ import it.reexon.lib.list.ListUtils;
  */
 public class DateUtilsTest
 {
+    private static final Logger logger = LogManager.getLogger(DateUtilsTest.class);
+
     private static final String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
     private static Date date01;
     private static Date date02;
@@ -97,8 +101,8 @@ public class DateUtilsTest
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            throw e;
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -124,8 +128,8 @@ public class DateUtilsTest
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            throw e;
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -164,8 +168,8 @@ public class DateUtilsTest
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            throw e;
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -174,7 +178,9 @@ public class DateUtilsTest
      */
     @Test
     public final void testGetCalendarFromNow()
-    {}
+    {
+        //TODO
+    }
 
     /**
      * Test method for {@link it.reexon.lib.date.DateUtils#getDatesBetween(java.util.Date, java.util.Date)}.
@@ -235,8 +241,8 @@ public class DateUtilsTest
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            throw e;
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -257,8 +263,8 @@ public class DateUtilsTest
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            throw e;
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -279,8 +285,8 @@ public class DateUtilsTest
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            throw e;
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -301,8 +307,8 @@ public class DateUtilsTest
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            throw e;
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -323,8 +329,8 @@ public class DateUtilsTest
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            throw e;
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -353,8 +359,8 @@ public class DateUtilsTest
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            throw e;
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
 
     }
@@ -384,8 +390,8 @@ public class DateUtilsTest
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            throw e;
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
 
     }
@@ -426,8 +432,8 @@ public class DateUtilsTest
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            throw e;
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -455,8 +461,8 @@ public class DateUtilsTest
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            throw e;
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -520,8 +526,8 @@ public class DateUtilsTest
         }
         catch (Exception e)
         {
-            e.printStackTrace();
-            throw e;
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 

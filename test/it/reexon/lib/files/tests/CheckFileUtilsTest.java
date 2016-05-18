@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -22,7 +24,7 @@ import it.reexon.lib.files.CheckFilesUtils;
 import it.reexon.lib.files.FileUtils;
 import it.reexon.lib.files.IOUtils;
 import it.reexon.lib.list.ListUtils;
-import it.reexon.lib.securityOLD.algorithms.MessageDigestAlgorithms;
+import it.reexon.lib.security.algorithmics.MessageDigestAlgorithms;
 
 
 /**
@@ -31,6 +33,8 @@ import it.reexon.lib.securityOLD.algorithms.MessageDigestAlgorithms;
  */
 public class CheckFileUtilsTest
 {
+    private static final Logger logger = LogManager.getLogger(CheckFileUtilsTest.class);
+
     private static final File DIRECTORY = new File("test/checkFileUtils");
     private static final File DIRECTORY_2 = new File("test/checkFileUtils_2");
     private static final File DIRECTORY_3 = new File("test/checkFileUtils_3");
@@ -114,8 +118,8 @@ public class CheckFileUtilsTest
         }
         catch (Exception e)
         {
-            System.err.println(e);
-            throw e;
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -133,8 +137,8 @@ public class CheckFileUtilsTest
         }
         catch (Exception e)
         {
-            System.err.println(e);
-            throw e;
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 

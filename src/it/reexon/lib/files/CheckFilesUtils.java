@@ -44,7 +44,7 @@ public class CheckFilesUtils
         if (algorithm == null)
             throw new IllegalArgumentException("algorithm cannot be null");
 
-        String checksumFirst = ChecksumUtils.getChecksum(firstFile, algorithm);
+        String checksumFirst = ChecksumUtils.getChecksum(firstFile, algorithm); //FIXME BUG!!! Check this!
         String checksumSecond = ChecksumUtils.getChecksum(secondFile, algorithm);
         if (StringUtils.equals(checksumFirst, checksumSecond))
             return true;

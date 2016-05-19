@@ -3,7 +3,10 @@
  */
 package it.reexon.lib.security.tests;
 
+import java.io.File;
 import java.security.Key;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.crypto.SecretKey;
 
@@ -17,10 +20,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import it.reexon.lib.files.FileUtils;
+import it.reexon.lib.files.IOUtils;
+import it.reexon.lib.list.ListUtils;
 import it.reexon.lib.security.CryptoUtils;
 import it.reexon.lib.security.SecuritySaltUtils;
 import it.reexon.lib.security.SecurityStringUtils;
+import it.reexon.lib.security.algorithmics.CipherAlgorithmsNames;
 import it.reexon.lib.security.algorithmics.KeyGeneratorAlgorithms;
+import it.reexon.lib.security.exceptions.UnsupportedAlgorithmKeyException;
 
 
 /**
@@ -30,22 +38,42 @@ import it.reexon.lib.security.algorithmics.KeyGeneratorAlgorithms;
 public class CryptoUtilsTest
 {
 
-    private static final String DEFAULT_PASSWORD = "PassOrd!23";
     private static final Logger logger = LogManager.getLogger(CryptoUtilsTest.class);
+    private static final String DEFAULT_PASSWORD = "PaSswOrd!23";
+    private static final Key KEY = CryptoUtils.getSecretKey(DEFAULT_PASSWORD);
+    private static final File DIRECTORY = new File("resources/tests/CryptoUtilsTest");
+
+    private static File inputFileDecrypted;
 
     /**
      * @throws java.lang.Exception
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception
-    {}
+    {
+        if (!DIRECTORY.exists())
+            DIRECTORY.mkdirs();
+        inputFileDecrypted = File.createTempFile("inputFileDecrypted", ".txt", DIRECTORY);
+        List<String> linesA = new LinkedList<>(ListUtils.createList("CiaoA, Ciao1", "HELPS"));
+        IOUtils.writeLines(inputFileDecrypted, linesA);
+    }
 
     /**
      * @throws java.lang.Exception
      */
+    @SuppressWarnings("unused")
     @AfterClass
     public static void tearDownAfterClass() throws Exception
-    {}
+    {
+        try
+        {
+            FileUtils.forceDelete(DIRECTORY);
+        }
+        catch (Exception e)
+        {
+            logger.error("Error while deleting " + DIRECTORY.getName());
+        }
+    }
 
     /**
      * @throws java.lang.Exception
@@ -62,21 +90,160 @@ public class CryptoUtilsTest
     {}
 
     /**
-     * Test method for {@link it.reexon.lib.security.CryptoUtils#encrypt(java.security.Key, java.io.File, java.io.File)}.
+     * Test method for {@link it.reexon.lib.security.CryptoUtils#encrypt(java.io.File, java.io.File, java.security.Key)}.
      */
     @Test
-    public final void testEncryptKeyFileFile()
+    public final void testEncryptFileFileKey()
     {
-        // TODO
+        try
+        {
+            File encrypted0 = File.createTempFile("outEncrypt", ".txt", DIRECTORY);
+            File decrypted0 = File.createTempFile("outDecrypt", ".txt", DIRECTORY);
+            CryptoUtils.encrypt(inputFileDecrypted, encrypted0, KEY);
+            Assert.assertFalse("The files should be differents", FileUtils.checkEqualFiles(inputFileDecrypted, encrypted0));
+            CryptoUtils.decrypt(encrypted0, decrypted0, KEY);
+            Assert.assertTrue("The files should be equals", FileUtils.checkEqualFiles(inputFileDecrypted, decrypted0));
+
+            for (String algorithm : KeyGeneratorAlgorithms.getAlgorithms())
+            {
+                File encrypted = File.createTempFile("outEncrypt", ".txt", DIRECTORY);
+                File decrypted = File.createTempFile("outDecrypt", ".txt", DIRECTORY);
+                try
+                {
+                    if (isAlgorithmKeyNotSupported(algorithm))
+                    {
+                        try
+                        {
+                            final Key secureKey = CryptoUtils.getSecretKey(DEFAULT_PASSWORD, algorithm);
+                            CryptoUtils.encrypt(inputFileDecrypted, encrypted, secureKey);
+                            Assert.fail("Should have thrown an exception");
+                        }
+                        catch (Exception e)
+                        {
+                            Assert.assertEquals(UnsupportedAlgorithmKeyException.class, e.getClass());
+                        }
+                    }
+                    else
+                    {
+                        final Key secureKey = CryptoUtils.getSecretKey(DEFAULT_PASSWORD, algorithm);
+                        CryptoUtils.encrypt(inputFileDecrypted, encrypted, secureKey);
+                        Assert.assertFalse("The files should be differents", FileUtils.checkEqualFiles(inputFileDecrypted, encrypted));
+                        CryptoUtils.decrypt(encrypted, decrypted, secureKey);
+                        logger.debug("SUCCESS -- Key algorithm: {}", algorithm);
+                        Assert.assertTrue("The files should be equals", FileUtils.checkEqualFiles(inputFileDecrypted, decrypted));
+                    }
+                }
+                catch (Exception e)
+                {
+                    logger.debug("FAILURE -- Key algorithm: {} - Error:{}", algorithm, e.getMessage());
+                }
+                finally
+                {
+                    try
+                    {
+                        FileUtils.forceDelete(encrypted);
+                    }
+                    catch (Exception e2)
+                    {
+                        logger.error("Error while force deleting file {} - Error: ", encrypted != null ? encrypted.getName() : "encrypted",
+                                     e2.getMessage());
+                    }
+                    try
+                    {
+                        FileUtils.forceDelete(decrypted);
+                    }
+                    catch (Exception e2)
+                    {
+                        logger.error("Error while force deleting file {} - Error: ", decrypted != null ? decrypted.getName() : "decrypted",
+                                     e2.getMessage());
+                    }
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error("Error in testEncryptKeyFileFile", e);
+            throw new RuntimeException(e);
+        }
     }
 
     /**
-     * Test method for {@link it.reexon.lib.security.CryptoUtils#decrypt(java.security.Key, java.io.File, java.io.File)}.
+     * Test method for {@link it.reexon.lib.security.CryptoUtils#decrypt(java.io.File, java.io.File, java.security.Key)}.
      */
     @Test
     public final void testDecryptKeyFileFile()
     {
-        // TODO
+        try
+        {
+
+            File encrypted0 = File.createTempFile("outEncrypt", ".txt", DIRECTORY);
+            File decrypted0 = File.createTempFile("outDecrypt", ".txt", DIRECTORY);
+            CryptoUtils.encrypt(inputFileDecrypted, encrypted0, KEY);
+            Assert.assertFalse("The files should be differents", FileUtils.checkEqualFiles(inputFileDecrypted, encrypted0));
+            CryptoUtils.decrypt(encrypted0, decrypted0, KEY);
+            Assert.assertTrue("The files should be equals", FileUtils.checkEqualFiles(inputFileDecrypted, decrypted0));
+
+            for (String algorithm : KeyGeneratorAlgorithms.getAlgorithms())
+            {
+                File encrypted = File.createTempFile("outEncrypt", ".txt", DIRECTORY);
+                File decrypted = File.createTempFile("outDecrypt", ".txt", DIRECTORY);
+                try
+                {
+                    if (isAlgorithmKeyNotSupported(algorithm))
+                    {
+                        try
+                        {
+                            final Key secureKey = CryptoUtils.getSecretKey(DEFAULT_PASSWORD, algorithm);
+                            CryptoUtils.encrypt(inputFileDecrypted, encrypted, secureKey);
+                            Assert.fail("Should have thrown an exception");
+                        }
+                        catch (Exception e)
+                        {
+                            Assert.assertEquals(UnsupportedAlgorithmKeyException.class, e.getClass());
+                        }
+                    }
+                    else
+                    {
+                        final Key secureKey = CryptoUtils.getSecretKey(DEFAULT_PASSWORD, algorithm);
+                        CryptoUtils.encrypt(inputFileDecrypted, encrypted, secureKey);
+                        Assert.assertFalse("The files should be differents", FileUtils.checkEqualFiles(inputFileDecrypted, encrypted));
+                        CryptoUtils.decrypt(encrypted, decrypted, secureKey);
+                        logger.debug("SUCCESS -- Key algorithm: {}", algorithm);
+                        Assert.assertTrue("The files should be equals", FileUtils.checkEqualFiles(inputFileDecrypted, decrypted));
+                    }
+                }
+                catch (Exception e)
+                {
+                    logger.debug("FAILURE -- Key algorithm: {} - Error:{}", algorithm, e.getMessage());
+                }
+                finally
+                {
+                    try
+                    {
+                        FileUtils.forceDelete(encrypted);
+                    }
+                    catch (Exception e2)
+                    {
+                        logger.error("Error while force deleting file {} - Error: ", encrypted != null ? encrypted.getName() : "encrypted",
+                                     e2.getMessage());
+                    }
+                    try
+                    {
+                        FileUtils.forceDelete(decrypted);
+                    }
+                    catch (Exception e2)
+                    {
+                        logger.error("Error while force deleting file {} - Error: ", decrypted != null ? decrypted.getName() : "decrypted",
+                                     e2.getMessage());
+                    }
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error("Error in testDecryptKeyFileFile", e);
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -85,7 +252,7 @@ public class CryptoUtilsTest
     @Test
     public final void testEncryptKeyFileFileString()
     {
-        // TODO
+        // TODO: Deprecated Method
     }
 
     /**
@@ -94,7 +261,7 @@ public class CryptoUtilsTest
     @Test
     public final void testDecryptKeyFileFileString()
     {
-        // TODO
+        // TODO: Deprecated Method
     }
 
     /**
@@ -178,15 +345,132 @@ public class CryptoUtilsTest
         try
         {
             final String planeText = new String("Hello World !!");
-            for (String algorithm : KeyGeneratorAlgorithms.getAlgorithms())
-            {
-                logger.info("Algorithm: {} to crypt: {}", algorithm, planeText);
-                final Key secretKey = CryptoUtils.getSecretKey(DEFAULT_PASSWORD, algorithm);
-                String crypted1 = CryptoUtils.encrypt(planeText, secretKey, algorithm);
-                Assert.assertNotEquals(crypted1, planeText);
+            List<String> cipherAlgorithmsNames = CipherAlgorithmsNames.values();
+            List<String> keyGeneratorAlgorithms = KeyGeneratorAlgorithms.getAlgorithms();
 
-                String crypted2 = CryptoUtils.encrypt(planeText, secretKey, algorithm);
-                Assert.assertEquals(crypted1, crypted2);
+            String encryptA = CryptoUtils.encrypt(planeText, KEY, CipherAlgorithmsNames.AES);
+            String encryptB = CryptoUtils.encrypt(planeText, KEY, CipherAlgorithmsNames.AES);
+            Assert.assertEquals(encryptA, encryptB);
+
+            String cipherAlgorithm0 = CipherAlgorithmsNames.AES;
+            String keyGenerator0 = KeyGeneratorAlgorithms.AES;
+            logger.info("Cipher Algorithm: {} - Key Algorithm: {}", cipherAlgorithm0, keyGenerator0);
+            Key secretKey0 = CryptoUtils.getSecretKey(DEFAULT_PASSWORD, cipherAlgorithm0);
+            String encrypted0 = CryptoUtils.encrypt(planeText, secretKey0, keyGenerator0);
+            Assert.assertNotEquals(encrypted0, planeText);
+            String decrypted0 = CryptoUtils.decrypt(encrypted0, secretKey0, cipherAlgorithm0);
+            Assert.assertEquals(planeText, decrypted0);
+
+            cipherAlgorithm0 = CipherAlgorithmsNames.ARCFOUR;
+            keyGenerator0 = KeyGeneratorAlgorithms.ARCFOUR;
+            logger.info("Cipher Algorithm: {} - Key Algorithm: {}", cipherAlgorithm0, keyGenerator0);
+            secretKey0 = CryptoUtils.getSecretKey(DEFAULT_PASSWORD, cipherAlgorithm0);
+            encrypted0 = CryptoUtils.encrypt(planeText, secretKey0, keyGenerator0);
+            Assert.assertNotEquals(encrypted0, planeText);
+            decrypted0 = CryptoUtils.decrypt(encrypted0, secretKey0, cipherAlgorithm0);
+            Assert.assertEquals(planeText, decrypted0);
+
+            cipherAlgorithm0 = CipherAlgorithmsNames.Blowfish;
+            keyGenerator0 = KeyGeneratorAlgorithms.Blowfish;
+            logger.info("Cipher Algorithm: {} - Key Algorithm: {}", cipherAlgorithm0, keyGenerator0);
+            secretKey0 = CryptoUtils.getSecretKey(DEFAULT_PASSWORD, cipherAlgorithm0);
+            encrypted0 = CryptoUtils.encrypt(planeText, secretKey0, keyGenerator0);
+            Assert.assertNotEquals(encrypted0, planeText);
+            decrypted0 = CryptoUtils.decrypt(encrypted0, secretKey0, cipherAlgorithm0);
+            Assert.assertEquals(planeText, decrypted0);
+
+            cipherAlgorithm0 = CipherAlgorithmsNames.RC2;
+            keyGenerator0 = KeyGeneratorAlgorithms.RC2;
+            logger.info("Cipher Algorithm: {} - Key Algorithm: {}", cipherAlgorithm0, keyGenerator0);
+            secretKey0 = CryptoUtils.getSecretKey(DEFAULT_PASSWORD, cipherAlgorithm0);
+            encrypted0 = CryptoUtils.encrypt(planeText, secretKey0, keyGenerator0);
+            Assert.assertNotEquals(encrypted0, planeText);
+            decrypted0 = CryptoUtils.decrypt(encrypted0, secretKey0, cipherAlgorithm0);
+            Assert.assertEquals(planeText, decrypted0);
+
+            cipherAlgorithm0 = CipherAlgorithmsNames.RC4;
+            keyGenerator0 = KeyGeneratorAlgorithms.ARCFOUR;
+            logger.info("Cipher Algorithm: {} - Key Algorithm: {}", cipherAlgorithm0, keyGenerator0);
+            secretKey0 = CryptoUtils.getSecretKey(DEFAULT_PASSWORD, cipherAlgorithm0);
+            encrypted0 = CryptoUtils.encrypt(planeText, secretKey0, keyGenerator0);
+            Assert.assertNotEquals(encrypted0, planeText);
+            decrypted0 = CryptoUtils.decrypt(encrypted0, secretKey0, cipherAlgorithm0);
+            Assert.assertEquals(planeText, decrypted0);
+
+            CryptoUtils.encrypt(new String(""), secretKey0, keyGenerator0);
+            CryptoUtils.encrypt(new String(" "), secretKey0, keyGenerator0);
+
+            try
+            {
+                CryptoUtils.encrypt(null, secretKey0, keyGenerator0);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                CryptoUtils.encrypt(planeText, null, keyGenerator0);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                CryptoUtils.encrypt(planeText, secretKey0, null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                CryptoUtils.encrypt(null, null, keyGenerator0);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                CryptoUtils.encrypt(null, secretKey0, null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                CryptoUtils.encrypt(planeText, null, null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+
+            for (String cipherAlgorithm : cipherAlgorithmsNames)
+            {
+                for (String keyGenerator : keyGeneratorAlgorithms)
+                {
+                    try
+                    {
+                        final Key secretKey = CryptoUtils.getSecretKey(DEFAULT_PASSWORD, cipherAlgorithm);
+                        final String crypted1 = CryptoUtils.encrypt(planeText, secretKey, keyGenerator);
+                        logger.debug("SUCCESS - Cipher Algorithm: {} - Key Algorithm: {}", cipherAlgorithm, keyGenerator);
+                        Assert.assertNotEquals(crypted1, planeText);
+                    }
+                    catch (Exception e)
+                    {
+                        logger.debug("FAILURE - Cipher Algorithm: {} - Key Algorithm: {} - Error: {}", cipherAlgorithm, keyGenerator, e.getMessage());
+                    }
+                }
             }
         }
         catch (Exception e)
@@ -194,7 +478,6 @@ public class CryptoUtilsTest
             logger.error("Error in testEncryptStringKeyString", e);
             throw new RuntimeException(e);
         }
-        // TODO
     }
 
     /**
@@ -203,7 +486,73 @@ public class CryptoUtilsTest
     @Test
     public final void testDecryptStringKey()
     {
-        // TODO
+        try
+        {
+            final String planeText = new String("Hello World !!");
+
+            String encrypt = CryptoUtils.encrypt(planeText, KEY);
+            String decrypt = CryptoUtils.decrypt(encrypt, KEY);
+            Assert.assertEquals(planeText, decrypt);
+
+            try
+            {
+                CryptoUtils.decrypt(null, KEY);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                CryptoUtils.decrypt(encrypt, null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                CryptoUtils.decrypt(null, null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+
+            for (String algorithm : KeyGeneratorAlgorithms.getAlgorithms())
+            {
+                logger.debug("Key Algorithm: {}", algorithm);
+                if (isAlgorithmKeyNotSupported(algorithm))
+                {
+                    try
+                    {
+                        final Key key = CryptoUtils.getSecretKey(DEFAULT_PASSWORD, algorithm);
+                        encrypt = CryptoUtils.encrypt(planeText, KEY);
+                        decrypt = CryptoUtils.decrypt(encrypt, key);
+                        Assert.fail("Should have thrown an exception");
+                    }
+                    catch (Exception e)
+                    {
+                        Assert.assertEquals(UnsupportedAlgorithmKeyException.class, e.getClass());
+                    }
+                }
+                else
+                {
+                    final Key key = CryptoUtils.getSecretKey(DEFAULT_PASSWORD, algorithm);
+                    encrypt = CryptoUtils.encrypt(planeText, key);
+                    decrypt = CryptoUtils.decrypt(encrypt, key);
+                    Assert.assertEquals(planeText, decrypt);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error("Error in testDecryptStringKey", e);
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -212,7 +561,76 @@ public class CryptoUtilsTest
     @Test
     public final void testDecryptStringKeyString()
     {
-        // TODO
+        try
+        {
+            final String planeText = new String("Hello World !!");
+
+            String encrypt = CryptoUtils.encrypt(planeText, KEY, CipherAlgorithmsNames.AES);
+            String decrypt = CryptoUtils.decrypt(encrypt, KEY, CipherAlgorithmsNames.AES);
+            Assert.assertEquals(planeText, decrypt);
+
+            try
+            {
+                CryptoUtils.decrypt(null, KEY, CipherAlgorithmsNames.AES);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                CryptoUtils.decrypt(encrypt, null, CipherAlgorithmsNames.AES);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                CryptoUtils.decrypt(encrypt, KEY, null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                CryptoUtils.decrypt(null, null, CipherAlgorithmsNames.AES);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            try
+            {
+                CryptoUtils.decrypt(null, KEY, null);
+                Assert.fail("Should have thrown an exception");
+            }
+            catch (Exception e)
+            {
+                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+            }
+            for (String cipherAlgorithmsNames : CipherAlgorithmsNames.values())
+            {
+                for (String keyAlgorithm : KeyGeneratorAlgorithms.getAlgorithms())
+                {
+                    logger.debug("Key Algorithm: {} - Crypt Algorithm: {}", keyAlgorithm, cipherAlgorithmsNames);
+                    CryptoUtils.getSecretKey(DEFAULT_PASSWORD, keyAlgorithm);
+                    encrypt = CryptoUtils.encrypt(planeText, KEY, CipherAlgorithmsNames.AES);
+                    decrypt = CryptoUtils.decrypt(encrypt, KEY, CipherAlgorithmsNames.AES);
+                    Assert.assertEquals(planeText, decrypt);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error("Error in testDecryptStringKeyString", e);
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -447,5 +865,11 @@ public class CryptoUtilsTest
             logger.error("Error in testGetSecretKeyCharArrayByteArrayString", e);
             throw new RuntimeException(e);
         }
+    }
+
+    private boolean isAlgorithmKeyNotSupported(String algorithm)
+    {
+        return algorithm.equalsIgnoreCase("HmacMD5") || algorithm.equalsIgnoreCase("HmacSHA1") || algorithm.equalsIgnoreCase("HmacSHA224")
+                || algorithm.equalsIgnoreCase("HmacSHA256") || algorithm.equalsIgnoreCase("HmacSHA384") || algorithm.equalsIgnoreCase("HmacSHA512");
     }
 }

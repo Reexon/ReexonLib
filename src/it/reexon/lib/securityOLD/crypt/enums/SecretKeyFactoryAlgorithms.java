@@ -1,5 +1,5 @@
 package it.reexon.lib.securityOLD.crypt.enums;
-
+@Deprecated
 public class SecretKeyFactoryAlgorithms
 {
     public static String AES = "AES"; // Constructs secret keys for use with the AES algorithm.

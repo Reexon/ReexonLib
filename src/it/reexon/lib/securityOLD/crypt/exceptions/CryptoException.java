@@ -1,5 +1,5 @@
 package it.reexon.lib.securityOLD.crypt.exceptions;
-
+@Deprecated
 public class CryptoException extends Exception
 {
     private static final long serialVersionUID = 1L;

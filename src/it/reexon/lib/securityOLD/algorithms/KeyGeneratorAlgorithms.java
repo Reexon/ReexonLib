@@ -1,5 +1,5 @@
 package it.reexon.lib.securityOLD.algorithms;
-
+@Deprecated
 public class KeyGeneratorAlgorithms
 {
     private KeyGeneratorAlgorithms() {

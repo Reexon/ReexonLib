@@ -33,7 +33,6 @@ import it.reexon.lib.security.exceptions.UnsupportedAlgorithmKeyException;
 
 
 /**
- * 
  *  It is a utility class that allows you to encrypt and decrypt strings and test files .
  *  
  * @author Marco Velluto

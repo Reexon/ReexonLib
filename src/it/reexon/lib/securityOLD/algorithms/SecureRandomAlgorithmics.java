@@ -8,6 +8,7 @@ import it.reexon.lib.list.ListUtils;
 /**
  * @author marco.velluto
  */
+@Deprecated
 public final class SecureRandomAlgorithmics
 {
     private SecureRandomAlgorithmics()

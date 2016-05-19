@@ -5,6 +5,7 @@ package it.reexon.lib.securityOLD.algorithms;
  * @author Marco Velluto
  * @since Java 1.8
  */
+@Deprecated
 public class CipherAlgorithmsNames
 {
     private CipherAlgorithmsNames()

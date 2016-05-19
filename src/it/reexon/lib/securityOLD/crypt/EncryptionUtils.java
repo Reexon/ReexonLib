@@ -22,7 +22,7 @@ import org.apache.commons.codec.binary.Base64;
 import it.reexon.lib.securityOLD.crypt.exceptions.CryptoException;
 
 
-//NON PORTARE
+@Deprecated
 public class EncryptionUtils
 {
     private static final String UNICODE_FORMAT = "UTF8";

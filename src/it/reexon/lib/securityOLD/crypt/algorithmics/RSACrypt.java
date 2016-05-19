@@ -23,6 +23,7 @@ import java.util.Random;
  * Given the power of modern computers, a length of 768 bits is considered reasonably safe, but for serious commercial use 1024 bits is recommended.
  * The problem with choosing long keys is that RSA is very slow compared with a symmetric block cipher such as DES, and the longer the key the slower it is. The best solution is to use RSA for digital signatures and for protecting DES keys. Bulk data encryption should be done using DES.
  */
+@Deprecated
 public class RSACrypt
 {
     private final static BigInteger one = new BigInteger("1");

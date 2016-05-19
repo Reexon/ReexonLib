@@ -27,6 +27,7 @@ import it.reexon.lib.securityOLD.crypt.exceptions.CryptoException;
  * @author Marco Velluto
  * @since Java 1.8
  */
+@Deprecated
 public class DESCrypt
 {
     public static void encrypt(Key key, File inputFile, File outputFile) throws CryptoException
@@ -54,11 +55,11 @@ public class DESCrypt
         try
         {
             Cipher cipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
-            byte iv[] = cipher.getIV(); 
+            byte iv[] = cipher.getIV();
             IvParameterSpec dps = new IvParameterSpec(iv);
-            
+
             cipher.init(cipherMode, secretKey);
-            
+
             byte[] outputBytes = cipher.doFinal(cripText.getBytes());
             return outputBytes;
         }

@@ -52,9 +52,8 @@ public class CryptoUtils
      * @param outputFile                        Output file to encrypt or decrypt file.   
      * @param key                               Secret key to encrypt or decrypt file.
      * @throws UnsupportedAlgorithmKeyException If the algorithm of the secret key is one of these (HmacMD5, HmacSHA1, HmacSHA224, HmacSHA256, HmacSHA384, HmacSHA384).
-     * 
-     * @throws IllegalArgumentException If at least one parameter is null.
-     * @throws FileNotFoundException    If file doesn't exist.
+     * @throws IllegalArgumentException         If at least one parameter is null.
+     * @throws FileNotFoundException            If file doesn't exist.
      */
     public static void encrypt(File inputFile, File outputFile, Key key) throws UnsupportedAlgorithmKeyException
     {

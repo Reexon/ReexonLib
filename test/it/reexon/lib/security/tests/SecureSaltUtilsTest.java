@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import it.reexon.lib.security.SecuritySaltUtils;
+import it.reexon.lib.security.SecureSaltUtils;
 import it.reexon.lib.security.algorithmics.SecureRandomAlgorithmics;
 
 
@@ -23,9 +23,9 @@ import it.reexon.lib.security.algorithmics.SecureRandomAlgorithmics;
  * @author Marco Velluto
  * @since Java 1.8
  */
-public class SecuritySaltUtilsTest
+public class SecureSaltUtilsTest
 {
-    private static final Logger logger = LogManager.getLogger(SecuritySaltUtilsTest.class);
+    private static final Logger logger = LogManager.getLogger(SecureSaltUtilsTest.class);
 
     /**
      * @throws java.lang.Exception
@@ -56,7 +56,7 @@ public class SecuritySaltUtilsTest
     {}
 
     /**
-     * Test method for {@link it.reexon.lib.security.SecuritySaltUtils#getSalt()}.
+     * Test method for {@link it.reexon.lib.security.SecureSaltUtils#getSalt()}.
      */
     @Test(timeout = 10000)
     public final void testGetSalt()
@@ -65,7 +65,7 @@ public class SecuritySaltUtilsTest
         {
             for (int i = 0; i < 1000; i++)
             {
-                byte[] salt = SecuritySaltUtils.getSalt();
+                byte[] salt = SecureSaltUtils.getSalt();
                 Assert.assertEquals(16, salt.length);
             }
         }
@@ -77,25 +77,25 @@ public class SecuritySaltUtilsTest
     }
 
     /**
-     * Test method for {@link it.reexon.lib.security.SecuritySaltUtils#getSalt(int)}.
+     * Test method for {@link it.reexon.lib.security.SecureSaltUtils#getSalt(int)}.
      */
     @Test(timeout = 10000)
     public final void testGetSaltInt()
     {
         try
         {
-            byte[] salt0 = SecuritySaltUtils.getSalt(0);
+            byte[] salt0 = SecureSaltUtils.getSalt(0);
             Assert.assertEquals(0, salt0.length);
 
             for (int i = 0; i < 1000; i++)
             {
                 int randomSize = new Random().nextInt(999) + 1;
-                byte[] salt = SecuritySaltUtils.getSalt(randomSize);
+                byte[] salt = SecureSaltUtils.getSalt(randomSize);
                 Assert.assertEquals(randomSize, salt.length);
             }
             try
             {
-                SecuritySaltUtils.getSalt(-1);
+                SecureSaltUtils.getSalt(-1);
                 Assert.fail("Should have thrown an exception");
             }
             catch (Exception e)
@@ -111,7 +111,7 @@ public class SecuritySaltUtilsTest
     }
 
     /**
-     * Test method for {@link it.reexon.lib.security.SecuritySaltUtils#getSalt(int, java.lang.String)}.
+     * Test method for {@link it.reexon.lib.security.SecureSaltUtils#getSalt(int, java.lang.String)}.
      */
     @Test
     public final void testGetSaltIntString()
@@ -120,18 +120,18 @@ public class SecuritySaltUtilsTest
         {
             for (String algorithm : SecureRandomAlgorithmics.getAlorithms())
             {
-                byte[] salt0 = SecuritySaltUtils.getSalt(0, algorithm);
+                byte[] salt0 = SecureSaltUtils.getSalt(0, algorithm);
                 Assert.assertEquals(0, salt0.length);
 
                 for (int i = 0; i < 1000; i++)
                 {
                     int randomSize = new Random().nextInt(999) + 1;
-                    byte[] salt = SecuritySaltUtils.getSalt(randomSize, algorithm);
+                    byte[] salt = SecureSaltUtils.getSalt(randomSize, algorithm);
                     Assert.assertEquals(randomSize, salt.length);
                 }
                 try
                 {
-                    SecuritySaltUtils.getSalt(-1, algorithm);
+                    SecureSaltUtils.getSalt(-1, algorithm);
                     Assert.fail("Should have thrown an exception");
                 }
                 catch (Exception e)
@@ -141,7 +141,7 @@ public class SecuritySaltUtilsTest
             }
             try
             {
-                SecuritySaltUtils.getSalt(1, null);
+                SecureSaltUtils.getSalt(1, null);
                 Assert.fail("Should have thrown an exception");
             }
             catch (Exception e)
@@ -150,7 +150,7 @@ public class SecuritySaltUtilsTest
             }
             try
             {
-                SecuritySaltUtils.getSalt(1, "");
+                SecureSaltUtils.getSalt(1, "");
                 Assert.fail("Should have thrown an exception");
             }
             catch (Exception e)
@@ -159,7 +159,7 @@ public class SecuritySaltUtilsTest
             }
             try
             {
-                SecuritySaltUtils.getSalt(1, " ");
+                SecureSaltUtils.getSalt(1, " ");
                 Assert.fail("Should have thrown an exception");
             }
             catch (Exception e)

@@ -24,8 +24,8 @@ import it.reexon.lib.files.FileUtils;
 import it.reexon.lib.files.IOUtils;
 import it.reexon.lib.list.ListUtils;
 import it.reexon.lib.security.CryptoUtils;
-import it.reexon.lib.security.SecuritySaltUtils;
-import it.reexon.lib.security.SecurityStringUtils;
+import it.reexon.lib.security.SecureSaltUtils;
+import it.reexon.lib.security.SecureStringUtils;
 import it.reexon.lib.security.algorithmics.CipherAlgorithmsNames;
 import it.reexon.lib.security.algorithmics.KeyGeneratorAlgorithms;
 import it.reexon.lib.security.exceptions.UnsupportedAlgorithmKeyException;
@@ -646,7 +646,7 @@ public class CryptoUtilsTest
             Assert.assertEquals(secretKey1, secretKey2);
 
             for (int i = 1; i < 2048; i++)
-                CryptoUtils.getSecretKey(SecurityStringUtils.secureString(i));
+                CryptoUtils.getSecretKey(SecureStringUtils.secureString(i));
 
             CryptoUtils.getSecretKey("");
             CryptoUtils.getSecretKey(" ");
@@ -735,12 +735,12 @@ public class CryptoUtilsTest
         try
         {
             char[] password = DEFAULT_PASSWORD.toCharArray();
-            byte[] salt = SecuritySaltUtils.getSalt();
+            byte[] salt = SecureSaltUtils.getSalt();
             SecretKey key1 = CryptoUtils.getSecretKey(password, salt);
             SecretKey key2 = CryptoUtils.getSecretKey(password, salt);
             Assert.assertEquals(key1, key2);
 
-            salt = SecuritySaltUtils.getSalt();
+            salt = SecureSaltUtils.getSalt();
             logger.debug("password({}): {}", password.length, password);
             logger.debug("salt({}): {}", salt.length, salt);
 
@@ -749,7 +749,7 @@ public class CryptoUtilsTest
             Assert.assertEquals(key1, key2);
 
             password = RandomStringUtils.random(64, true, true).toCharArray();
-            salt = SecuritySaltUtils.getSalt();
+            salt = SecureSaltUtils.getSalt();
             SecretKey key0 = CryptoUtils.getSecretKey(password, salt);
             Assert.assertNotEquals(key0, key2);
 
@@ -799,7 +799,7 @@ public class CryptoUtilsTest
             for (String algorithm : KeyGeneratorAlgorithms.getAlgorithms())
             {
                 char[] passwordToHash = DEFAULT_PASSWORD.toCharArray();
-                byte[] salt = SecuritySaltUtils.getSalt();
+                byte[] salt = SecureSaltUtils.getSalt();
 
                 logger.debug("Algorithm: {} - password({}): {}", algorithm, passwordToHash.length, passwordToHash);
                 Key secretKey1 = CryptoUtils.getSecretKey(passwordToHash, salt, algorithm);
@@ -807,7 +807,7 @@ public class CryptoUtilsTest
                 Assert.assertEquals(secretKey1, secretKey2);
 
                 logger.debug("Algorithm: {} - password({}): {}", algorithm, passwordToHash.length, passwordToHash);
-                Key secretKey0 = CryptoUtils.getSecretKey(passwordToHash, SecuritySaltUtils.getSalt(), algorithm);
+                Key secretKey0 = CryptoUtils.getSecretKey(passwordToHash, SecureSaltUtils.getSalt(), algorithm);
                 Assert.assertNotEquals(secretKey0, secretKey1);
 
                 CryptoUtils.getSecretKey("".toCharArray(), salt, algorithm);

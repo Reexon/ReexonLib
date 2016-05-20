@@ -14,7 +14,7 @@ import it.reexon.lib.security.algorithmics.SecureRandomAlgorithmics;
  * @author Marco Velluto
  * @since Java 1.8
  */
-public class SecuritySaltUtils
+public class SecureSaltUtils
 {
     private static final int BIT_SALT = 16;
     private static final String ALGORITHM = SecureRandomAlgorithmics.SHA1PRNG;

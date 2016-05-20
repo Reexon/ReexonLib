@@ -42,6 +42,7 @@ public class CryptoUtils
 {
     private static final String PBKDF2_WITH_HMAC_SHA256 = "PBKDF2WithHmacSHA256";
     private static final String AES_ALGORITHM = "AES";
+    private static final String RSA_ALGORITHM = "RSA";
     private static final String UNICODE_FORMAT = "UTF8";
 
     /**

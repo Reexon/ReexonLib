@@ -13,8 +13,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import it.reexon.lib.security.SecuritySaltUtils;
-import it.reexon.lib.security.SecurityStringUtils;
+import it.reexon.lib.security.SecureSaltUtils;
+import it.reexon.lib.security.SecureStringUtils;
 import it.reexon.lib.security.algorithmics.MessageDigestAlgorithms;
 import it.reexon.lib.security.algorithmics.SecureRandomAlgorithmics;
 import it.reexon.lib.security.hash.HashStringUtils;
@@ -66,7 +66,7 @@ public class HashStringUtilsTest
         {
             for (int c = 0; c < 1000; c++)
             {
-                final String passwordToHash = SecurityStringUtils.secureString();
+                final String passwordToHash = SecureStringUtils.secureString();
                 String passwordHased1 = HashStringUtils.generateSecurePassword(passwordToHash);
                 Assert.assertTrue(StringUtils.isNotBlank(passwordHased1));
                 Assert.assertNotEquals(passwordToHash, passwordHased1);
@@ -108,7 +108,7 @@ public class HashStringUtilsTest
             {
                 for (MessageDigestAlgorithms algorithm : MessageDigestAlgorithms.values())
                 {
-                    final String passwordToHash = SecurityStringUtils.secureString();
+                    final String passwordToHash = SecureStringUtils.secureString();
                     String passwordHased1 = HashStringUtils.generateSecurePassword(passwordToHash, algorithm);
                     Assert.assertTrue(StringUtils.isNotBlank(passwordHased1));
                     Assert.assertNotEquals(passwordToHash, passwordHased1);
@@ -151,8 +151,8 @@ public class HashStringUtilsTest
             {
                 for (String ra : SecureRandomAlgorithmics.getAlorithms())
                 {
-                    final String passwordToHash = SecurityStringUtils.secureString();
-                    final byte[] salt = SecuritySaltUtils.getSalt(32, ra);
+                    final String passwordToHash = SecureStringUtils.secureString();
+                    final byte[] salt = SecureSaltUtils.getSalt(32, ra);
 
                     String passwordHased1 = HashStringUtils.generateSecurePassword(passwordToHash, salt);
                     Assert.assertTrue(StringUtils.isNotBlank(passwordHased1));
@@ -163,7 +163,7 @@ public class HashStringUtilsTest
                     Assert.assertNotEquals(passwordHased2, passwordToHash);
                     Assert.assertEquals(passwordHased1, passwordHased2);
 
-                    final byte[] saltV2 = SecuritySaltUtils.getSalt();
+                    final byte[] saltV2 = SecureSaltUtils.getSalt();
                     String passwordHasedV2 = HashStringUtils.generateSecurePassword(passwordToHash, saltV2);
                     Assert.assertTrue(StringUtils.isNotBlank(passwordHased1));
                     Assert.assertNotEquals(passwordHasedV2, passwordHased2);
@@ -203,8 +203,8 @@ public class HashStringUtilsTest
                 {
                     for (String ra : SecureRandomAlgorithmics.getAlorithms())
                     {
-                        final String passwordToHash = SecurityStringUtils.secureString();
-                        final byte[] salt = SecuritySaltUtils.getSalt(32, ra);
+                        final String passwordToHash = SecureStringUtils.secureString();
+                        final byte[] salt = SecureSaltUtils.getSalt(32, ra);
 
                         String passwordHased1 = HashStringUtils.generateSecurePassword(passwordToHash, salt, algorithm);
                         Assert.assertTrue(StringUtils.isNotBlank(passwordHased1));
@@ -215,7 +215,7 @@ public class HashStringUtilsTest
                         Assert.assertNotEquals(passwordHased2, passwordToHash);
                         Assert.assertEquals(passwordHased1, passwordHased2);
 
-                        final byte[] saltV2 = SecuritySaltUtils.getSalt();
+                        final byte[] saltV2 = SecureSaltUtils.getSalt();
                         String passwordHasedV2 = HashStringUtils.generateSecurePassword(passwordToHash, saltV2, algorithm);
                         Assert.assertTrue(StringUtils.isNotBlank(passwordHased1));
                         Assert.assertNotEquals(passwordHasedV2, passwordHased2);

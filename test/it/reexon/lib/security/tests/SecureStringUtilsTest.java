@@ -16,7 +16,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import it.reexon.lib.security.SecurityStringUtils;
+import it.reexon.lib.security.SecureStringUtils;
 import it.reexon.lib.security.algorithmics.SecureRandomAlgorithmics;
 
 
@@ -24,9 +24,9 @@ import it.reexon.lib.security.algorithmics.SecureRandomAlgorithmics;
  * @author Marco Velluto
  * @since Java 1.8
  */
-public class SecurityStringUtilsTest
+public class SecureStringUtilsTest
 {
-    private static final Logger logger = LogManager.getLogger(SecurityStringUtilsTest.class);
+    private static final Logger logger = LogManager.getLogger(SecureStringUtilsTest.class);
 
     /**
      * @throws java.lang.Exception
@@ -57,14 +57,14 @@ public class SecurityStringUtilsTest
     {}
 
     /**
-     * Test method for {@link it.reexon.lib.security.SecurityStringUtils#secureString()}.
+     * Test method for {@link it.reexon.lib.security.SecureStringUtils#secureString()}.
      */
     @Test(timeout = 10000)
     public final void testSecureString()
     {
         try
         {
-            String secureString = SecurityStringUtils.secureString();
+            String secureString = SecureStringUtils.secureString();
             Assert.assertTrue(StringUtils.isNotBlank(secureString));
             Assert.assertEquals(32, secureString.length());
         }
@@ -76,28 +76,28 @@ public class SecurityStringUtilsTest
     }
 
     /**
-     * Test method for {@link it.reexon.lib.security.SecurityStringUtils#secureString(int)}.
+     * Test method for {@link it.reexon.lib.security.SecureStringUtils#secureString(int)}.
      */
     @Test(timeout = 10000)
     public final void testSecureStringInt()
     {
         try
         {
-            String secureString = SecurityStringUtils.secureString(0);
+            String secureString = SecureStringUtils.secureString(0);
             Assert.assertTrue(StringUtils.isBlank(secureString));
             Assert.assertEquals(0, secureString.length());
 
             for (int i = 0; i < 1000; i++)
             {
                 int randomInt = new Random().nextInt(999) + 1;
-                String string = SecurityStringUtils.secureString(randomInt);
+                String string = SecureStringUtils.secureString(randomInt);
                 Assert.assertTrue(StringUtils.isNotBlank(string));
                 Assert.assertEquals(randomInt, string.length());
             }
 
             try
             {
-                SecurityStringUtils.secureString(-1);
+                SecureStringUtils.secureString(-1);
                 Assert.fail("Should have thrown an exception");
             }
             catch (Exception e)
@@ -114,7 +114,7 @@ public class SecurityStringUtilsTest
     }
 
     /**
-     * Test method for {@link it.reexon.lib.security.SecurityStringUtils#secureString(int, java.lang.String)}.
+     * Test method for {@link it.reexon.lib.security.SecureStringUtils#secureString(int, java.lang.String)}.
      */
     @Test(timeout = 10000)
     public final void testSecureStringIntString()
@@ -127,20 +127,20 @@ public class SecurityStringUtilsTest
                 for (int i = 0; i < 1000; i++)
                 {
                     int randomInt = new Random().nextInt(999) + 1;
-                    String secureString = SecurityStringUtils.secureString(randomInt, algorithm);
+                    String secureString = SecureStringUtils.secureString(randomInt, algorithm);
                     Assert.assertTrue(StringUtils.isNotBlank(secureString));
                     Assert.assertEquals(randomInt, secureString.length());
                 }
             }
             for (String algorithm : algorithms)
             {
-                String secureString = SecurityStringUtils.secureString(0, algorithm);
+                String secureString = SecureStringUtils.secureString(0, algorithm);
                 Assert.assertTrue(StringUtils.isBlank(secureString));
                 Assert.assertEquals(0, secureString.length());
 
                 try
                 {
-                    SecurityStringUtils.secureString(-1, algorithm);
+                    SecureStringUtils.secureString(-1, algorithm);
                     Assert.fail("Should have thrown an exception");
                 }
                 catch (Exception e)
@@ -157,7 +157,7 @@ public class SecurityStringUtilsTest
     }
 
     /**
-     * Test method for {@link it.reexon.lib.security.SecurityStringUtils#secureStringWithIndents()}.
+     * Test method for {@link it.reexon.lib.security.SecureStringUtils#secureStringWithIndents()}.
      */
     @Test(timeout = 10000)
     public final void testSecureStringWithindents()
@@ -166,7 +166,7 @@ public class SecurityStringUtilsTest
         {
             for (int j = 0; j < 100; j++)
             {
-                String secureString = SecurityStringUtils.secureStringWithIndents();
+                String secureString = SecureStringUtils.secureStringWithIndents();
                 Assert.assertTrue(StringUtils.countMatches(secureString, '-') == 2);
                 String[] strings = StringUtils.split(secureString, "-");
                 Assert.assertEquals(3, strings.length);
@@ -182,7 +182,7 @@ public class SecurityStringUtilsTest
     }
 
     /**
-     * Test method for {@link it.reexon.lib.security.SecurityStringUtils#secureStringWithindents(int)}.
+     * Test method for {@link it.reexon.lib.security.SecureStringUtils#secureStringWithindents(int)}.
      */
     @Test(timeout = 10000)
     public final void testSecureStringWithindentsInt()
@@ -192,7 +192,7 @@ public class SecurityStringUtilsTest
             for (int i = 0; i < 100; i++)
             {
                 int numberWords = new Random().nextInt(999) + 1;
-                String secureString = SecurityStringUtils.secureStringWithindents(numberWords);
+                String secureString = SecureStringUtils.secureStringWithindents(numberWords);
                 Assert.assertEquals((numberWords) - 1, StringUtils.countMatches(secureString, '-'));
                 String[] strings = StringUtils.split(secureString, "-");
                 Assert.assertEquals(numberWords, strings.length);
@@ -201,7 +201,7 @@ public class SecurityStringUtilsTest
             }
             try
             {
-                SecurityStringUtils.secureStringWithindents(-(new Random().nextInt(999)));
+                SecureStringUtils.secureStringWithindents(-(new Random().nextInt(999)));
                 Assert.fail("Should have thrown an exception");
             }
             catch (Exception e)

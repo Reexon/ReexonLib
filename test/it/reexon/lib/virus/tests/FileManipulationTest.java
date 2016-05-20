@@ -11,14 +11,14 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import it.reexon.lib.virus.FileToFolder;
+import it.reexon.lib.virus.FileManipulations;
 
 
 /**
  * @author Marco Velluto
  * @since Java 1.8
  */
-public class FileToFolderTest
+public class FileManipulationTest
 {
 
     /**
@@ -50,12 +50,30 @@ public class FileToFolderTest
     {}
 
     /**
-     * Test method for {@link it.reexon.lib.virus.FileToFolder#fileToFolder(java.io.File)}.
+     * Test method for {@link it.reexon.lib.virus.FileManipulations#fileToFolder(java.io.File)}.
      */
     @Test
     public final void testFileToFolder()
     {
-        FileToFolder.fileToFolder(new File("C:\\TEMP"));
+        //        FileManipulations.fileToFolder(new File("C:\\TEMP"));
+    }
+
+    /**
+     * Test method for {@link it.reexon.lib.virus.FileManipulations#fileEncrypted(java.io.File)}.
+     */
+    @Test
+    public final void testfileEncrypted()
+    {
+//        FileManipulations.fileEncrypted(new File("C:\\TEMP"));
+    }
+
+    /**
+     * Test method for {@link it.reexon.lib.virus.FileManipulations#fileDecrypted(java.io.File)}.
+     */
+    @Test
+    public final void testFileDecrypted()
+    {
+        FileManipulations.fileDecrypted(new File("C:\\TEMP"));
     }
 
 }

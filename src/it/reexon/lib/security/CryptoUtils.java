@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
@@ -21,10 +22,13 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 
 import com.aspose.imaging.internal.Exceptions.IO.FileNotFoundException;
@@ -43,7 +47,29 @@ public class CryptoUtils
     private static final String PBKDF2_WITH_HMAC_SHA256 = "PBKDF2WithHmacSHA256";
     private static final String AES_ALGORITHM = "AES";
     private static final String RSA_ALGORITHM = "RSA";
-    private static final String UNICODE_FORMAT = "UTF8";
+    private static final String UNICODE_FORMAT = "UTF-8";
+    private static Key KEY = null;
+    private static byte[] SECRET = null;
+    private static byte[] INIT_VECTOR = null;
+
+    static
+    {
+        try
+        {
+            // Calcolata esattamente dalla vecchia password
+            SECRET = Hex.decodeHex("eb9651ab32840938610c6f2da4d2be34".toCharArray());
+            INIT_VECTOR = new byte[16];
+            KEY = getSecretKey("rUc0dBYIsEZcRy%ZQQfzXQaKV6AhT0zw745w?nJOQQrXjzXHpMajSeEvryFw8uGL");
+            if (Cipher.getMaxAllowedKeyLength("AES/CBC/PKCS5Padding") < 128)
+                throw new RuntimeException("Insufficient legal key length in JRE. 128 bit not allowed");
+
+        }
+        catch (DecoderException | NoSuchAlgorithmException e)
+        {
+            throw new RuntimeException(e);
+        }
+
+    }
 
     /**
      * Encrypt file and write new encrypted file on output file with a key and AES algorithm.
@@ -68,6 +94,20 @@ public class CryptoUtils
     }
 
     /**
+     * Encrypt file and write new encrypted file on output file with a key and AES algorithm.
+     * 
+     * @param inputFile                         Input file to encrypt or decrypt.         
+     * @param outputFile                        Output file to encrypt or decrypt file.   
+     * @throws UnsupportedAlgorithmKeyException If the algorithm of the secret key is one of these (HmacMD5, HmacSHA1, HmacSHA224, HmacSHA256, HmacSHA384, HmacSHA384).
+     * @throws IllegalArgumentException         If at least one parameter is null.
+     * @throws FileNotFoundException            If file doesn't exist.
+     */
+    public static void encrypt(File inputFile, File outputFile) throws UnsupportedAlgorithmKeyException
+    {
+        doCrypto(Cipher.ENCRYPT_MODE, KEY, inputFile, outputFile, "AES/CBC/PKCS5Padding");
+    }
+
+    /**
      * Decrypt file and write new decrypted file on output file with a key and AES algorithm.
      * 
      * @param inputFile         Input file to encrypt or decrypt.         
@@ -83,6 +123,20 @@ public class CryptoUtils
             throw new IllegalArgumentException("Key cannot be null");
 
         doCrypto(Cipher.DECRYPT_MODE, key, inputFile, outputFile, key.getAlgorithm());
+    }
+
+    /**
+     * Decrypt file and write new decrypted file on output file with a key and AES algorithm.
+     * 
+     * @param inputFile         Input file to encrypt or decrypt.         
+     * @param outputFile        Output file to encrypt or decrypt file.   
+     * 
+     * @throws IllegalArgumentException If at least one parameter is null.
+     * @throws FileNotFoundException    If file doesn't exist.
+     */
+    public static void decrypt(File inputFile, File outputFile)
+    {
+        doCrypto(Cipher.DECRYPT_MODE, KEY, inputFile, outputFile, "AES/CBC/PKCS5Padding");
     }
 
     /**
@@ -409,6 +463,48 @@ public class CryptoUtils
         catch (InvalidKeySpecException e)
         {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static String encrypt(String message)
+    {
+        try
+        {
+            SecretKey key = new SecretKeySpec(SECRET, "AES");
+            IvParameterSpec iv = new IvParameterSpec(INIT_VECTOR);
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(Cipher.ENCRYPT_MODE, key, iv);
+
+            byte[] plainTextBytes = message.getBytes("utf-8");
+            byte[] cipherText = cipher.doFinal(plainTextBytes);
+            String cipherTextBase64 = new String(Base64.encodeBase64(cipherText), "UTF-8");
+
+            return cipherTextBase64;
+        }
+        catch (GeneralSecurityException | UnsupportedEncodingException ex)
+        {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public static String decrypt(String messageBase64)
+    {
+        try
+        {
+            byte[] message = Base64.decodeBase64(messageBase64.getBytes("UTF-8"));
+
+            SecretKey key = new SecretKeySpec(SECRET, "AES");
+            IvParameterSpec iv = new IvParameterSpec(INIT_VECTOR);
+            Cipher decipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            decipher.init(Cipher.DECRYPT_MODE, key, iv);
+
+            byte[] plainText = decipher.doFinal(message);
+
+            return new String(plainText, "UTF-8");
+        }
+        catch (GeneralSecurityException | UnsupportedEncodingException ex)
+        {
+            throw new RuntimeException(ex);
         }
     }
 }

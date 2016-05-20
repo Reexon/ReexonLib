@@ -319,15 +319,6 @@ public class CryptoUtilsTest
             {
                 Assert.assertEquals(IllegalArgumentException.class, e.getClass());
             }
-            try
-            {
-                CryptoUtils.decrypt(null, null);
-                Assert.fail("Should have thrown an exception");
-            }
-            catch (Exception e)
-            {
-                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
-            }
         }
         catch (Exception e)
         {
@@ -512,16 +503,6 @@ public class CryptoUtilsTest
             {
                 Assert.assertEquals(IllegalArgumentException.class, e.getClass());
             }
-            try
-            {
-                CryptoUtils.decrypt(null, null);
-                Assert.fail("Should have thrown an exception");
-            }
-            catch (Exception e)
-            {
-                Assert.assertEquals(IllegalArgumentException.class, e.getClass());
-            }
-
             for (String algorithm : KeyGeneratorAlgorithms.getAlgorithms())
             {
                 logger.debug("Key Algorithm: {}", algorithm);

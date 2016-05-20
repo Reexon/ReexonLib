@@ -41,7 +41,7 @@ import it.reexon.lib.security.exceptions.UnsupportedAlgorithmKeyException;
 public class CryptoUtils
 {
     private static final String PBKDF2_WITH_HMAC_SHA256 = "PBKDF2WithHmacSHA256";
-    private static final String ALGORITHM = "AES";
+    private static final String AES_ALGORITHM = "AES";
     private static final String UNICODE_FORMAT = "UTF8";
 
     /**
@@ -86,41 +86,39 @@ public class CryptoUtils
     }
 
     /**
-     * @deprecated Use {@link it.reexon.lib.security.CryptoUtils.encrypt(File, File, Key)}.
+     * 
      * 
      * Encrypt file and write new encrypted file on output file with a key and algorithm.
      * 
      * @param inputFile         Input file to encrypt or decrypt.
      * @param outputFile        Output file to encrypt or decrypt file.                   
      * @param key               Secret key to encrypt or decrypt file.
-     * @param algorithm         Algorithm to use. Please use: {@link it.reexon.lib.securityOLD.algorithms.CipherAlgorithmsNames}.
+     * @param cipherAlgorithm   Algorithm to use. Please use: {@link it.reexon.lib.securityOLD.algorithms.CipherAlgorithmsNames}.
      * 
      * @throws IllegalArgumentException If at least one parameter is null.
      * @throws FileNotFoundException    If file doesn't exist.
      */
-    @Deprecated
-    public static void encrypt(File inputFile, File outputFile, Key key, String algorithm)
+    public static void encrypt(File inputFile, File outputFile, Key key, String cipherAlgorithm)
     {
-        doCrypto(Cipher.ENCRYPT_MODE, key, inputFile, outputFile, algorithm);
+        doCrypto(Cipher.ENCRYPT_MODE, key, inputFile, outputFile, cipherAlgorithm);
     }
 
     /**
-     * @deprecated Use {@link it.reexon.lib.security.CryptoUtils.decrypt(File, File, Key)}.
+     * 
      * 
      * Decrypt file and write new decrypted file on output file with a key and algorithm.
      * 
      * @param inputFile         Input file to encrypt or decrypt.
      * @param outputFile        Output file to encrypt or decrypt file.                   
      * @param key               Secret key to encrypt or decrypt file.
-     * @param algorithm         Algorithm to use. Please use: {@link it.reexon.lib.securityOLD.algorithms.CipherAlgorithmsNames}.
+     * @param cipherAlgorithm         Algorithm to use. Please use: {@link it.reexon.lib.securityOLD.algorithms.CipherAlgorithmsNames}.
      * 
      * @throws IllegalArgumentException If at least one parameter is null.
      * @throws FileNotFoundException    If file doesn't exist.
      */
-    @Deprecated
-    public static void decrypt(File inputFile, File outputFile, Key key, String algorithm)
+    public static void decrypt(File inputFile, File outputFile, Key key, String cipherAlgorithm)
     {
-        doCrypto(Cipher.DECRYPT_MODE, key, inputFile, outputFile, algorithm);
+        doCrypto(Cipher.DECRYPT_MODE, key, inputFile, outputFile, cipherAlgorithm);
     }
 
     /**
@@ -130,12 +128,12 @@ public class CryptoUtils
      * @param secretKey         Secret key to encrypt or decrypt file.
      * @param inputFile         Input file to encrypt or decrypt.
      * @param outputFile        Output file to encrypt or decrypt file.
-     * @param algorithm         Algorithm to use. Please use: {@link it.reexon.lib.securityOLD.algorithms.CipherAlgorithmsNames}.
+     * @param cipherAlgorithm         Algorithm to use. Please use: {@link it.reexon.lib.securityOLD.algorithms.CipherAlgorithmsNames}.
      * 
      * @throws IllegalArgumentException If at least one parameter is null.
      * @throws FileNotFoundException    If file doesn't exist.
      */
-    private static void doCrypto(int cipherMode, Key secretKey, File inputFile, File outputFile, String algorithm)
+    private static void doCrypto(int cipherMode, Key secretKey, File inputFile, File outputFile, String cipherAlgorithm)
     {
         if (secretKey == null)
             throw new IllegalArgumentException("Secret Key cannot be null");
@@ -151,12 +149,12 @@ public class CryptoUtils
         if (!outputFile.exists())
             throw new FileNotFoundException("Output file must be exists");
 
-        if (StringUtils.isBlank(algorithm))
+        if (StringUtils.isBlank(cipherAlgorithm))
             throw new IllegalArgumentException("Algorithm cannot be null");
 
         try (FileInputStream inputStream = new FileInputStream(inputFile); FileOutputStream outputStream = new FileOutputStream(outputFile);)
         {
-            Cipher cipher = Cipher.getInstance(algorithm);
+            Cipher cipher = Cipher.getInstance(cipherAlgorithm);
             cipher.init(cipherMode, secretKey);
 
             byte[] inputBytes = new byte[(int) inputFile.length()];
@@ -281,7 +279,7 @@ public class CryptoUtils
      * 
      * @param planeText         Plane text to decrypt.       
      * @param secretKey         Secret key to decrypt file.
-     * @param algorithm         Algorithm to use. Please use: {@link it.reexon.lib.securityOLD.algorithms.CipherAlgorithmsNames}.
+     * @param cipherAlgorithm         Algorithm to use. Please use: {@link it.reexon.lib.securityOLD.algorithms.CipherAlgorithmsNames}.
      * @return String           Decrypted string
      * 
      * @throws NoSuchPaddingException    If transformation is null, empty, in an invalid format, or if no Provider supports a CipherSpi implementation for the specified algorithm.   
@@ -289,21 +287,21 @@ public class CryptoUtils
      * @throws InvalidKeyException       If the given key is inappropriate for initializing this cipher, or requires algorithm parameters that cannot be determined from the given key, or if the given key has a keysize that exceeds the maximum allowable keysize (as determined from the configured jurisdiction policy files).
      * @throws BadPaddingException       If this cipher is in decryption mode, and (un)padding has been requested, but the decrypted data is not bounded by the appropriate padding bytes.
      * @throws IllegalBlockSizeException If this cipher is a block cipher, no padding has been requested (only in encryption mode), and the total input length of the data processed by this cipher is not a multiple of block size; or if this encryption algorithm is unable to process the input data provided.
-     * @throws IllegalArgumentException If at least one parameter is null.
+     * @throws IllegalArgumentException  If at least one parameter is null.
      */
-    public static String decrypt(String encryptedString, Key secretKey, String algorithm)
+    public static String decrypt(String encryptedString, Key secretKey, String cipherAlgorithm)
             throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException
     {
         if (secretKey == null)
             throw new IllegalArgumentException("Secret Key cannot be null");
 
-        if (StringUtils.isBlank(algorithm))
+        if (StringUtils.isBlank(cipherAlgorithm))
             throw new IllegalArgumentException("Algorithm cannot be null or blank");
 
         if (encryptedString == null)
             throw new IllegalArgumentException("Encrypted string cannot be null");
 
-        Cipher cipher = Cipher.getInstance(algorithm);
+        Cipher cipher = Cipher.getInstance(cipherAlgorithm);
         cipher.init(Cipher.DECRYPT_MODE, secretKey);
 
         byte[] encryptedText = Base64.decodeBase64(encryptedString.getBytes());
@@ -321,7 +319,7 @@ public class CryptoUtils
      */
     public static SecretKey getSecretKey(String password)
     {
-        return getSecretKey(password, ALGORITHM);
+        return getSecretKey(password, AES_ALGORITHM);
     }
 
     /**
@@ -371,7 +369,7 @@ public class CryptoUtils
     {
         try
         {
-            return getSecretKey(password, salt, ALGORITHM);
+            return getSecretKey(password, salt, AES_ALGORITHM);
         }
         catch (NoSuchAlgorithmException e)
         {

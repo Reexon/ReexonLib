@@ -4,7 +4,10 @@
 package it.reexon.lib.manipulation;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
+import org.junit.Test;
 
 
 /**
@@ -43,5 +46,27 @@ public class ManipulationUtils
             output.append(characters.remove(randPicker));
         }
         return output.toString();
+    }
+
+    public static List<String> permutatios(String stringToPermutation)
+    {
+        if (stringToPermutation == null)
+            throw new IllegalArgumentException("String to permutation cannot be null!");
+
+        List<String> permutations = new LinkedList<>();
+        for (char c : stringToPermutation.toCharArray())
+        {
+            StringBuilder sb = new StringBuilder(stringToPermutation);
+            sb.deleteCharAt(0);
+            sb.insert(0, c);
+        }
+
+        return null;
+    }
+
+    @Test
+    public final void permutatiosTest()
+    {
+        permutatios("Ciao");
     }
 }

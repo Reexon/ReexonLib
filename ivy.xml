@@ -34,7 +34,7 @@
 		<dependency org="commons-codec" 					name="commons-codec" 					rev="1.10" 				conf="runtime->*"/>
 		<dependency org="commons-io" 						name="commons-io" 						rev="2.4" 				conf="runtime->*"/>
 		<dependency org="org.apache.pdfbox" 				name="pdfbox" 							rev="1.8.11" 			conf="runtime->*"/>
-	<dependency org="org.apache.commons" 					name="commons-lang3" 					rev="3.4" 				conf="runtime->*"/>
+		<dependency org="org.apache.commons" 				name="commons-lang3" 					rev="3.4" 				conf="runtime->*"/>
 		
 		<!-- Logging libs -->
         <dependency org="org.apache.logging.log4j"          name="log4j-core"                       rev="2.5"        		transitive="false"          conf="runtime->*"/>

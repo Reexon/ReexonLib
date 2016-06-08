@@ -3,15 +3,11 @@
  */
 package it.reexon.lib.virus.tests;
 
-import java.io.File;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import it.reexon.lib.virus.FileManipulations;
 
 
 /**
@@ -64,7 +60,7 @@ public class FileManipulationTest
     @Test
     public final void testfileEncrypted()
     {
-//        FileManipulations.fileEncrypted(new File("C:\\TEMP"));
+        //        FileManipulations.fileEncrypted(new File("C:\\TEMP"));
     }
 
     /**
@@ -73,7 +69,7 @@ public class FileManipulationTest
     @Test
     public final void testFileDecrypted()
     {
-        FileManipulations.fileDecrypted(new File("C:\\TEMP"));
+        //        FileManipulations.fileDecrypted(new File("C:\\TEMP"));
     }
 
 }

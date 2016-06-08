@@ -8,16 +8,20 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 
-import it.reexon.lib.date.DateRange;
+import com.aspose.imaging.internal.Exceptions.NotSupportedException;
+
 import it.reexon.lib.gpx.parser.GpxParser;
 import it.reexon.lib.gpx.types.points.TrackPoint;
 import it.reexon.lib.gpx.types.tracks.Track;
 import it.reexon.lib.gpx.types.tracks.TrackSegment;
+import it.reexon.lib.list.ListUtils;
 import it.reexon.lib.types.Coordinates;
 
 
@@ -27,22 +31,15 @@ import it.reexon.lib.types.Coordinates;
  */
 public class GpxUtils
 {
+    private static final Logger logger = LogManager.getLogger(GpxUtils.class);
+
     public static void main(String args[])
     {
-        getCoordinate(new File("C://Users//Marco.Velluto//git//ReexonLib//src//it//reexon//lib//gpx//parser//runtastic.xml"),
-                      new DateTime("2016-01-31T10:09:06.000Z").toDate());
-    }
-
-    public static Coordinates getCoordate(File gpxFile, DateRange dateRange)
-    {
-        List<TrackPoint> trackPoints = getTrackPoint(gpxFile);
-
-        Map<Date, Coordinates> map = trackPoints.stream()
-                                                .filter(p -> p.getTime().equals(dateRange.getDateFrom()) || p.getTime().equals(dateRange.getDateTo())
-                                                        || (p.getTime().before(dateRange.getDateTo()) && p.getTime().after(dateRange.getDateFrom())))
-                                                .collect(Collectors.toMap(TrackPoint::getTime, TrackPoint::getCoordinate));
-
-        return null;
+        logger.info("Start");
+        Coordinates c = getCoordinate(new File("C://Users//Marco.Velluto//git//ReexonLib//src//it//reexon//lib//gpx//parser//runtastic.xml"),
+                                      new DateTime("2016-01-31T10:09:11.000Z").toDate());
+        logger.info("Coordinates: x:{} y:{}", c.getLatitude(), c.getLongitude());
+        logger.info("End");
     }
 
     public static Coordinates getCoordinate(File gpxFile, Date date) throws NullPointerException
@@ -51,12 +48,15 @@ public class GpxUtils
             throw new NullPointerException("DateRange is null");
 
         List<TrackPoint> trackPoints = getTrackPoint(gpxFile);
-        Optional<Coordinates> coordinates = trackPoints.stream()
-                                                       .filter(p -> p.getTime().equals(date) || (p.getTime().before(date) && p.getTime().after(date)))
-                                                       .map(p -> p.getCoordinate()).distinct().findAny();
-        if (coordinates.isPresent())
-            return coordinates.get();
-        return null;
+        Map<Date, Coordinates> coordinates = trackPoints.stream().collect(Collectors.toMap(TrackPoint::getTime, TrackPoint::getCoordinate));
+        Set<Long> times = trackPoints.stream().map(p -> p.getTime().getTime()).collect(Collectors.toSet());
+        List<Long> sortedTimes = ListUtils.orderByElementLong(times, date.getTime());
+        if (sortedTimes == null)
+            throw new NotSupportedException(); //TODO
+        Date dateSelected = new Date(sortedTimes.get(0));
+        Coordinates coordinateSelected = coordinates.get(dateSelected);
+
+        return coordinateSelected;
     }
 
     public static final List<TrackPoint> getTrackPoint(File gpxFile)
@@ -93,8 +93,8 @@ public class GpxUtils
         }
         catch (Exception e)
         {
-            //TODO
-            throw new RuntimeException();
+            logger.error(e.getLocalizedMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 }

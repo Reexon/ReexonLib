@@ -134,7 +134,7 @@ public class PDFUtils
     }
 
     /**
-     * Encrypt a PDF
+     * Decrypt a PDF
      * <pre>
      *  NOTE: works only:
      * Acrobat 3 (40-bit RC4)      -> works

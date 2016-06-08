@@ -26,9 +26,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 
 import com.aspose.imaging.internal.Exceptions.IO.FileNotFoundException;
@@ -46,30 +44,10 @@ public class CryptoUtils
 {
     private static final String PBKDF2_WITH_HMAC_SHA256 = "PBKDF2WithHmacSHA256";
     private static final String AES_ALGORITHM = "AES";
-    private static final String RSA_ALGORITHM = "RSA";
     private static final String UNICODE_FORMAT = "UTF-8";
     private static Key KEY = null;
     private static byte[] SECRET = null;
     private static byte[] INIT_VECTOR = null;
-
-    static
-    {
-        try
-        {
-            // Calcolata esattamente dalla vecchia password
-            SECRET = Hex.decodeHex("eb9651ab32840938610c6f2da4d2be34".toCharArray());
-            INIT_VECTOR = new byte[16];
-            KEY = getSecretKey("rUc0dBYIsEZcRy%ZQQfzXQaKV6AhT0zw745w?nJOQQrXjzXHpMajSeEvryFw8uGL");
-            if (Cipher.getMaxAllowedKeyLength("AES/CBC/PKCS5Padding") < 128)
-                throw new RuntimeException("Insufficient legal key length in JRE. 128 bit not allowed");
-
-        }
-        catch (DecoderException | NoSuchAlgorithmException e)
-        {
-            throw new RuntimeException(e);
-        }
-
-    }
 
     /**
      * Encrypt file and write new encrypted file on output file with a key and AES algorithm.

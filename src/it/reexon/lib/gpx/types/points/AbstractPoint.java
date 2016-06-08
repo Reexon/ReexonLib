@@ -21,8 +21,6 @@ public abstract class AbstractPoint
     private LatitudeType lat; //Latitude of the waypoint.
     private LongitudeType lon; //Longitude of the waypoint.
 
-    private final Coordinates coordinate = null;
-
     /**Optional Position Information: */
     private BigDecimal ele; //Elevation of the waypoint.
     private Date time; //Creation date/time of the waypoint

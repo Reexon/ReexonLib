@@ -110,7 +110,7 @@ public class ListUtils
      *          
      * @throws IllegalArgumentException if list is null or element is null
      */
-    public static List<Long> orderByElementLong(final List<? extends Long> list, Long element)
+    public static List<Long> orderByElementLong(final Collection<? extends Long> list, Long element)
     {
         if (list == null)
             throw new IllegalArgumentException("List cannot be null");
@@ -153,9 +153,7 @@ public class ListUtils
         return new LinkedList<>(Arrays.asList(element));
     }
 
-    //TODO createSet
-
-    private static final List<Long> sortListByElement(final List<? extends Long> list, Long element)
+    private static final List<Long> sortListByElement(final Collection<? extends Long> list, Long element)
     {
         List<Long> listToSort = new ArrayList<Long>(list);
         listToSort.sort((p1, p2) -> {

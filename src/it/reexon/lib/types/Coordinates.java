@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  * @author Marco Velluto
  * @since Java 1.8
  */
-public class Coordinates
+public class Coordinates implements Comparable<Coordinates>
 {
     private BigDecimal latitude;
     private BigDecimal longitude;
@@ -45,5 +45,14 @@ public class Coordinates
     public void setLongitude(BigDecimal longitude)
     {
         this.longitude = longitude;
+    }
+
+    @Override
+    public int compareTo(Coordinates o)
+    {
+        if (this.longitude.longValue() == o.getLongitude().longValue())
+            return (int) (this.latitude.longValue() - o.getLatitude().longValue());
+        else
+            return (int) (o.getLatitude().longValue() - this.longitude.longValue());
     }
 }
